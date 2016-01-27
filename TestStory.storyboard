@@ -4,14 +4,57 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Connors trash window-->
         <scene sceneID="GrO-9Z-UOc">
             <objects>
-                <viewController id="qKR-5S-gHR" sceneMemberID="viewController">
+                <viewController title="Connors trash window" id="qKR-5S-gHR" customClass="TestStoryController" customModule="DriveSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="qvz-fx-aJb">
                         <rect key="frame" x="0.0" y="0.0" width="679" height="392"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJk-Mc-0qR">
+                                <rect key="frame" x="276" y="305" width="173" height="42"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="title" id="WjD-Dq-JJR">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZEk-Y5-iG6">
+                                <rect key="frame" x="306" y="123" width="112" height="32"/>
+                                <buttonCell key="cell" type="push" title="Select File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ybY-7X-1Qs">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pJH-iB-yo8">
+                                <rect key="frame" x="474" y="134" width="56" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="None" placeholderString="" id="Rg4-Wx-9rH">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fer-oB-5dA">
+                                <rect key="frame" x="423" y="159" width="114" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Selected:" id="jaL-Em-a7J">
+                                    <font key="font" size="18" name="ArialMT"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0jZ-e7-ERQ">
+                                <rect key="frame" x="199" y="44" width="112" height="32"/>
+                                <buttonCell key="cell" type="push" title="Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Qa-63-16d">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
                     </view>
+                    <connections>
+                        <outlet property="fileSelectedIndicator" destination="pJH-iB-yo8" id="Rj6-Uc-QpI"/>
+                    </connections>
                 </viewController>
                 <customObject id="GAk-Qg-Vtp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu title="MainMenu" systemMenu="main" id="yKi-yN-8jR" userLabel="MainMenu">
@@ -140,7 +183,7 @@
                     </items>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="62.5" y="375"/>
+            <point key="canvasLocation" x="141.5" y="416"/>
         </scene>
     </scenes>
 </document>

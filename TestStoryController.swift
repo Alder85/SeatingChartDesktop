@@ -23,5 +23,7 @@ class TestStoryController: NSViewController {
         }
     }
     
+    @IBOutlet weak var fileSelectedIndicator: NSTextField!
+    
 }
 
