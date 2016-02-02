@@ -19,30 +19,41 @@ class CSV {
     
     init(inputName: String)
     {
-        /*
-        let fileName = inputName + ".csv"
-        var csvString: String
-        do
-        {
-            csvString = try String(contentsOfFile: fileName)
-        }
-        catch
-        {
-            let newFile = fileName
-        }
-        */
+
     }
+    
+    
     /*
-        returns the data array
-    */
+     *   returns the data array
+     */
     func getDataArray() -> [[String]]
     {
         return dataArray
     }
     
+    
+    func arrayToData() -> String
+    {
+        dataArray = [["Heading", "Heading", "Heading"], ["Data", "Data", "Data"], ["Data", "Data", "Data"]]
+
+        fileData = ""
+        for x in 0...dataArray.count - 1
+        {
+            for y in 0...dataArray[x].count - 1
+            {
+                fileData += dataArray[x][y]
+                if y != dataArray[x].count - 1
+                {
+                    fileData += ","
+                }
+            }
+            fileData += "\n"
+        }
+        return fileData
+    }
     /*
-        puts a raw string into an array
-    */
+     *   puts a raw string into an array
+     */
     func dataToArray()
     {
         var lastPos = 0
@@ -93,6 +104,10 @@ class CSV {
         }
     }
     
+    
+    /*
+     *  for efficiency
+     */
     private func subString(inString: String, start: Int, end: Int) -> String //probably a better way to do this
     {
         return inString.substringWithRange(Range<String.Index>(start: inString.startIndex.advancedBy(start), end: inString.startIndex.advancedBy(end + 1)))

@@ -16,6 +16,10 @@ class TestStoryController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        var potatoe = CSV(inputName: "potatoe")
+        var temp = potatoe.arrayToData()
+        print(temp)
+        
 
     }
     
