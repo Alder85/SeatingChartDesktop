@@ -13,15 +13,21 @@
 import Foundation
 
 class CSV {
-    var fileData: String = "Name,Instument,Chair\nJosh,Percussion,420\nConnor,None,Last\n"
+    var fileData: String = ""
     var dataArray: [[String]] = [[]]
 
     
-    init(inputName: String)
+    init(input: String)
     {
-
+        fileData = input
+        dataToArray()
     }
     
+    init(input: [[String]])
+    {
+        dataArray = input
+        arrayToData()
+    }
     
     /*
      *   returns the data array
@@ -31,11 +37,17 @@ class CSV {
         return dataArray
     }
     
-    
-    func arrayToData() -> String
+    /*
+     *
+     */
+    func getDataString() -> String
     {
-        dataArray = [["Heading", "Heading", "Heading"], ["Data", "Data", "Data"], ["Data", "Data", "Data"]]
-
+        return fileData
+    }
+    
+    
+    func arrayToData()
+    {
         fileData = ""
         for x in 0...dataArray.count - 1
         {
@@ -49,7 +61,6 @@ class CSV {
             }
             fileData += "\n"
         }
-        return fileData
     }
     /*
      *   puts a raw string into an array
