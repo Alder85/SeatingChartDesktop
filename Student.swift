@@ -8,10 +8,10 @@
 
 import Foundation
 
-class Student {
+class Student: CustomStringConvertible{
     private var name: String        = "invalid name"
-    private var chair: Int          = -42
     private var instrument: String  = "invalid instrument"
+    private var chair: Int          = -42
     
     init()
     {
@@ -21,15 +21,15 @@ class Student {
     init(inArray: [String])
     {
         name = inArray[0]
-        chair = Int(inArray[1])!
-        instrument = inArray[2]
+        instrument = inArray[1]
+        chair = Int(inArray[2])!
     }
     
     init(inName: String, inChair: Int, inInstrument: String)
     {
         name = inName
-        chair = inChair
         instrument = inInstrument
+        chair = inChair
     }
     
     func getName() -> String
@@ -37,14 +37,14 @@ class Student {
         return name
     }
     
-    func getChair() -> Int
-    {
-        return chair
-    }
-    
     func getInstrument() -> String
     {
         return instrument
+    }
+    
+    func getChair() -> Int
+    {
+        return chair
     }
     
     func setName(inName: String)
@@ -52,16 +52,23 @@ class Student {
         name = inName
     }
     
+    func setInstrument(inInstrument: String)
+    {
+        instrument = inInstrument
+    }
+    
     func setChair(inChair: Int)
     {
         chair = inChair
     }
     
-    func setInstrument(inInstrument: String)
+    var description: String
     {
-        instrument = inInstrument
+        return name + " plays " + instrument + " and is chair #" + String(chair)
     }
 }
+
+
 
 
 

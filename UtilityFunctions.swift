@@ -18,3 +18,15 @@ func dataToStudentArray(dataArray: [[String]]) -> [Student]
     }
     return outArray
 }
+
+
+/*
+ *  MAXIMUM EFFICIENCY
+ */
+extension String
+{
+    func substring(start: Int, end: Int) -> String
+    {
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end + 1)))
+    }
+}

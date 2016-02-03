@@ -72,9 +72,9 @@ class CSV {
         
         for x in 0...fileData.characters.count  //divide raw string into separate lines
         {
-            if(subString(fileData, start: x, end: x) == "\n")
+            if(fileData.substring(x, end: x) == "\n")
             {
-                lineArray.append(subString(fileData, start: lastPos, end: x - 1))
+                lineArray.append(fileData.substring(lastPos, end: x - 1))
                 lastPos = x + 1;
             }
             if lastPos > fileData.characters.count - 1
@@ -94,19 +94,20 @@ class CSV {
                 dataArray.append(Array<String>())
             }
             
-            for i in 0...divString.characters.count - 1     //divide lines into items
+            let lastIndex = divString.characters.count - 1
+            for i in 0...lastIndex     //divide lines into items
             {
-                if(subString(divString, start: i, end: i) == ",")
+                if(divString.substring(i, end: i) == ",")
                 {
-                    tempDiv.append(subString(divString, start: lastPos, end: i - 1))
+                    tempDiv.append(divString.substring(lastPos, end: i - 1))
                    lastPos = i + 1;
                 }
-                if lastPos > divString.characters.count - 1
+                if lastPos > lastIndex
                 {
                     break
                 }
             }
-            tempDiv.append(subString(divString, start: lastPos, end: divString.characters.count - 1))
+            tempDiv.append(divString.substring(lastPos, end: lastIndex))
             
             for i in 0...tempDiv.count - 1  //put all into array
             {
@@ -114,17 +115,8 @@ class CSV {
             }
         }
     }
-    
-    
-    /*
-     *  for efficiency
-     */
-    private func subString(inString: String, start: Int, end: Int) -> String //probably a better way to do this
-    {
-        return inString.substringWithRange(Range<String.Index>(start: inString.startIndex.advancedBy(start), end: inString.startIndex.advancedBy(end + 1)))
-    }
-    
 }
+
 
 
 
