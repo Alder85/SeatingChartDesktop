@@ -18,6 +18,13 @@ class Student {
         
     }
     
+    init(inArray: [String])
+    {
+        name = inArray[0]
+        chair = Int(inArray[1])!
+        instrument = inArray[2]
+    }
+    
     init(inName: String, inChair: Int, inInstrument: String)
     {
         name = inName
