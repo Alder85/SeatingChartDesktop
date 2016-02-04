@@ -17,6 +17,7 @@
 		4F9B545C15816762005E917A /* DriveSampleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B545A15816762005E917A /* DriveSampleWindowController.m */; };
 		4FA6F3D41034AEC400C5DFA5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA6F3D11034AEC400C5DFA5 /* MainMenu.xib */; };
 		4FF21BEB1626428F00805586 /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF21BEA1626428F00805586 /* GTLDrive_Sources.m */; };
+		5BE811D11C6260BD007D3172 /* SwiftFunctions1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE811D01C6260BD007D3172 /* SwiftFunctions1.swift */; };
 		5BF0F3951C4FF02200734DC4 /* TestStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BF0F3941C4FF02200734DC4 /* TestStory.storyboard */; };
 		5BF0F39D1C4FF27700734DC4 /* TestStoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0F39C1C4FF27700734DC4 /* TestStoryController.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -94,6 +95,7 @@
 		4FA6F3D21034AEC400C5DFA5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4FD0F1DA0CBC68F300059DC1 /* buildStripHeaders */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = buildStripHeaders; sourceTree = "<group>"; };
 		4FF21BEA1626428F00805586 /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDrive_Sources.m; sourceTree = "<group>"; };
+		5BE811D01C6260BD007D3172 /* SwiftFunctions1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftFunctions1.swift; sourceTree = "<group>"; };
 		5BF0F3941C4FF02200734DC4 /* TestStory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestStory.storyboard; sourceTree = "<group>"; };
 		5BF0F39B1C4FF27600734DC4 /* DriveSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DriveSample-Bridging-Header.h"; sourceTree = "<group>"; };
 		5BF0F39C1C4FF27700734DC4 /* TestStoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStoryController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				4F9B545915816762005E917A /* DriveSampleWindowController.h */,
 				4F9B545A15816762005E917A /* DriveSampleWindowController.m */,
 				5BF0F39C1C4FF27700734DC4 /* TestStoryController.swift */,
+				5BE811D01C6260BD007D3172 /* SwiftFunctions1.swift */,
 				5BF0F39B1C4FF27600734DC4 /* DriveSample-Bridging-Header.h */,
 			);
 			name = "Sample App Classes";
@@ -384,6 +387,7 @@
 				5BF0F39D1C4FF27700734DC4 /* TestStoryController.swift in Sources */,
 				4F9B545C15816762005E917A /* DriveSampleWindowController.m in Sources */,
 				4FF21BEB1626428F00805586 /* GTLDrive_Sources.m in Sources */,
+				5BE811D11C6260BD007D3172 /* SwiftFunctions1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

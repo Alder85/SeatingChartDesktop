@@ -31,6 +31,8 @@
 #import "GTLDrive.h"
 #import "GTL/GTMOAuth2WindowController.h"
 
+@class SwiftFunctions1;
+
 @interface DriveSampleWindowController : NSWindowController {
  @private
   IBOutlet NSTextField *_signedInField;

@@ -22,6 +22,8 @@
 #import "GTL/GTLUtilities.h"
 #import "GTL/GTMSessionFetcherLogging.h"
 
+#import "DriveSample-Swift.h"
+
 // Segmented control indices.
 enum {
   kRevisionsSegment = 0,
@@ -36,6 +38,7 @@ NSString *const kKeychainItemName = @"DriveSample: Google Drive";
 @interface DriveSampleWindowController ()
 @property (nonatomic, readonly) GTLServiceDrive *driveService;
 @end
+
 
 @implementation DriveSampleWindowController {
   GTLDriveFileList *_fileList;
@@ -60,6 +63,7 @@ NSString *const kKeychainItemName = @"DriveSample: Google Drive";
   GTLServiceTicket *_detailsTicket;
   NSError *_detailsFetchError;
 }
+
 
 + (DriveSampleWindowController *)sharedWindowController {
   static DriveSampleWindowController* gWindowController = nil;
@@ -955,8 +959,12 @@ NSString *const kKeychainItemName = @"DriveSample: Google Drive";
 - (id)tableView:(NSTableView *)tableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
             row:(NSInteger)row {
+    //SwiftFunctions1 *controller = [[SwiftFunctions1 alloc]init];
+    //NSString *otherstring = @"theabc";
+    //NSString *string = [controller determineFileType:otherstring];
   if (tableView == _fileListTable) {
     GTLDriveFile *file = _fileList.files[row];
+      NSLog(@"\r%@",file.description/*string*/);
     return [self fileTitleWithLabelsForFile:file];
   } else {
     NSArray *array = [self detailCollectionArray];
