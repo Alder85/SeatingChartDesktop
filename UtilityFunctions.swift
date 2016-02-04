@@ -53,3 +53,18 @@ extension String
     
     
 }
+
+
+let defaults = NSUserDefaults.standardUserDefaults()
+func storeStudentArrayArray(name: String, valArray: [[Student]])
+{
+    defaults.setValue(valArray, forKey: name)
+}
+
+func retrieveStudentArrayArray(name: String) -> [[Student]]
+{
+    if let temp = defaults.valueForKey(name) as? [[Student]]
+    {return temp}
+    return [[]] 
+}
+

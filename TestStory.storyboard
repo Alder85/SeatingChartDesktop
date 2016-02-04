@@ -50,7 +50,8 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="fileList" destination="O7B-Pn-IRG" id="wwg-4C-d1j"/>
+                        <outlet property="fileListButton" destination="O7B-Pn-IRG" id="4rA-zK-hDj"/>
+                        <outlet property="potatoe" destination="O7B-Pn-IRG" id="KPh-EP-wlk"/>
                     </connections>
                 </viewController>
                 <customObject id="GAk-Qg-Vtp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

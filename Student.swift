@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Student: CustomStringConvertible{
+class Student: CustomStringConvertible, AnyObject{
     private var name: String        = "invalid name"
     private var instrument: String  = "invalid instrument"
     private var chair: Int          = -42

@@ -24,14 +24,13 @@
 
 import Foundation
 
-let defaults = NSUserDefaults.standardUserDefaults()
-
 //Invalid Values
 let invDouble = -42.0
 let invString = ""
 let invBool   = false
 let invArray  = []
 let invObject = 0
+
 
 
 func storeObject(name: String, value: AnyObject)
@@ -148,3 +147,4 @@ func retrieveObjectArray(name: String) -> [AnyObject] //must force unwrap when r
     {return temp}
     return invArray as [AnyObject]
 }
+
