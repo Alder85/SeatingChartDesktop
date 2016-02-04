@@ -29,4 +29,27 @@ extension String
     {
         return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end + 1)))
     }
+    func indexOf(string: String) -> String.Index? {
+        return rangeOfString(string, options: .LiteralSearch, range: nil, locale: nil)?.startIndex
+    }
+}
+
+/*
+ *  Able to be called from ObjC
+ */
+@objc class SwiftFunctions1: NSObject {
+    func determineFileType(description: String) -> String {
+        var type = description.indexOf("ea")
+        print(type)
+        var loc: String
+        loc = String(type)
+        //loc = String(type).substringWithRange(8...9)
+        return ""
+    }
+    
+    func basic() -> String {
+        return "Did something"
+    }
+    
+    
 }
