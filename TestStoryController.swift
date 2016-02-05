@@ -11,18 +11,17 @@ import Cocoa
 
 class TestStoryController: NSViewController {
     //potatoepotatoe
+    var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        var csv = CSV(input: "Name,Instument,Chair\nJosh,Percussion,420\nConnor,None,3\n")
-        var temp = csv.getDataArray()
-        print(temp)
-        var temp2 = dataToStudentArray(temp)
-        print(temp2)
-        
-
+        //classList = retrieveObjectArray("classList") as! [Class]
+        for x in 0...classList.count - 1
+        {
+            fileListButton.addItemWithTitle(classList[x].getName())
+        }
     }
     
     override var representedObject: AnyObject? {
@@ -31,7 +30,11 @@ class TestStoryController: NSViewController {
         }
     }
     
+    
+    
+    @IBOutlet weak var fileListButton: NSPopUpButton!
     @IBOutlet weak var fileSelectedIndicator: NSTextField!
+    
     
 }
 

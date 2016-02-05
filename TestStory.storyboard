@@ -8,36 +8,21 @@
         <scene sceneID="GrO-9Z-UOc">
             <objects>
                 <viewController title="Connors trash window" id="qKR-5S-gHR" customClass="TestStoryController" customModule="DriveSample" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="qvz-fx-aJb">
+                    <view key="view" toolTip="Opens panel for selecting a local file" id="qvz-fx-aJb">
                         <rect key="frame" x="0.0" y="0.0" width="679" height="392"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJk-Mc-0qR">
-                                <rect key="frame" x="276" y="305" width="173" height="42"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="title" id="WjD-Dq-JJR">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZEk-Y5-iG6">
-                                <rect key="frame" x="306" y="123" width="112" height="32"/>
-                                <buttonCell key="cell" type="push" title="Select File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ybY-7X-1Qs">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pJH-iB-yo8">
-                                <rect key="frame" x="474" y="134" width="56" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="None" placeholderString="" id="Rg4-Wx-9rH">
-                                    <font key="font" metaFont="system"/>
+                            <textField toolTip="Why must you hover over the title it litterally serves no purpose" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJk-Mc-0qR">
+                                <rect key="frame" x="247" y="305" width="203" height="42"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seating Chart" id="WjD-Dq-JJR">
+                                    <font key="font" size="28" name="Arial-BoldMT"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fer-oB-5dA">
-                                <rect key="frame" x="423" y="159" width="114" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Selected:" id="jaL-Em-a7J">
+                                <rect key="frame" x="482" y="295" width="153" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Local File Selector" id="jaL-Em-a7J">
                                     <font key="font" size="18" name="ArialMT"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -50,10 +35,23 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O7B-Pn-IRG">
+                                <rect key="frame" x="482" y="263" width="154" height="26"/>
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="JP1-U1-0fl">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="jPS-qq-a83">
+                                        <items>
+                                            <menuItem title="None" id="W9h-Tk-vtt" userLabel="Chart 1"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="fileSelectedIndicator" destination="pJH-iB-yo8" id="Rj6-Uc-QpI"/>
+                        <outlet property="fileListButton" destination="O7B-Pn-IRG" id="4rA-zK-hDj"/>
+                        <outlet property="potatoe" destination="O7B-Pn-IRG" id="KPh-EP-wlk"/>
                     </connections>
                 </viewController>
                 <customObject id="GAk-Qg-Vtp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -183,7 +181,7 @@
                     </items>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="141.5" y="416"/>
+            <point key="canvasLocation" x="362.5" y="321"/>
         </scene>
     </scenes>
 </document>
