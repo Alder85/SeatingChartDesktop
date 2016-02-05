@@ -11,13 +11,17 @@ import Cocoa
 
 class TestStoryController: NSViewController {
     //potatoepotatoe
-    var classList: [[Student]] = [[]]
+    var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        classList = retrieveStudentArrayArray("classList")
+        //classList = retrieveObjectArray("classList") as! [Class]
+        for x in 0...classList.count - 1
+        {
+            fileListButton.addItemWithTitle(classList[x].getName())
+        }
     }
     
     override var representedObject: AnyObject? {
