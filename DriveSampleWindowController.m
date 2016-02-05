@@ -959,13 +959,22 @@ NSString *const kKeychainItemName = @"DriveSample: Google Drive";
 - (id)tableView:(NSTableView *)tableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
             row:(NSInteger)row {
-    //SwiftFunctions1 *controller = [[SwiftFunctions1 alloc]init];
-    //NSString *otherstring = @"theabc";
-    //NSString *string = [controller determineFileType:otherstring];
   if (tableView == _fileListTable) {
     GTLDriveFile *file = _fileList.files[row];
-      NSLog(@"\r%@",file.description/*string*/);
-    return [self fileTitleWithLabelsForFile:file];
+      SwiftFunctions1 *controller = [[SwiftFunctions1 alloc]init];
+      NSString *otherstring = file.description;
+      NSString *string = [controller determineFileType:otherstring];
+      NSLog(@"\r%@",/*file.description*/string);
+      if ([string  isEqual: @"spre"]) {
+          return [self fileTitleWithLabelsForFile:file];
+      }
+      else {
+       //   NSArray *array = [self detailCollectionArray];
+          //id item = array[row];
+          return nil;
+          row--;
+          //return [self descriptionForDetailItem:item];
+      }
   } else {
     NSArray *array = [self detailCollectionArray];
     id item = array[row];

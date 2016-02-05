@@ -39,12 +39,29 @@ extension String
  */
 @objc class SwiftFunctions1: NSObject {
     func determineFileType(description: String) -> String {
-        var type = description.indexOf("ea")
-        print(type)
+        var type = description.indexOf("google-apps")
+        //print(type)
         var loc: String
         loc = String(type)
-        //loc = String(type).substringWithRange(8...9)
-        return ""
+        if String(type).isEmpty || type == nil {
+            //print("IsEmpty")
+            loc = "empty"
+        }
+        else
+        {
+            loc = String(type).substring(9,end: 10)
+        }
+        //print(loc)
+        if loc.isEmpty || loc == "empty"
+        {
+            //print("empty")
+        }
+        else
+        {
+            print(description.substring(Int(loc)! + 12, end: Int(loc)! + 15))
+            loc = description.substring(Int(loc)! + 12, end: Int(loc)! + 15)
+        }
+        return loc
     }
     
     func basic() -> String {
