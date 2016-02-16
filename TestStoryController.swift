@@ -14,15 +14,22 @@ class TestStoryController: NSViewController {
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     
+
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        //classList = retrieveObjectArray("classList") as! [Class]
-        for x in 0...classList.count - 1
-        {
-            fileListButton.addItemWithTitle(classList[x].getName())
-        }
+        let temp = StudentView()
+        temp.frame = CGRectMake(0,0,200,200)
+        let textField = NSTextField(frame: CGRectMake(0,0,100,100))
+        textField.stringValue = "test"
+        textField.editable = false
+        //temp.addSubview(textField)
+        temp.startUp()
+        self.view.addSubview(temp)
     }
+    
+
     
     override var representedObject: AnyObject? {
         didSet {
@@ -31,9 +38,7 @@ class TestStoryController: NSViewController {
     }
     
     
-    
-    @IBOutlet weak var fileListButton: NSPopUpButton!
-    @IBOutlet weak var fileSelectedIndicator: NSTextField!
+
     
     
 }

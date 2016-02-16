@@ -49,10 +49,6 @@
                             </popUpButton>
                         </subviews>
                     </view>
-                    <connections>
-                        <outlet property="fileListButton" destination="O7B-Pn-IRG" id="4rA-zK-hDj"/>
-                        <outlet property="potatoe" destination="O7B-Pn-IRG" id="KPh-EP-wlk"/>
-                    </connections>
                 </viewController>
                 <customObject id="GAk-Qg-Vtp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu title="MainMenu" systemMenu="main" id="yKi-yN-8jR" userLabel="MainMenu">
@@ -181,7 +177,7 @@
                     </items>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="362.5" y="321"/>
+            <point key="canvasLocation" x="567.5" y="401"/>
         </scene>
     </scenes>
 </document>
