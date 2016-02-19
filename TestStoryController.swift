@@ -19,13 +19,9 @@ class TestStoryController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let temp = StudentView()
-        temp.frame = CGRectMake(0,0,200,200)
-        let textField = NSTextField(frame: CGRectMake(0,0,100,100))
-        textField.stringValue = "test"
-        textField.editable = false
-        //temp.addSubview(textField)
-        temp.startUp()
+        let temp = GroupView()
+        temp.frame = CGRectMake(0,0,100,100)
+        temp.startUp(3)
         self.view.addSubview(temp)
     }
     
