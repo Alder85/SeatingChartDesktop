@@ -19,6 +19,7 @@ class StudentView: NSView {
     var offsetX: CGFloat = 0
     var offsetY: CGFloat = 0
     var spotsfilled: [Bool] = []
+    var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     
     func startUp() {
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
@@ -69,23 +70,30 @@ class StudentView: NSView {
     
     override func mouseUp(theEvent: NSEvent)
     {
-        if clickX > 600 && clickY > 300 && spotsfilled[0] == false
-        {
-            spotsfilled = retrieveBoolArray("Spots")
-            spotsfilled[0] = true
-            storeBoolArray("Spots", valArray: spotsfilled)
-            self.frame = CGRectMake(300, 300, viewLength, viewHeight)
-        }
+        isInside((Double)(clickX), val2: (Double)(clickY))
         
-        if clickX < 200 && clickY < 200 && spotsfilled[1] == false
+        /*if clickX < 200 && clickY < 200 && spotsfilled[1] == false
         {
             spotsfilled = retrieveBoolArray("Spots")
             spotsfilled[1] = true
             Swift.print("Entered")
             storeBoolArray("Spots", valArray: spotsfilled)
             self.frame = CGRectMake(100, 100, viewLength, viewHeight)
-        }
+        }*/
     }
     
-    
+    func isInside(val1: Double, val2: Double) -> Bool
+    {
+        groupcoords = retrieveDoubleArray("GroupC")
+        if val1 > groupcoords[0] && val1 < groupcoords[2] &&
+           val2 > groupcoords[1] && val2 < groupcoords[3]
+        {
+            let i = (CGFloat)(groupcoords[0])
+            let h = (CGFloat)(groupcoords[1])
+            self.frame = CGRectMake(i, h, viewLength, viewHeight)
+           // self.
+            return true
+        }
+        return false
+    }
 }
