@@ -14,8 +14,8 @@ class GroupView: NSView {
     var lastLocation:CGPoint = CGPointMake(0, 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
-    let viewLength: CGFloat = 100
-    let viewHeight: CGFloat  = 100
+    let viewLength: CGFloat = 200
+    let viewHeight: CGFloat  = 200
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var isMovable = true
@@ -28,18 +28,19 @@ class GroupView: NSView {
     func startUp(subviews: Int) {
         numberOfSubviews = subviews
         
-        for i in 0...numberOfSubviews - 1
+        
+        for _ in 0...numberOfSubviews - 1
         {
-            position = position + 10
-            subviewArray.append(NSView(frame: CGRectMake(position, 0, viewLength, viewHeight)))
             
-            let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
-            label.stringValue = "groupsubview"
-            label.editable = false
-            subviewArray[i].addSubview(label)
-           // label.backgroundColor = NSColor.redColor()
-            //self.addSubview(subviewArray[i])
+            let temp = GroupSubview()
+                temp.startUp(position, y: CGFloat(100))
+            subviewArray.append(temp)
+            self.addSubview(temp)
+            position = position + 60
+            
         }
+        
+        self.frame = CGRectMake(50, 100, viewLength, viewHeight)
         
         drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
         
@@ -51,14 +52,28 @@ class GroupView: NSView {
         label.selectable = false
         self.addSubview(label)
         
+        let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
         moveButton.setButtonType(NSButtonType.SwitchButton) //moveable checkbox
-        moveButton.action = "buttonAction:"
+        moveButton.action = "changeMoveable:"
         moveButton.target = self
-
         self.addSubview(moveButton)
+        
+        let removeViewButton = NSButton(frame: CGRectMake(163,2,15,15)) //remove views
+        removeViewButton.title = "-"
+        removeViewButton.action = "buttonAction:"
+        removeViewButton.target = self
+        self.addSubview(removeViewButton)
+        
+        let addViewButton = NSButton(frame: CGRectMake(180,2,15,15)) //add views
+        //addViewButton.setButtonType(NSButtonType.MomentaryPushInButton)
+        addViewButton.title = "+"
+        addViewButton.action = "buttonAction:"
+        addViewButton.target = self
+        self.addSubview(addViewButton)
+
     }
     
-    func buttonAction(obj:AnyObject?) {
+    func changeMoveable(obj:AnyObject?) {
         isMovable = !isMovable
     }
     
@@ -105,6 +120,52 @@ class GroupView: NSView {
     {
         
     }
-    
-    
 }
+
+class GroupSubview: NSView
+{
+    let viewLength: CGFloat = 50
+    let viewHeight: CGFloat  = 50
+    func startUp(x: CGFloat, y: CGFloat)
+    {
+        self.frame = CGRectMake(x, y, viewLength, viewHeight)
+        
+        drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
+        
+        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight)) //moveable label
+        label.stringValue = "test"
+        label.editable = false
+        label.bezeled  = false
+        label.drawsBackground = false
+        label.selectable = false
+        self.addSubview(label)
+    }
+    override func drawRect(dirtyRect: NSRect)
+    {
+        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
+        
+        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        borderColor.set()
+        bPath.stroke()
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
