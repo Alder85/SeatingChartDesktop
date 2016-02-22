@@ -13,6 +13,7 @@ class TestSquareController: NSViewController {
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     var spotsfilled: [Bool] = retrieveBoolArray("Spots")
+    var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     
     
     
@@ -24,7 +25,7 @@ class TestSquareController: NSViewController {
             let spotfilled = [Bool](count:2, repeatedValue: false)
             storeBoolArray("Spots", valArray: spotfilled)
         }
-       // spotsfilled[0] = false
+        //spotsfilled[0] = false
         //spotsfilled[1] = false
         storeBoolArray("Spots", valArray: spotsfilled)
         super.viewDidLoad()
@@ -45,6 +46,11 @@ class TestSquareController: NSViewController {
         //temp.addSubview(textField)
         temp1.startUp()
         self.view.addSubview(temp1)
+        
+        let temp2 = GroupView()
+        temp2.frame = CGRectMake(0,0,100,100)
+        temp2.startUp(1)
+        self.view.addSubview(temp2)
     }
     
     

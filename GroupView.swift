@@ -22,6 +22,7 @@ class GroupView: NSView {
     var numberOfSubviews: Int = 0
     var subviewArray: [NSView] = []
     var position: CGFloat = 0
+    var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     
     func startUp(subviews: Int) {
         numberOfSubviews = subviews
@@ -92,6 +93,10 @@ class GroupView: NSView {
         if !isMovable
         {
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
+            groupcoords[0] = (Double)(offsetX + firstFrame.x)
+            groupcoords[1] = (Double)(offsetY + firstFrame.y)
+            groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
+            groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
         }
     }
     
