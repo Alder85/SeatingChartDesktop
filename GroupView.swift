@@ -18,7 +18,7 @@ class GroupView: NSView {
     let viewHeight: CGFloat  = 100
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
-    var isMovable = false
+    var isMovable = true
     var numberOfSubviews: Int = 0
     var subviewArray: [NSView] = []
     var position: CGFloat = 0
@@ -40,36 +40,35 @@ class GroupView: NSView {
             //self.addSubview(subviewArray[i])
         }
         
-        drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight))
-        //self.addSubview(dirtyRect)
+        drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
         
-        //self.addSubview(frameRect)
+        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, 17)) //moveable label
+        label.stringValue = "   Moveable"
+        label.editable = false
+        label.bezeled  = false
+        label.drawsBackground = false
+        label.selectable = false
+        self.addSubview(label)
         
-        
-        //self.layer!.borderColor = NSColor.orangeColor().CGColor
-        
-        
-        
-        
+        moveButton.setButtonType(NSButtonType.SwitchButton) //moveable checkbox
+        moveButton.action = "buttonAction:"
+        moveButton.target = self
+
+        self.addSubview(moveButton)
+    }
+    
+    func buttonAction(obj:AnyObject?) {
+        isMovable = !isMovable
     }
     
     override func drawRect(dirtyRect: NSRect)
     {
-        var bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
-       // let fillColor = NSColor(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
-        //fillColor.set()
-       // bPath.fill()
-        
+        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
+       
         let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         borderColor.set()
-       // bPath.lineWidth = 12.0
         bPath.stroke()
         
-       // let circleFillColor = NSColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
-       // var circleRect = NSMakeRect(dirtyRect.size.width/4, dirtyRect.size.height/4, dirtyRect.size.width/2, dirtyRect.size.height/2)
-       // var cPath: NSBezierPath = NSBezierPath(ovalInRect: circleRect)
-      //  circleFillColor.set()
-      //  cPath.fill()
     }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
