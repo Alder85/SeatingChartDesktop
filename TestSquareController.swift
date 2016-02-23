@@ -35,7 +35,8 @@ class TestSquareController: NSViewController {
         textField.stringValue = "test"
         textField.editable = false
         //temp.addSubview(textField)
-        temp.startUp()
+        let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
+        temp.startUp(tempStudent)
         
         /*let temp1 = StudentView()
         temp1.frame = CGRectMake(0,0,100,100)

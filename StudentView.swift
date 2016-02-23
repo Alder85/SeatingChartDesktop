@@ -21,9 +21,9 @@ class StudentView: NSView {
     var spotsfilled: [Bool] = []
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     
-    func startUp() {
+    func startUp(student: Student) {
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
-        label.stringValue = "potatoes"
+        label.stringValue = student.getName() + "\nChair #" + String(student.getChair()) + "\n" + student.getInstrument()
         label.editable = false
         //label.= NSTextAlignment.Center
         self.addSubview(label)
