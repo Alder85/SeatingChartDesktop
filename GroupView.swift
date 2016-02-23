@@ -14,13 +14,13 @@ class GroupView: NSView {
     var lastLocation:CGPoint = CGPointMake(0, 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
-    let viewLength: CGFloat = 200
-    let viewHeight: CGFloat  = 200
+    let viewLength: CGFloat = 300
+    let viewHeight: CGFloat  = 100
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var isMovable = true
     var numberOfSubviews: Int = 0
-    var subviewArray: [NSView] = []
+    var subviewArray: [GroupSubview] = []
     var position: CGFloat = 0
     let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
@@ -33,9 +33,9 @@ class GroupView: NSView {
         {
             
             let temp = GroupSubview()
-                temp.startUp(position, y: CGFloat(100))
+                temp.startUp(position, y: (viewHeight / 2) - 25)
             subviewArray.append(temp)
-            self.addSubview(temp)
+            self.addSubview(subviewArray[subviewArray.count - 1])
             position = position + 60
             
         }
@@ -60,17 +60,30 @@ class GroupView: NSView {
         
         let removeViewButton = NSButton(frame: CGRectMake(163,2,15,15)) //remove views
         removeViewButton.title = "-"
-        removeViewButton.action = "buttonAction:"
+        removeViewButton.action = "removeView:"
         removeViewButton.target = self
         self.addSubview(removeViewButton)
         
         let addViewButton = NSButton(frame: CGRectMake(180,2,15,15)) //add views
-        //addViewButton.setButtonType(NSButtonType.MomentaryPushInButton)
         addViewButton.title = "+"
-        addViewButton.action = "buttonAction:"
+        addViewButton.action = "addView:"
         addViewButton.target = self
         self.addSubview(addViewButton)
 
+    }
+    
+    func addView(obj:AnyObject?) {
+        let temp = GroupSubview()
+        temp.startUp(position, y: (viewHeight / 2) - 25)
+        subviewArray.append(temp)
+        self.addSubview(temp)
+        position = position + 60
+    }
+    
+    func removeView(obj:AnyObject?) {
+        subviewArray[subviewArray.count - 1].removeFromSuperview()
+        subviewArray.removeAtIndex(subviewArray.count - 1)
+        position = position - 60
     }
     
     func changeMoveable(obj:AnyObject?) {
@@ -108,11 +121,11 @@ class GroupView: NSView {
         if !isMovable
         {
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
-            groupcoords[0] = (Double)(offsetX + firstFrame.x)
-            groupcoords[1] = (Double)(offsetY + firstFrame.y)
-            groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
-            groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
-            storeDoubleArray("GroupC", valArray: groupcoords)
+            //groupcoords[0] = (Double)(offsetX + firstFrame.x)
+           // groupcoords[1] = (Double)(offsetY + firstFrame.y)
+            //groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
+           // groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
+          //  storeDoubleArray("GroupC", valArray: groupcoords)
         }
     }
     
