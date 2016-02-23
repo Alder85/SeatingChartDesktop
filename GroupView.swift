@@ -25,6 +25,7 @@ class GroupView: NSView {
     let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     
+    
     func startUp(subviews: Int) {
         numberOfSubviews = subviews
         

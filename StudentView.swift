@@ -10,8 +10,8 @@ class StudentView: NSView {
     var lastLocation:CGPoint = CGPointMake(0, 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
-    let viewLength: CGFloat = 100
-    let viewHeight: CGFloat  = 100
+    let viewLength: CGFloat = 50
+    let viewHeight: CGFloat  = 50
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var clickX: CGFloat = 0
