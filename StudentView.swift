@@ -20,10 +20,12 @@ class StudentView: NSView {
     var offsetY: CGFloat = 0
     var spotsfilled: [Bool] = []
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
+    var student = Student()
     
-    func startUp(student: Student) {
+    func startUp(inStudent: Student) {
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
-        label.stringValue = student.getName() + "\nChair #" + String(student.getChair()) + "\n" + student.getInstrument()
+        student = inStudent
+        label.stringValue = student.getName()
         label.editable = false
         //label.= NSTextAlignment.Center
         self.addSubview(label)
@@ -55,6 +57,21 @@ class StudentView: NSView {
         }
     }
     
+    override func rightMouseDown(theEvent : NSEvent) {
+        var theMenu = NSMenu(title: "Contextual menu")
+        theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector("action1:"), keyEquivalent: "")
+        theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
+        theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
+        
+        for item: AnyObject in theMenu.itemArray {
+            if let menuItem = item as? NSMenuItem {
+                menuItem.target = self
+            }
+        }
+        
+        NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+    }
+    
     override func mouseDragged(theEvent: NSEvent)
     {
         clickX = theEvent.locationInWindow.x
@@ -62,7 +79,7 @@ class StudentView: NSView {
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        //Swift.print(clickX)
+        //Swift.print(clickX) 
         //Swift.print(clickY)
         
         self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
