@@ -15,13 +15,7 @@ class TestSquareController: NSViewController {
     var spotsfilled: [Bool] = retrieveBoolArray("Spots")
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     var subviewsfilled: [Bool] = retrieveBoolArray("Subfilled")
-    var subcoords: [[Double]] = retrieveObject("Subcoords") as! [[Double]]
-    
-    
-    
-    
-    
-    
+    //var subcoords: [[Double]] = retrieveObject("Subcoords") as! [[Double]]
     
     override func viewDidLoad() {
         if spotsfilled.count == 0

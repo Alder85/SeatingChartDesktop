@@ -24,7 +24,7 @@ class GroupView: NSView {
     var position: CGFloat = 0
     let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
-    
+    var updateTimer = NSTimer()
     
     func startUp(subviews: Int) {
         numberOfSubviews = subviews
@@ -70,8 +70,16 @@ class GroupView: NSView {
         addViewButton.action = "addView:"
         addViewButton.target = self
         self.addSubview(addViewButton)
-
+        
+        //change the time value if this gets laggy
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        
     }
+    func redraw(obj:AnyObject?)
+    {
+        self.needsDisplay = true
+    }
+    
     
     func addView(obj:AnyObject?) {
         let temp = GroupSubview()
@@ -139,6 +147,10 @@ class GroupView: NSView {
     {
         
     }
+    
+    
+    
+    
 }
 
 class GroupSubview: NSView
@@ -168,6 +180,9 @@ class GroupSubview: NSView
         bPath.stroke()
         
     }
+    
+    
+    
 }
 
 
