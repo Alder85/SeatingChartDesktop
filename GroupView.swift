@@ -91,6 +91,11 @@ class GroupView: NSView {
         isMovable = !isMovable
     }
     
+    func getCoordsOfSubview(index: Int) -> CGPoint
+    {
+        return CGPoint(x: subviewArray[index].frame.minX, y: subviewArray[index].frame.minY)
+    }
+    
     override func drawRect(dirtyRect: NSRect)
     {
         let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
@@ -122,11 +127,11 @@ class GroupView: NSView {
         if !isMovable
         {
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
-            //groupcoords[0] = (Double)(offsetX + firstFrame.x)
-           // groupcoords[1] = (Double)(offsetY + firstFrame.y)
-            //groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
-           // groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
-          //  storeDoubleArray("GroupC", valArray: groupcoords)
+            groupcoords[0] = (Double)(offsetX + firstFrame.x)
+            groupcoords[1] = (Double)(offsetY + firstFrame.y)
+            groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
+            groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
+            storeDoubleArray("GroupC", valArray: groupcoords)
         }
     }
     

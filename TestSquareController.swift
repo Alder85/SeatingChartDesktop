@@ -14,6 +14,10 @@ class TestSquareController: NSViewController {
     
     var spotsfilled: [Bool] = retrieveBoolArray("Spots")
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
+    var subviewsfilled: [Bool] = retrieveBoolArray("Subfilled")
+    var subcoords: [[Double]] = retrieveObject("Subcoords") as! [[Double]]
+    
+    
     
     
     
@@ -24,6 +28,19 @@ class TestSquareController: NSViewController {
         {
             let spotfilled = [Bool](count:2, repeatedValue: false)
             storeBoolArray("Spots", valArray: spotfilled)
+        }
+        
+        if subviewsfilled.count == 0
+        {
+            subviewsfilled = [Bool](count: 5, repeatedValue: false)
+            subviewsfilled[0] = true
+            storeBoolArray("Subfilled", valArray: subviewsfilled)
+        }
+        
+        if groupcoords.count == 0
+        {
+            groupcoords = [Double](count: 4, repeatedValue: 0.0)
+            storeDoubleArray("GroupC", valArray: groupcoords)
         }
         //spotsfilled[0] = false
         //spotsfilled[1] = false

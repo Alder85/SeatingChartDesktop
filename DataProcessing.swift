@@ -23,6 +23,7 @@
 
 
 import Foundation
+import AppKit
 
 //Invalid Values
 let invDouble = -42.0
@@ -31,7 +32,22 @@ let invBool   = false
 let invArray  = []
 let invObject = 0
 
+/*
+func storeCGPointArray(name: String, value: [CGPoint])
+{
+    defaults.setValue(value, forKey: name)
+    defaults.synchronize()
+}
 
+func retrieveCGPointArray(name: String) -> [CGPoint]
+{
+    if let temp = defaults.valueForKey(name)
+    {
+        return temp
+    }
+    return invArray
+}
+*/
 
 func storeObject(name: String, value: AnyObject)
 {
