@@ -81,7 +81,7 @@ class StudentView: NSView {
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        //Swift.print(clickX) 
+        //Swift.print(clickX)
         //Swift.print(clickY)
         
         self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)

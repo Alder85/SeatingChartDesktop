@@ -81,6 +81,11 @@ class GroupView: NSView {
         storeObjectArray("Subcoords", valArray: subcoords)
 
     }
+    func redraw(obj:AnyObject?)
+    {
+        self.needsDisplay = true
+    }
+    
     
     func addView(obj:AnyObject?) {
         let temp = GroupSubview()
@@ -169,6 +174,10 @@ class GroupView: NSView {
     {
         
     }
+    
+    
+    
+    
 }
 
 class GroupSubview: NSView
@@ -228,6 +237,9 @@ class GroupSubview: NSView
         bPath.stroke()
         
     }
+    
+    
+    
 }
 
 
