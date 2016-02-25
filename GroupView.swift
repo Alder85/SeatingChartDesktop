@@ -24,6 +24,7 @@ class GroupView: NSView {
     var position: CGFloat = 0
     let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
+    var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     
     
     func startUp(subviews: Int) {
@@ -70,6 +71,14 @@ class GroupView: NSView {
         addViewButton.action = "addView:"
         addViewButton.target = self
         self.addSubview(addViewButton)
+        
+        for i in 0...(numberOfSubviews - 1) {
+            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
+            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25
+            subcoords[i][2] = subcoords[i][0] + 50
+            subcoords[i][3] = subcoords[i][1] + 50
+        }
+        storeObjectArray("Subcoords", valArray: subcoords)
 
     }
     
@@ -79,12 +88,26 @@ class GroupView: NSView {
         subviewArray.append(temp)
         self.addSubview(temp)
         position = position + 60
+        for i in 0...(numberOfSubviews - 1) {
+            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
+            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25
+            subcoords[i][2] = subcoords[i][0] + 50
+            subcoords[i][3] = subcoords[i][1] + 50
+        }
+        storeObjectArray("Subcoords", valArray: subcoords)
     }
     
     func removeView(obj:AnyObject?) {
         subviewArray[subviewArray.count - 1].removeFromSuperview()
         subviewArray.removeAtIndex(subviewArray.count - 1)
         position = position - 60
+        for i in 0...(numberOfSubviews - 1) {
+            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
+            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25
+            subcoords[i][2] = subcoords[i][0] + 50
+            subcoords[i][3] = subcoords[i][1] + 50
+        }
+        storeObjectArray("Subcoords", valArray: subcoords)
     }
     
     func changeMoveable(obj:AnyObject?) {
@@ -131,6 +154,13 @@ class GroupView: NSView {
             groupcoords[1] = (Double)(offsetY + firstFrame.y)
             groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
             groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
+            for i in 0...(numberOfSubviews - 1) {
+                subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
+                subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25
+                subcoords[i][2] = subcoords[i][0] + 50
+                subcoords[i][3] = subcoords[i][1] + 50
+            }
+            storeObjectArray("Subcoords", valArray: subcoords)
             storeDoubleArray("GroupC", valArray: groupcoords)
         }
     }
@@ -145,8 +175,17 @@ class GroupSubview: NSView
 {
     let viewLength: CGFloat = 50
     let viewHeight: CGFloat  = 50
+    var minX = 0.0
+    var minY = 0.0
+    var maxX = 0.0
+    var maxY = 0.0
     func startUp(x: CGFloat, y: CGFloat)
     {
+        minX = Double(x)
+        minY = Double(y)
+        maxX = Double(x + viewLength)
+        maxY = Double(y + viewHeight)
+        
         self.frame = CGRectMake(x, y, viewLength, viewHeight)
         
         drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
@@ -159,6 +198,27 @@ class GroupSubview: NSView
         label.selectable = false
         self.addSubview(label)
     }
+    
+    func getMinX() -> Double
+    {
+        return minX
+    }
+    
+    func getMinY() -> Double
+    {
+        return minX
+    }
+    
+    func getMaxX() -> Double
+    {
+        return maxX
+    }
+    
+    func getMaxY() -> Double
+    {
+        return maxY
+    }
+    
     override func drawRect(dirtyRect: NSRect)
     {
         let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)

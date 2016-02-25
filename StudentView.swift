@@ -20,6 +20,7 @@ class StudentView: NSView {
     var offsetY: CGFloat = 0
     var spotsfilled: [Bool] = []
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
+    var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     var student = Student()
     
     func startUp(inStudent: Student) {
@@ -41,7 +42,8 @@ class StudentView: NSView {
     {
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
-        Swift.print(self.frame.minX)
+        //Swift.print(self.frame.minX)
+        //Swift.print(self.frame.minY)
         if self.frame.minX == 300.0
         {
             spotsfilled = retrieveBoolArray("Spots")
@@ -87,7 +89,21 @@ class StudentView: NSView {
     
     override func mouseUp(theEvent: NSEvent)
     {
-        isInside((Double)(clickX), val2: (Double)(clickY))
+        Swift.print(clickX)
+        Swift.print(clickY)
+        if isInside((Double)(clickX), val2: (Double)(clickY), subview: 0)
+        {
+            let i = (CGFloat)(subcoords[0][0])
+            let h = (CGFloat)(subcoords[0][1])
+            self.frame = CGRectMake(i, h, viewLength, viewHeight)
+        }
+        
+        if isInside((Double)(clickX), val2: (Double)(clickY), subview: 1)
+        {
+            let i = (CGFloat)(subcoords[1][0])
+            let h = (CGFloat)(subcoords[1][1])
+            self.frame = CGRectMake(i, h, viewLength, viewHeight)
+        }
         
         /*if clickX < 200 && clickY < 200 && spotsfilled[1] == false
         {
@@ -99,15 +115,15 @@ class StudentView: NSView {
         }*/
     }
     
-    func isInside(val1: Double, val2: Double) -> Bool
+    func isInside(val1: Double, val2: Double, subview: Int) -> Bool
     {
-        groupcoords = retrieveDoubleArray("GroupC")
-        if val1 > groupcoords[0] && val1 < groupcoords[2] &&
-           val2 > groupcoords[1] && val2 < groupcoords[3]
+        subcoords = retrieveObjectArray("Subcoords") as! [[Double]]
+        if val1 > subcoords[subview][0] && val1 < subcoords[subview][2] &&
+           val2 > subcoords[subview][1] && val2 < subcoords[subview][3]
         {
-            let i = (CGFloat)(groupcoords[0])
+            /*let i = (CGFloat)(groupcoords[0])
             let h = (CGFloat)(groupcoords[1])
-            self.frame = CGRectMake(i, h, viewLength, viewHeight)
+            self.frame = CGRectMake(i, h, viewLength, viewHeight)*/
            // self.
             return true
         }
