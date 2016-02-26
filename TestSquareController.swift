@@ -68,14 +68,15 @@ class TestSquareController: NSViewController {
         let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
         temp.startUp(tempStudent)
         
-        /*let temp1 = StudentView()
-        temp1.frame = CGRectMake(0,0,100,100)
-        let textField1 = NSTextField(frame: CGRectMake(0,0,50,50))
+        let temp1 = StudentView()
+        temp1.frame = CGRectMake(0,0,200,200)
+        let textField1 = NSTextField(frame: CGRectMake(0,0,100,100))
         textField1.stringValue = "test"
         textField1.editable = false
         //temp.addSubview(textField)
-        temp1.startUp()
-        self.view.addSubview(temp1)*/
+        let tempStudent1 = Student(inName: "Bob", inChair: 5, inInstrument: "Trumpet")
+        temp1.startUp(tempStudent1)
+        self.view.addSubview(temp1)
         
         let temp2 = GroupView()
         temp2.frame = CGRectMake(0,0,100,100)
