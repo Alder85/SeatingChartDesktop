@@ -83,6 +83,8 @@ class TestSquareController: NSViewController {
         self.view.addSubview(temp2)
         
         self.view.addSubview(temp)
+        
+        //storeObject("GroupView", value: temp2)
 
     }
     

@@ -22,6 +22,7 @@ class StudentView: NSView {
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     var student = Student()
+    //var group = retrieveObject("GroupView")
     
     func startUp(inStudent: Student) {
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
@@ -91,6 +92,9 @@ class StudentView: NSView {
     {
         Swift.print(clickX)
         Swift.print(clickY)
+        
+        //if group
+        
         if isInside((Double)(clickX), val2: (Double)(clickY), subview: 0)
         {
             let i = (CGFloat)(subcoords[0][0])
@@ -102,6 +106,13 @@ class StudentView: NSView {
         {
             let i = (CGFloat)(subcoords[1][0])
             let h = (CGFloat)(subcoords[1][1])
+            self.frame = CGRectMake(i, h, viewLength, viewHeight)
+        }
+        
+        if isInside((Double)(clickX), val2: (Double)(clickY), subview: 2)
+        {
+            let i = (CGFloat)(subcoords[2][0])
+            let h = (CGFloat)(subcoords[2][1])
             self.frame = CGRectMake(i, h, viewLength, viewHeight)
         }
         
