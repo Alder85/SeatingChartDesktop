@@ -75,14 +75,6 @@ class GroupView: NSView {
         
         //change the time value if this gets laggy
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
-        
-        for i in 0...(numberOfSubviews - 1) {
-            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-            subcoords[i][2] = subcoords[i][0] + 50
-            subcoords[i][3] = subcoords[i][1] + 50
-        }
-        storeObjectArray("Subcoords", valArray: subcoords)
 
     }
     func redraw(obj:AnyObject?)
@@ -98,13 +90,6 @@ class GroupView: NSView {
         self.addSubview(temp)
         position = position + 60
         numberOfSubviews++
-        for i in 0...(numberOfSubviews - 1) {
-            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-            subcoords[i][2] = subcoords[i][0] + 50
-            subcoords[i][3] = subcoords[i][1] + 50
-        }
-        storeObjectArray("Subcoords", valArray: subcoords)
     }
     
     func removeView(obj:AnyObject?) {
@@ -112,13 +97,6 @@ class GroupView: NSView {
         subviewArray.removeAtIndex(subviewArray.count - 1)
         position = position - 60
         numberOfSubviews--
-        for i in 0...(numberOfSubviews - 1) {
-            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-            subcoords[i][2] = subcoords[i][0] + 50
-            subcoords[i][3] = subcoords[i][1] + 50
-        }
-        storeObjectArray("Subcoords", valArray: subcoords)
     }
     
     func changeMoveable(obj:AnyObject?) {
@@ -180,18 +158,6 @@ class GroupView: NSView {
         if !isMovable
         {
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
-            groupcoords[0] = (Double)(offsetX + firstFrame.x)
-            groupcoords[1] = (Double)(offsetY + firstFrame.y)
-            groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
-            groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
-            for i in 0...(numberOfSubviews - 1) {
-                subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-                subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-                subcoords[i][2] = subcoords[i][0] + 50
-                subcoords[i][3] = subcoords[i][1] + 50
-            }
-            storeObjectArray("Subcoords", valArray: subcoords)
-            storeDoubleArray("GroupC", valArray: groupcoords)
         }
     }
     

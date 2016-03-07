@@ -60,13 +60,32 @@ class TestSquareController: NSViewController {
         storeBoolArray("Spots", valArray: spotsfilled)
         super.viewDidLoad()
         let temp = StudentView()
-        temp.frame = CGRectMake(0,0,200,200)
+        //temp.frame = CGRectMake(0,0,200,200)
         let textField = NSTextField(frame: CGRectMake(0,0,100,100))
         textField.stringValue = "test"
         textField.editable = false
         //temp.addSubview(textField)
         let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
         temp.startUp(tempStudent)
+        
+        let temp1 = StudentView()
+        //temp1.frame = CGRectMake(0,0,200,200)
+        let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
+        temp1.startUp(tempStudent1)
+        
+        let temp2 = StudentView()
+        let tempStudent2 = Student(inName: "Connor", inChair: 12, inInstrument: "Trombone")
+        temp2.startUp(tempStudent2)
+        
+        let temp3 = StudentView()
+        let tempStudent3 = Student(inName: "Josh", inChair: 12, inInstrument: "Trombone")
+        temp3.startUp(tempStudent3)
+        
+        let temp4 = StudentView()
+        let tempStudent4 = Student(inName: "Trevon", inChair: 12, inInstrument: "Trombone")
+        temp4.startUp(tempStudent4)
+        
+        
         
         /*let temp1 = StudentView()
         temp1.frame = CGRectMake(0,0,100,100)
@@ -77,12 +96,16 @@ class TestSquareController: NSViewController {
         temp1.startUp()
         self.view.addSubview(temp1)*/
         
-        let temp2 = GroupView()
-        temp2.frame = CGRectMake(0,0,100,100)
-        temp2.startUp(1)
-        self.view.addSubview(temp2)
+        let groupView = GroupView()
+        groupView.frame = CGRectMake(0,0,100,100)
+        groupView.startUp(1)
+        self.view.addSubview(groupView)
         
         self.view.addSubview(temp)
+        self.view.addSubview(temp1)
+        self.view.addSubview(temp2)
+        self.view.addSubview(temp3)
+        self.view.addSubview(temp4)
         
         //storeObject("GroupView", value: temp2)
 

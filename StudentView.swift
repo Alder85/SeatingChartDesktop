@@ -22,17 +22,21 @@ class StudentView: NSView {
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     var student = Student()
+    var group = GroupView()
     //var group = retrieveObject("GroupView")
     
-    func startUp(inStudent: Student) {
+    func startUp(inStudent: Student, groupIn: GroupView) {
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
         label.stringValue = student.getName()
         label.editable = false
         //label.= NSTextAlignment.Center
         self.addSubview(label)
+        self.frame = CGRectMake(0, 0, viewLength, viewHeight)
         label.backgroundColor = NSColor.purpleColor()
         spotsfilled = retrieveBoolArray("Spots")
+        
+        group = groupIn
     }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
