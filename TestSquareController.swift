@@ -93,8 +93,9 @@ class TestSquareController: NSViewController {
         textField1.stringValue = "test"
         textField1.editable = false
         //temp.addSubview(textField)
-        temp1.startUp()
-        self.view.addSubview(temp1)*/
+        let tempStudent1 = Student(inName: "Bob", inChair: 5, inInstrument: "Trumpet")
+        temp1.startUp(tempStudent1)
+        self.view.addSubview(temp1)
         
         let groupView = GroupView()
         groupView.frame = CGRectMake(0,0,100,100)
