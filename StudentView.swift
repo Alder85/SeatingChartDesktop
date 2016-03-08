@@ -32,6 +32,7 @@ class StudentView: NSView {
         label.stringValue = student.getName()
         label.editable = false
         self.addSubview(label)
+        self.frame = CGRectMake(0, 0, viewLength, viewHeight)
         label.backgroundColor = NSColor.purpleColor()
         spotsfilled = retrieveBoolArray("Spots")
         groups = group

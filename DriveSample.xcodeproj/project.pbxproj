@@ -13,6 +13,7 @@
 		338164121C63B90400220957 /* DataProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338164111C63B90400220957 /* DataProcessing.swift */; };
 		339D38611C626172003F6393 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D38601C626172003F6393 /* Student.swift */; };
 		339D38681C626434003F6393 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D38671C626434003F6393 /* UtilityFunctions.swift */; };
+		33A0F3901C84AA4600122A15 /* CurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A0F38F1C84AA4600122A15 /* CurveView.swift */; };
 		33D0CD961C6A51F400462563 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D0CD951C6A51F400462563 /* CanvasView.swift */; };
 		33DD0FA41C74D84300D66F44 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DD0FA31C74D84300D66F44 /* GroupView.swift */; };
 		33FA8F301C46B52000BE536E /* GTMOAuth2Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33FA8F2F1C46B52000BE536E /* GTMOAuth2Window.xib */; };
@@ -96,6 +97,7 @@
 		338164111C63B90400220957 /* DataProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProcessing.swift; sourceTree = "<group>"; };
 		339D38601C626172003F6393 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		339D38671C626434003F6393 /* UtilityFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		33A0F38F1C84AA4600122A15 /* CurveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurveView.swift; sourceTree = "<group>"; };
 		33D0CD951C6A51F400462563 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		33DD0FA31C74D84300D66F44 /* GroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
 		33FA8F2F1C46B52000BE536E /* GTMOAuth2Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2Window.xib; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				331AF8B01C69013A000A6F63 /* StudentView.swift */,
 				33D0CD951C6A51F400462563 /* CanvasView.swift */,
 				33DD0FA31C74D84300D66F44 /* GroupView.swift */,
+				33A0F38F1C84AA4600122A15 /* CurveView.swift */,
 			);
 			name = "Sample App Classes";
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				331AF8B11C69013A000A6F63 /* StudentView.swift in Sources */,
 				33DD0FA41C74D84300D66F44 /* GroupView.swift in Sources */,
+				33A0F3901C84AA4600122A15 /* CurveView.swift in Sources */,
 				33D0CD961C6A51F400462563 /* CanvasView.swift in Sources */,
 				4F9B545B15816762005E917A /* DriveSampleAppController.m in Sources */,
 				3351A9F11C592CC0004D9ED9 /* CSV.swift in Sources */,

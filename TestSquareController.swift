@@ -65,7 +65,7 @@ class TestSquareController: NSViewController {
         storeBoolArray("Spots", valArray: spotsfilled)
         super.viewDidLoad()
         let temp = StudentView()
-        temp.frame = CGRectMake(0,0,200,200)
+        //temp.frame = CGRectMake(0,0,200,200)
         let textField = NSTextField(frame: CGRectMake(0,0,100,100))
         textField.stringValue = "test"
         textField.editable = false
@@ -74,8 +74,27 @@ class TestSquareController: NSViewController {
         temp.startUp(tempStudent, group: temp2)
         
         let temp1 = StudentView()
-        temp1.frame = CGRectMake(0,0,200,200)
-        let textField1 = NSTextField(frame: CGRectMake(0,0,100,100))
+        //temp1.frame = CGRectMake(0,0,200,200)
+        let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
+        temp1.startUp(tempStudent1)
+        
+        let temp2 = StudentView()
+        let tempStudent2 = Student(inName: "Connor", inChair: 12, inInstrument: "Trombone")
+        temp2.startUp(tempStudent2)
+        
+        let temp3 = StudentView()
+        let tempStudent3 = Student(inName: "Josh", inChair: 12, inInstrument: "Trombone")
+        temp3.startUp(tempStudent3)
+        
+        let temp4 = StudentView()
+        let tempStudent4 = Student(inName: "Trevon", inChair: 12, inInstrument: "Trombone")
+        temp4.startUp(tempStudent4)
+        
+        
+        
+        /*let temp1 = StudentView()
+        temp1.frame = CGRectMake(0,0,100,100)
+        let textField1 = NSTextField(frame: CGRectMake(0,0,50,50))
         textField1.stringValue = "test"
         textField1.editable = false
         //temp.addSubview(textField)
