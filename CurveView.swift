@@ -19,17 +19,22 @@ class CurveView: NSView {
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var isMovable = true
+    var numRows: CGFloat
+    var rowLength: CGFloat
     
     var leftRect = false
     var frameRect: CGRect
     
     var updateTimer = NSTimer() //solves dragging issue
     
-    init(inRect: NSRect, isLeft: Bool) {
+    init(inRect: NSRect, isLeft: Bool, rows: CGFloat, length: CGFloat) {
         frameRect = inRect
         leftRect = isLeft
+        numRows = rows
+        rowLength = length
         super.init(frame: inRect)
-        drawRect(inRect)
+
+        self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         //change the time value if this gets laggy
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
@@ -44,11 +49,43 @@ class CurveView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func drawRect(dirtyRect: NSRect)
+    {
+        super.drawRect(dirtyRect)
+        let context = NSGraphicsContext.currentContext()?.CGContext
+        CGContextSetStrokeColorWithColor(context, NSColor.purpleColor().CGColor)
+        CGContextSetLineWidth(context, 5.0)
+        if !leftRect
+        {
+            for i in 1...Int(numRows)
+            {
+                let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
+                makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
+            }
+        }
+        else
+        {
+            for i in 1...Int(numRows)
+            {
+                let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
+                makeLeftCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
+            }
+        }
+        
+        
+        
+        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
+        
+        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        borderColor.set()
+        bPath.stroke()
+//*/
+    }
     func makeRightCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
     {
-        //context, centerPointX, centerPointY, radius, startAngle, endAngle, reversed
         CGContextAddArc(context, 0, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 0) //big curve
-
+        
         CGContextMoveToPoint(context, startSpot + length, 0)                        //bottom line
         CGContextAddLineToPoint(context, startSpot, 0)
         
@@ -61,6 +98,18 @@ class CurveView: NSView {
     
     func makeLeftCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
     {
+        CGContextAddArc(context, rect.height, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
+        
+        CGContextMoveToPoint(context, rect.height - (startSpot + length), 0)                  //bottom line
+        CGContextAddLineToPoint(context, rect.height - startSpot, 0)
+        CGContextStrokePath(context)
+        
+        CGContextAddArc(context, rect.height, 0, startSpot, 0, CGFloat(M_PI) / 2, 1)          //little curve
+        
+        CGContextMoveToPoint(context, rect.height, startSpot)
+        CGContextAddLineToPoint(context, rect.height, startSpot + length)                     //left line
+        CGContextStrokePath(context)
+        /*
         CGContextAddArc(context, rect.maxX, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
         
         CGContextMoveToPoint(context, rect.maxX - (startSpot + length), 0)                  //bottom line
@@ -72,43 +121,10 @@ class CurveView: NSView {
         CGContextMoveToPoint(context, rect.maxX, startSpot)
         CGContextAddLineToPoint(context, rect.maxX, startSpot + length)                     //left line
         CGContextStrokePath(context)
+        */
     }
-    
-    override func drawRect(dirtyRect: NSRect)
-    {
-        let context = NSGraphicsContext.currentContext()?.CGContext
-        CGContextSetStrokeColorWithColor(context, NSColor.redColor().CGColor)
-        CGContextSetLineWidth(context, 1.0)
-        //CGContextMoveToPoint(context, 0, 0)
-        var lineLength = dirtyRect.size.width - (dirtyRect.size.width / 3)
-        lineLength = CGFloat(30)
-        if !leftRect
-        {
-            makeRightCurve(context, startSpot: 165, length: lineLength, rect: dirtyRect)
-            makeRightCurve(context, startSpot: 120, length: lineLength, rect: dirtyRect)
-            makeRightCurve(context, startSpot: 75, length: lineLength, rect: dirtyRect)
-            makeRightCurve(context, startSpot: 30, length: lineLength, rect: dirtyRect)
-        }
-        else
-        {
-            makeLeftCurve(context, startSpot: 165, length: lineLength, rect: dirtyRect)
-            makeLeftCurve(context, startSpot: 120, length: lineLength, rect: dirtyRect)
-            makeLeftCurve(context, startSpot: 75, length: lineLength, rect: dirtyRect)
-            makeLeftCurve(context, startSpot: 30, length: lineLength, rect: dirtyRect)
 
-        }
-        
-        
-        /*
-        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
-        
-        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        borderColor.set()
-        bPath.stroke()
-*/
-        
-        
-    }
+    
     
     func changeMoveable(obj:AnyObject?) {
         isMovable = !isMovable
