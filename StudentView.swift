@@ -6,12 +6,13 @@ import Cocoa
 import Foundation
 import AppKit
 
+
 class StudentView: NSView {
     var lastLocation:CGPoint = CGPointMake(0, 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
     let viewLength: CGFloat = 50
-    let viewHeight: CGFloat  = 50
+    let viewHeight: CGFloat = 50
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var clickX: CGFloat = 0
@@ -21,18 +22,33 @@ class StudentView: NSView {
     var spotsfilled: [Bool] = []
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
+    var updateTimer = NSTimer()
     var student = Student()
-    //var group = retrieveObject("GroupView")
+    var groups = GroupView()
     
-    func startUp(inStudent: Student) {
+    func startUp(inStudent: Student, group: GroupView) {
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
         label.stringValue = student.getName()
         label.editable = false
-        //label.= NSTextAlignment.Center
         self.addSubview(label)
         label.backgroundColor = NSColor.purpleColor()
         spotsfilled = retrieveBoolArray("Spots")
+        groups = group
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.00001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
+    }
+    
+    func updateLocation(obj:AnyObject?)
+    {
+        
+        if groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).0
+        {
+            let i = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).x
+            let h = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).y
+            let change = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
+            groups.setSubviewSnap(change, value: true)
+            self.frame = CGRectMake(i, h, viewLength, viewHeight)
+        }
     }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
@@ -43,25 +59,20 @@ class StudentView: NSView {
     {
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
-        //Swift.print(self.frame.minX)
-        //Swift.print(self.frame.minY)
-        if self.frame.minX == 300.0
+        
+        clickX = firstClick.x
+        clickY = firstClick.y
+        
+        if groups.doDaSnap(CGPointMake(clickX, clickY)).0
         {
-            spotsfilled = retrieveBoolArray("Spots")
-            spotsfilled[0] = false
-            storeBoolArray("Spots", valArray: spotsfilled)
+            let change = groups.doDaSnap(CGPointMake(clickX, clickY)).1
+            groups.setSubviewSnap(change, value: false)
         }
         
-        if self.frame.minX == 100.0
-        {
-            spotsfilled = retrieveBoolArray("Spots")
-            spotsfilled[1] = false
-            storeBoolArray("Spots", valArray: spotsfilled)
-        }
     }
     
     override func rightMouseDown(theEvent : NSEvent) {
-        var theMenu = NSMenu(title: "Contextual menu")
+        let theMenu = NSMenu(title: "Contextual menu")
         theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector("action1:"), keyEquivalent: "")
         theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
         theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
@@ -82,9 +93,6 @@ class StudentView: NSView {
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        //Swift.print(clickX)
-        //Swift.print(clickY)
-        
         self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
     }
     
@@ -93,51 +101,13 @@ class StudentView: NSView {
         Swift.print(clickX)
         Swift.print(clickY)
         
-        //if group
-        
-        if isInside((Double)(clickX), val2: (Double)(clickY), subview: 0)
+        if groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).0 && (groups.getSubviewSnap(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1) == false)
         {
-            let i = (CGFloat)(subcoords[0][0])
-            let h = (CGFloat)(subcoords[0][1])
+            let i = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).x
+            let h = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).y
+            let change = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
+            groups.setSubviewSnap(change, value: true)
             self.frame = CGRectMake(i, h, viewLength, viewHeight)
         }
-        
-        if isInside((Double)(clickX), val2: (Double)(clickY), subview: 1)
-        {
-            let i = (CGFloat)(subcoords[1][0])
-            let h = (CGFloat)(subcoords[1][1])
-            self.frame = CGRectMake(i, h, viewLength, viewHeight)
-        }
-        
-        if isInside((Double)(clickX), val2: (Double)(clickY), subview: 2)
-        {
-            let i = (CGFloat)(subcoords[2][0])
-            let h = (CGFloat)(subcoords[2][1])
-            self.frame = CGRectMake(i, h, viewLength, viewHeight)
-        }
-        
-        /*if clickX < 200 && clickY < 200 && spotsfilled[1] == false
-        {
-            spotsfilled = retrieveBoolArray("Spots")
-            spotsfilled[1] = true
-            Swift.print("Entered")
-            storeBoolArray("Spots", valArray: spotsfilled)
-            self.frame = CGRectMake(100, 100, viewLength, viewHeight)
-        }*/
-    }
-    
-    func isInside(val1: Double, val2: Double, subview: Int) -> Bool
-    {
-        subcoords = retrieveObjectArray("Subcoords") as! [[Double]]
-        if val1 > subcoords[subview][0] && val1 < subcoords[subview][2] &&
-           val2 > subcoords[subview][1] && val2 < subcoords[subview][3]
-        {
-            /*let i = (CGFloat)(groupcoords[0])
-            let h = (CGFloat)(groupcoords[1])
-            self.frame = CGRectMake(i, h, viewLength, viewHeight)*/
-           // self.
-            return true
-        }
-        return false
     }
 }

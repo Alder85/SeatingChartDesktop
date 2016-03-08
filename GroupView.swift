@@ -26,12 +26,12 @@ class GroupView: NSView {
     var groupcoords: [Double] = retrieveDoubleArray("GroupC")
     var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     var updateTimer = NSTimer()
-    //var group = retrieveObject("GroupView")
+    var locX = 50.0
+    var locY = 100.0
+    
     
     func startUp(subviews: Int) {
         numberOfSubviews = subviews
-        
-        
         for _ in 0...numberOfSubviews - 1
         {
             
@@ -76,15 +76,10 @@ class GroupView: NSView {
         //change the time value if this gets laggy
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
         
-        for i in 0...(numberOfSubviews - 1) {
-            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-            subcoords[i][2] = subcoords[i][0] + 50
-            subcoords[i][3] = subcoords[i][1] + 50
-        }
-        storeObjectArray("Subcoords", valArray: subcoords)
+       
 
     }
+    
     func redraw(obj:AnyObject?)
     {
         self.needsDisplay = true
@@ -98,13 +93,8 @@ class GroupView: NSView {
         self.addSubview(temp)
         position = position + 60
         numberOfSubviews++
-        for i in 0...(numberOfSubviews - 1) {
-            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-            subcoords[i][2] = subcoords[i][0] + 50
-            subcoords[i][3] = subcoords[i][1] + 50
-        }
-        storeObjectArray("Subcoords", valArray: subcoords)
+        
+       
     }
     
     func removeView(obj:AnyObject?) {
@@ -112,32 +102,51 @@ class GroupView: NSView {
         subviewArray.removeAtIndex(subviewArray.count - 1)
         position = position - 60
         numberOfSubviews--
-        for i in 0...(numberOfSubviews - 1) {
-            subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-            subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-            subcoords[i][2] = subcoords[i][0] + 50
-            subcoords[i][3] = subcoords[i][1] + 50
-        }
-        storeObjectArray("Subcoords", valArray: subcoords)
+        
     }
     
     func changeMoveable(obj:AnyObject?) {
         isMovable = !isMovable
     }
     
+    func setSubviewSnap(index: Int, value: Bool)
+    {
+        subviewArray[index].setSnapped(value)
+    }
+    
+    func getSubviewSnap(index: Int) -> Bool
+    {
+        return subviewArray[index].getSnapped()
+    }
+    
     func getCoordsOfSubview(index: Int) -> CGPoint
     {
-        return CGPoint(x: subviewArray[index].frame.minX, y: subviewArray[index].frame.minY)
+        return CGPoint(x: (subviewArray[index].frame.minX + CGFloat(locX)), y: (subviewArray[index].frame.minY + CGFloat(locY)))
     }
     
     func doDaSnap(inPoint: CGPoint) -> (Bool, Int)
     {
-        for i in 0...subviewArray.count - 1
+        if subviewArray.count > 0
         {
-            if isInRange(inPoint.x, val1: subviewArray[i].getMinX(), val2: subviewArray[i].getMaxX()) &&
-               isInRange(inPoint.y, val1: subviewArray[i].getMinY(), val2: subviewArray[i].getMaxY())
+            for i in 0...subviewArray.count - 1
             {
-                return (true, i)
+                let pointx = inPoint.x
+                let pointy = inPoint.y
+                
+                let xLow  = (Double(subviewArray[i].frame.minX) + locX)
+                let xHigh = (Double(subviewArray[i].frame.maxX) + locX)
+                
+                let yLow  = (Double(subviewArray[i].frame.minY) + locY)
+                let yHigh = (Double(subviewArray[i].frame.maxY) + locY)
+                
+                
+                if isInRange(inPoint.x, val1: xLow, val2: xHigh) &&
+                   isInRange(inPoint.y, val1: yLow, val2: yHigh) /*&&
+                   (subviewArray[i].getSnapped() == false)*/
+                {
+                    //subviewArray[i].setSnapped(true)
+                    return (true, i)
+                }
             }
         }
         return (false, 0)
@@ -145,7 +154,7 @@ class GroupView: NSView {
     
     func isInRange(testVal: CGFloat, val1: Double, val2: Double) -> Bool
     {
-        return Double(testVal) > val2 && Double(testVal) < val2
+        return Double(testVal) > val1 && Double(testVal) < val2
     }
     
     override func drawRect(dirtyRect: NSRect)
@@ -180,19 +189,14 @@ class GroupView: NSView {
         if !isMovable
         {
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
-            groupcoords[0] = (Double)(offsetX + firstFrame.x)
-            groupcoords[1] = (Double)(offsetY + firstFrame.y)
-            groupcoords[2] = (Double)(viewLength + offsetX + firstFrame.x)
-            groupcoords[3] = (Double)(viewHeight + offsetY + firstFrame.y)
-            for i in 0...(numberOfSubviews - 1) {
-                subcoords[i][0] = Double(subviewArray[i].getMinX()) + groupcoords[0]
-                subcoords[i][1] = Double(subviewArray[i].getMinY()) + groupcoords[1] + 25 - Double(i * 60)
-                subcoords[i][2] = subcoords[i][0] + 50
-                subcoords[i][3] = subcoords[i][1] + 50
-            }
-            storeObjectArray("Subcoords", valArray: subcoords)
-            storeDoubleArray("GroupC", valArray: groupcoords)
+            locX = Double(offsetX + firstFrame.x)
+            locY = Double(offsetY + firstFrame.y)
+       
         }
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(self)
+        userDefaults.setObject(encodedData, forKey: "Group1")
+        userDefaults.synchronize()
     }
     
     override func mouseUp(theEvent: NSEvent)
@@ -209,18 +213,9 @@ class GroupSubview: NSView
 {
     let viewLength: CGFloat = 50
     let viewHeight: CGFloat  = 50
-    var minX = 0.0
-    var minY = 0.0
-    var maxX = 0.0
-    var maxY = 0.0
     var isSnapped = false
     func startUp(x: CGFloat, y: CGFloat)
     {
-        minX = Double(x)
-        minY = Double(y)
-        maxX = Double(x + viewLength)
-        maxY = Double(y + viewHeight)
-        
         self.frame = CGRectMake(x, y, viewLength, viewHeight)
         
         drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
@@ -239,29 +234,14 @@ class GroupSubview: NSView
         isSnapped = inVal
     }
     
+    func getSnapped() -> Bool
+    {
+        return isSnapped
+    }
+    
     func getFrame() -> CGRect
     {
         return self.frame
-    }
-    
-    func getMinX() -> Double
-    {
-        return minX
-    }
-    
-    func getMinY() -> Double
-    {
-        return minX
-    }
-    
-    func getMaxX() -> Double
-    {
-        return maxX
-    }
-    
-    func getMaxY() -> Double
-    {
-        return maxY
     }
     
     override func drawRect(dirtyRect: NSRect)
@@ -273,15 +253,7 @@ class GroupSubview: NSView
         bPath.stroke()
         
     }
-    
-    
-    
 }
-
-
-
-
-
 
 
 

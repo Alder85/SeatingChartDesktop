@@ -19,10 +19,10 @@ class TestStoryController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let temp = GroupView()
+        //let temp = GroupView()
         //temp.frame = CGRectMake(50,50,100,100)
-        temp.startUp(3)
-        self.view.addSubview(temp)
+        //temp.startUp(3)
+       // self.view.addSubview(temp)
     }
     
 

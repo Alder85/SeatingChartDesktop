@@ -24,6 +24,8 @@ class TestSquareController: NSViewController {
     */
     var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     
+    //var temp2 = GroupView(subviewIn: [], rect: CGRectMake(0,0,100,100))
+    
     
     
     
@@ -55,6 +57,9 @@ class TestSquareController: NSViewController {
             subcoords = [[Double]](count: 5, repeatedValue: [Double](count: 4, repeatedValue: 0.0))
             storeObjectArray("Subcoords", valArray: subcoords) //as! [[Double]]
         }
+        let temp2 = GroupView()
+        //temp2.frame = CGRectMake(0,0,100,100)
+        temp2.startUp(1)
         //spotsfilled[0] = false
         //spotsfilled[1] = false
         storeBoolArray("Spots", valArray: spotsfilled)
@@ -66,7 +71,7 @@ class TestSquareController: NSViewController {
         textField.editable = false
         //temp.addSubview(textField)
         let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
-        temp.startUp(tempStudent)
+        temp.startUp(tempStudent, group: temp2)
         
         let temp1 = StudentView()
         temp1.frame = CGRectMake(0,0,200,200)
@@ -75,17 +80,21 @@ class TestSquareController: NSViewController {
         textField1.editable = false
         //temp.addSubview(textField)
         let tempStudent1 = Student(inName: "Bob", inChair: 5, inInstrument: "Trumpet")
-        temp1.startUp(tempStudent1)
-        self.view.addSubview(temp1)
+        temp1.startUp(tempStudent1, group: temp2)
+       
         
-        let temp2 = GroupView()
-        temp2.frame = CGRectMake(0,0,100,100)
-        temp2.startUp(1)
+        //let temp2 = GroupView()
+        //temp2.frame = CGRectMake(0,0,100,100)
+        //temp2.startUp(1)
         self.view.addSubview(temp2)
         
         self.view.addSubview(temp)
+         self.view.addSubview(temp1)
         
-        //storeObject("GroupView", value: temp2)
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(temp2)
+        userDefaults.setObject(encodedData, forKey: "Group1")
+        userDefaults.synchronize()
 
     }
     
