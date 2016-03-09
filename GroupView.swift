@@ -47,11 +47,10 @@ class GroupView: NSView {
             position = position + 60
             
         }
-        
+        self.setNeedsDisplayInRect(self.frame) //makes context exist
         self.frame = inRect
         //self.frame = CGRectMake(50, 100, viewLength, viewHeight)
         
-        drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
         
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, 17)) //moveable label
         label.stringValue = "   Moveable"
@@ -92,6 +91,18 @@ class GroupView: NSView {
         self.needsDisplay = true
     }
     
+    override func drawRect(dirtyRect: NSRect)
+    {
+        super.drawRect(dirtyRect)
+        
+        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
+        
+        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        borderColor.set()
+        bPath.stroke()
+        
+    }
+    
     
     func addView(obj:AnyObject?) {
         let temp = GroupSubview()
@@ -130,6 +141,22 @@ class GroupView: NSView {
         return CGPoint(x: (subviewArray[index].frame.minX + CGFloat(locX)), y: (subviewArray[index].frame.minY + CGFloat(locY)))
     }
     
+    func getSubviewWithName(name: String) -> Int
+    {
+        var value = -1
+        if subviewArray.count > 0
+        {
+            for i in 0...subviewArray.count - 1
+            {
+                if subviewArray[i].getStudent().getName() == name
+                {
+                    return i
+                }
+            }
+        }
+        return value
+    }
+    
     func doDaSnap(inPoint: CGPoint) -> (Bool, Int)
     {
         if subviewArray.count > 0
@@ -163,15 +190,7 @@ class GroupView: NSView {
         return Double(testVal) > val1 && Double(testVal) < val2
     }
     
-    override func drawRect(dirtyRect: NSRect)
-    {
-        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
-       
-        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        borderColor.set()
-        bPath.stroke()
-        
-    }
+    
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
         return true
@@ -226,8 +245,7 @@ class GroupSubview: NSView
     func startUp(x: CGFloat, y: CGFloat)
     {
         self.frame = CGRectMake(x, y, viewLength, viewHeight)
-        
-        drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
+        self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight)) //moveable label
         label.stringValue = "test"
@@ -265,6 +283,8 @@ class GroupSubview: NSView
     
     override func drawRect(dirtyRect: NSRect)
     {
+        super.drawRect(dirtyRect)
+        
         let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
         
         let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)

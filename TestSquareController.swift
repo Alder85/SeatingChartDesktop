@@ -21,6 +21,7 @@ class TestSquareController: NSViewController {
     override func viewDidLoad() {
         
         let tempG = GroupView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
+        self.view.addSubview(tempG)
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
         //temp.frame = CGRectMake(0,0,200,200)
@@ -28,28 +29,32 @@ class TestSquareController: NSViewController {
         textField.stringValue = "test"
         textField.editable = false
         //temp.addSubview(textField)
-        let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
-        let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
+        //let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
+        //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
+        
+        
         
         //temp1.frame = CGRectMake(0,0,200,200)
         let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
-        let temp1 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent1, groupIn: tempG)
+        let temp1 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent1)
         
         let tempStudent2 = Student(inName: "Connor", inChair: 12, inInstrument: "Trombone")
-        let temp2 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent2, groupIn: tempG)
+        let temp2 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent2)
         
         let tempStudent3 = Student(inName: "Josh", inChair: 12, inInstrument: "Trombone")
-        let temp3 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent3, groupIn: tempG)
+        let temp3 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent3)
         
         let tempStudent4 = Student(inName: "Trevon", inChair: 12, inInstrument: "Trombone")
-        let temp4 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent4, groupIn: tempG)
+        let temp4 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent4)
         
-        self.view.addSubview(tempG)
+        
         self.view.addSubview(temp1)
         self.view.addSubview(temp2)
         self.view.addSubview(temp3)
         self.view.addSubview(temp4)
         
+        
+
         
         /*let temp1 = StudentView()
         temp1.frame = CGRectMake(0,0,100,100)
