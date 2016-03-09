@@ -23,27 +23,33 @@ class GroupView: NSView {
     var subviewArray: [GroupSubview] = []
     var position: CGFloat = 0
     let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
-    var groupcoords: [Double] = retrieveDoubleArray("GroupC")
-    var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     var updateTimer = NSTimer()
     var locX = 50.0
     var locY = 100.0
+    var isdragging = false
     
+    convenience init(inView: NSView)
+    {
+        self.init(inRect: inView.frame, subviews: 1)
+    }
     
-    func startUp(subviews: Int) {
+    init(inRect: CGRect, subviews: Int)
+    {
+        super.init(frame: inRect)
         numberOfSubviews = subviews
         for _ in 0...numberOfSubviews - 1
         {
             
             let temp = GroupSubview()
-                temp.startUp(position, y: (viewHeight / 2) - 25)
+            temp.startUp(position, y: (viewHeight / 2) - 25)
             subviewArray.append(temp)
             self.addSubview(subviewArray[subviewArray.count - 1])
             position = position + 60
             
         }
         
-        self.frame = CGRectMake(50, 100, viewLength, viewHeight)
+        self.frame = inRect
+        //self.frame = CGRectMake(50, 100, viewLength, viewHeight)
         
         drawRect(NSRect(x: 0, y: 0, width: viewLength, height: viewHeight)) // outline
         
@@ -75,9 +81,10 @@ class GroupView: NSView {
         
         //change the time value if this gets laggy
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
-        
-       
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func redraw(obj:AnyObject?)
@@ -102,7 +109,6 @@ class GroupView: NSView {
         subviewArray.removeAtIndex(subviewArray.count - 1)
         position = position - 60
         numberOfSubviews--
-        
     }
     
     func changeMoveable(obj:AnyObject?) {
@@ -188,6 +194,7 @@ class GroupView: NSView {
         
         if !isMovable
         {
+            isdragging = true
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
             locX = Double(offsetX + firstFrame.x)
             locY = Double(offsetY + firstFrame.y)
@@ -201,6 +208,7 @@ class GroupView: NSView {
     
     override func mouseUp(theEvent: NSEvent)
     {
+        isdragging = false
         //storeObject("GroupView", value: self)
     }
     
@@ -214,6 +222,7 @@ class GroupSubview: NSView
     let viewLength: CGFloat = 50
     let viewHeight: CGFloat  = 50
     var isSnapped = false
+    var student = Student()
     func startUp(x: CGFloat, y: CGFloat)
     {
         self.frame = CGRectMake(x, y, viewLength, viewHeight)
@@ -237,6 +246,16 @@ class GroupSubview: NSView
     func getSnapped() -> Bool
     {
         return isSnapped
+    }
+    
+    func setStudent(dastudent: Student)
+    {
+        student = dastudent
+    }
+    
+    func getStudent() -> Student
+    {
+        return student
     }
     
     func getFrame() -> CGRect

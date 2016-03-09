@@ -19,29 +19,38 @@ class StudentView: NSView {
     var clickY: CGFloat = 0
     var offsetX: CGFloat = 0
     var offsetY: CGFloat = 0
-    var spotsfilled: [Bool] = []
-    var groupcoords: [Double] = retrieveDoubleArray("GroupC")
-    var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     var updateTimer = NSTimer()
     var student = Student()
-    var groups = GroupView()
+    var groups = GroupView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
     
-    func startUp(inStudent: Student, group: GroupView) {
+    init(inRect: CGRect, inStudent: Student, groupIn: GroupView)
+    {
+        super.init(frame: inRect)
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
         label.stringValue = student.getName()
         label.editable = false
         self.addSubview(label)
-        self.frame = CGRectMake(0, 0, viewLength, viewHeight)
+        self.frame = inRect
+        //self.frame = CGRectMake(0, 0, viewLength, viewHeight)
         label.backgroundColor = NSColor.purpleColor()
-        spotsfilled = retrieveBoolArray("Spots")
-        groups = group
+        
+        groups = GroupView(inView: (self.superview?.subviews[0])!)
+        
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.00001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func updateLocation(obj:AnyObject?)
     {
-        
+        if groups.isdragging
+        {
+            
+        }
+        //self.superview?.subviews[0]
         if groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).0
         {
             let i = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).x
@@ -68,6 +77,7 @@ class StudentView: NSView {
         {
             let change = groups.doDaSnap(CGPointMake(clickX, clickY)).1
             groups.setSubviewSnap(change, value: false)
+            groups.subviewArray[change].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
         }
         
     }
@@ -104,10 +114,12 @@ class StudentView: NSView {
         
         if groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).0 && (groups.getSubviewSnap(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1) == false)
         {
-            let i = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).x
-            let h = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).y
+            let subviewarrayloc = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
+            let i = groups.getCoordsOfSubview(subviewarrayloc).x
+            let h = groups.getCoordsOfSubview(subviewarrayloc).y
             let change = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
             groups.setSubviewSnap(change, value: true)
+            groups.subviewArray[subviewarrayloc].setStudent(student)
             self.frame = CGRectMake(i, h, viewLength, viewHeight)
         }
     }
