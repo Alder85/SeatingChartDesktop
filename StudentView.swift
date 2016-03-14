@@ -75,15 +75,6 @@ class StudentView: NSView {
                 self.frame = CGRectMake(i, h, viewLength, viewHeight)
             }
         }
-        //self.superview?.subviews[0]
-        /*if groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).0
-        {
-            let i = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).x
-            let h = groups.getCoordsOfSubview(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1).y
-            let change = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
-            groups.setSubviewSnap(change, value: true)
-            self.frame = CGRectMake(i, h, viewLength, viewHeight)
-        }*/
     }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
