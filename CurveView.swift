@@ -13,7 +13,7 @@ import Darwin
 
 class CurveView: NSView {
     //Dragable stuff
-    var lastLocation:CGPoint = CGPointMake(0, 0)
+    var lastLocation: CGPoint = CGPointMake(0, 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
     var firstClick = CGPoint()
@@ -27,12 +27,12 @@ class CurveView: NSView {
     
     var updateTimer = NSTimer() //solves dragging issue
     
-    init(inRect: NSRect, isLeft: Bool, rows: CGFloat, length: CGFloat) {
-        frameRect = inRect
+    init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat) {
+        frameRect = CGRect(origin: CGPointMake(0,0), size: CGSize(width: size, height: size))
         leftRect = isLeft
         numRows = rows
         rowLength = length
-        super.init(frame: inRect)
+        super.init(frame: frameRect)
 
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
@@ -98,16 +98,16 @@ class CurveView: NSView {
     
     func makeLeftCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
     {
-        CGContextAddArc(context, rect.height, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
+        CGContextAddArc(context, rect.width, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
         
-        CGContextMoveToPoint(context, rect.height - (startSpot + length), 0)                  //bottom line
-        CGContextAddLineToPoint(context, rect.height - startSpot, 0)
+        CGContextMoveToPoint(context, rect.width - (startSpot + length), 0)                  //bottom line
+        CGContextAddLineToPoint(context, rect.width - startSpot, 0)
         CGContextStrokePath(context)
         
-        CGContextAddArc(context, rect.height, 0, startSpot, 0, CGFloat(M_PI) / 2, 1)          //little curve
+        CGContextAddArc(context, rect.width, 0, startSpot, 0, CGFloat(M_PI) / 2, 1)          //little curve
         
-        CGContextMoveToPoint(context, rect.height, startSpot)
-        CGContextAddLineToPoint(context, rect.height, startSpot + length)                     //left line
+        CGContextMoveToPoint(context, rect.width, startSpot)
+        CGContextAddLineToPoint(context, rect.width, startSpot + length)                     //left line
         CGContextStrokePath(context)
         /*
         CGContextAddArc(context, rect.maxX, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
@@ -149,8 +149,37 @@ class CurveView: NSView {
         
         if isMovable
         {
-            self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height)
+            self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))
         }
     }
+    
+    func edgeCheck(checkFrame: CGRect) -> CGRect
+    {
+        var x = checkFrame.minX
+        var y = checkFrame.minY
+        let maxX = checkFrame.maxX
+        let maxY = checkFrame.maxY
+        let width = checkFrame.width
+        let height = checkFrame.height
+        let bigFrame = self.superview!.frame
+        if(x < bigFrame.minX)
+        {
+            x = 0
+        }
+        if(y < bigFrame.minY)
+        {
+            y = 0
+        }
+        if(maxX > bigFrame.maxX)
+        {
+            x = bigFrame.maxX - width
+        }
+        if(maxY > bigFrame.maxY)
+        {
+            y = bigFrame.maxY - height
+        }
+        return CGRectMake(x, y, width, height)
+    }
+    
 
 }
