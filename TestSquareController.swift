@@ -12,82 +12,72 @@ class TestSquareController: NSViewController {
     //potatoepotatoe
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
-    var spotsfilled: [Bool] = retrieveBoolArray("Spots")
-    var groupcoords: [Double] = retrieveDoubleArray("GroupC")
-    var subviewsfilled: [Bool] = retrieveBoolArray("Subfilled")
-    
-    /*
-     0 - minX
-     1 - minY
-     2 - maxX
-     3 - maxY
-    */
-    var subcoords: [[Double]] = retrieveObjectArray("Subcoords") as! [[Double]]
     
     
     
-    
-    
+
     
     
     override func viewDidLoad() {
-        if spotsfilled.count == 0
-        {
-            let spotfilled = [Bool](count:2, repeatedValue: false)
-            storeBoolArray("Spots", valArray: spotfilled)
-        }
         
-        if subviewsfilled.count == 0
-        {
-            subviewsfilled = [Bool](count: 5, repeatedValue: false)
-            subviewsfilled[0] = true
-            storeBoolArray("Subfilled", valArray: subviewsfilled)
-        }
-        
-        if groupcoords.count == 0
-        {
-            groupcoords = [Double](count: 4, repeatedValue: 0.0)
-            storeDoubleArray("GroupC", valArray: groupcoords)
-        }
-        
-        if subcoords.count == 0
-        {
-            subcoords = [[Double]](count: 5, repeatedValue: [Double](count: 4, repeatedValue: 0.0))
-            storeObjectArray("Subcoords", valArray: subcoords) //as! [[Double]]
-        }
-        //spotsfilled[0] = false
-        //spotsfilled[1] = false
-        storeBoolArray("Spots", valArray: spotsfilled)
+        let tempG = GroupView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
+        self.view.addSubview(tempG)
+        //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
-        let temp = StudentView()
-        temp.frame = CGRectMake(0,0,200,200)
+        //temp.frame = CGRectMake(0,0,200,200)
         let textField = NSTextField(frame: CGRectMake(0,0,100,100))
         textField.stringValue = "test"
         textField.editable = false
         //temp.addSubview(textField)
-        let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
-       // temp.startUp(tempStudent)
+        //let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
+        //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
         
-        let temp1 = StudentView()
-        temp1.frame = CGRectMake(0,0,200,200)
-        let textField1 = NSTextField(frame: CGRectMake(0,0,100,100))
+        
+        
+        //temp1.frame = CGRectMake(0,0,200,200)
+        let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
+        let temp1 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent1)
+        
+        let tempStudent2 = Student(inName: "Connor", inChair: 12, inInstrument: "Trombone")
+        let temp2 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent2)
+        
+        let tempStudent3 = Student(inName: "Josh", inChair: 12, inInstrument: "Trombone")
+        let temp3 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent3)
+        
+        let tempStudent4 = Student(inName: "Trevon", inChair: 12, inInstrument: "Trombone")
+        let temp4 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent4)
+        
+        
+        self.view.addSubview(temp1)
+        self.view.addSubview(temp2)
+        self.view.addSubview(temp3)
+        self.view.addSubview(temp4)
+        
+        
+
+        
+        /*let temp1 = StudentView()
+        temp1.frame = CGRectMake(0,0,100,100)
+        let textField1 = NSTextField(frame: CGRectMake(0,0,50,50))
         textField1.stringValue = "test"
         textField1.editable = false
         //temp.addSubview(textField)
         let tempStudent1 = Student(inName: "Bob", inChair: 5, inInstrument: "Trumpet")
-       // temp1.startUp(tempStudent1)
-        self.view.addSubview(temp1)
+        temp1.startUp(tempStudent1, group: temp2)
+       
         
-        let temp2 = GroupView()
-        temp2.frame = CGRectMake(0,0,100,100)
-        temp2.startUp(1)
+        //let temp2 = GroupView()
+        //temp2.frame = CGRectMake(0,0,100,100)
+        //temp2.startUp(1)
         self.view.addSubview(temp2)
         
         self.view.addSubview(temp)
-        self.view.addSubview(temp1)
-        self.view.addSubview(temp2)
+         self.view.addSubview(temp1)
         
-        //storeObject("GroupView", value: temp2)
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(temp2)
+        userDefaults.setObject(encodedData, forKey: "Group1")
+        userDefaults.synchronize()*/
 
     }
     
