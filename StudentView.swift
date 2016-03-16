@@ -25,17 +25,12 @@ class StudentView: NSView {
     
     init(inRect: CGRect, inStudent: Student)
     {
-        //groups = groupIn
-        
         super.init(frame: inRect)
         delay(0.1)
         {
             Swift.print(self.superview?.subviews)
             self.groups = self.superview!.subviews[0] as! GroupView
-            //GroupView(inView: (self.superview?.subviews[0])!)
         }
-        //groups = GroupView(inView: (self.superview?.subviews[0])!)
-        
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
         label.stringValue = student.getName()
@@ -43,20 +38,9 @@ class StudentView: NSView {
         self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
-        //self.frame = CGRectMake(0, 0, viewLength, viewHeight)
         label.backgroundColor = NSColor.purpleColor()
         
-        //groups = GroupView(inView: (self.superview!.subviews[0]))
-        
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.00001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
-    }
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+        //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
 
     required init?(coder: NSCoder) {
@@ -96,6 +80,7 @@ class StudentView: NSView {
             let change = groups.doDaSnap(CGPointMake(clickX, clickY)).1
             groups.setSubviewSnap(change, value: false)
             groups.subviewArray[change].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
+            //groups.subviewArray[change].setDaStudentView(StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: Student(inName: "", inChair: 0, inInstrument: "")))
         }
         
     }
@@ -113,6 +98,11 @@ class StudentView: NSView {
         }
         
         NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+    }
+    
+    func setLocation(xpoint: CGFloat, ypoint: CGFloat)
+    {
+        self.frame = CGRectMake(xpoint, ypoint, viewLength, viewHeight)
     }
     
     override func mouseDragged(theEvent: NSEvent)
@@ -143,6 +133,15 @@ class StudentView: NSView {
                 let change = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
                 groups.setSubviewSnap(change, value: true)
                 groups.subviewArray[subviewarrayloc].setStudent(student)
+                for y in 1...4
+                {
+                    if (self.superview!.subviews[y] as! StudentView).student.getName() == self.student.getName()
+                    {
+                        groups.subviewArray[subviewarrayloc].pointerloc = y
+                        break
+                    }
+                }
+                //groups.subviewArray[subviewarrayloc].setDaStudentView(self)
                 self.frame = CGRectMake(i, h, viewLength, viewHeight)
             }
             else

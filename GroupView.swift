@@ -37,6 +37,7 @@ class GroupView: NSView {
     {
         super.init(frame: inRect)
         numberOfSubviews = subviews
+        
         for _ in 0...numberOfSubviews - 1
         {
             
@@ -174,10 +175,8 @@ class GroupView: NSView {
                 
                 
                 if isInRange(inPoint.x, val1: xLow, val2: xHigh) &&
-                   isInRange(inPoint.y, val1: yLow, val2: yHigh) /*&&
-                   (subviewArray[i].getSnapped() == false)*/
+                   isInRange(inPoint.y, val1: yLow, val2: yHigh)
                 {
-                    //subviewArray[i].setSnapped(true)
                     return (true, i)
                 }
             }
@@ -200,7 +199,6 @@ class GroupView: NSView {
     {
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
-        //storeObject("GroupView", value: self)
     }
     
     override func mouseDragged(theEvent: NSEvent)
@@ -217,12 +215,20 @@ class GroupView: NSView {
             self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
             locX = Double(offsetX + firstFrame.x)
             locY = Double(offsetY + firstFrame.y)
+            
+            
+            
+            for f in 0...subviewArray.count - 1
+            {
+                if subviewArray[f].student.getName() != ""
+                {
+                    let i = getCoordsOfSubview(f).x
+                    let h = getCoordsOfSubview(f).y
+                    (self.superview!.subviews[subviewArray[f].pointerloc] as! StudentView).frame = CGRectMake(i, h, (self.superview!.subviews[subviewArray[f].pointerloc] as! StudentView).viewLength, (self.superview!.subviews[subviewArray[f].pointerloc] as! StudentView).viewHeight)
+                }
+            }
        
         }
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(self)
-        userDefaults.setObject(encodedData, forKey: "Group1")
-        userDefaults.synchronize()
     }
     
     override func mouseUp(theEvent: NSEvent)
@@ -242,6 +248,8 @@ class GroupSubview: NSView
     let viewHeight: CGFloat  = 50
     var isSnapped = false
     var student = Student()
+    var pointerloc = -1
+    
     func startUp(x: CGFloat, y: CGFloat)
     {
         self.frame = CGRectMake(x, y, viewLength, viewHeight)
