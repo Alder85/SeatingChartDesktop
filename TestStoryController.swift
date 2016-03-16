@@ -19,7 +19,7 @@ class TestStoryController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let potatoe = CurveView(size: 400, isLeft: false, rows: 5, length: 50)
+        let potatoe = CurveView(size: 500, isLeft: true, rows: 5, length: 60)
         self.view.addSubview(potatoe)
         
         //let potatoe2 = CurveView(inRect: CGRectMake(50, 50, 400, 400), isLeft: false, rows: 3, length: 50)
