@@ -41,8 +41,8 @@ class GroupView: NSView {
         for _ in 0...numberOfSubviews - 1
         {
             
-            let temp = GroupSubview()
-            temp.startUp(position, y: (viewHeight / 2) - 25)
+            let temp = GroupSubview(frame: CGRectMake(position, (viewHeight / 2) - 25, 50, 50), x: position, y: (viewHeight / 2) - 25)
+            //temp.startUp(position, y: (viewHeight / 2) - 25)
             subviewArray.append(temp)
             self.addSubview(subviewArray[subviewArray.count - 1])
             position = position + 60
@@ -106,8 +106,8 @@ class GroupView: NSView {
     
     
     func addView(obj:AnyObject?) {
-        let temp = GroupSubview()
-        temp.startUp(position, y: (viewHeight / 2) - 25)
+        let temp = GroupSubview(frame: CGRectMake(position, (viewHeight / 2) - 25, 50, 50), x: position, y: (viewHeight / 2) - 25)
+        //temp.startUp(position, y: (viewHeight / 2) - 25)
         subviewArray.append(temp)
         self.addSubview(temp)
         position = position + 60
@@ -234,7 +234,6 @@ class GroupView: NSView {
     override func mouseUp(theEvent: NSEvent)
     {
         isdragging = false
-        //storeObject("GroupView", value: self)
     }
     
     
@@ -250,8 +249,8 @@ class GroupSubview: NSView
     var student = Student()
     var pointerloc = -1
     
-    func startUp(x: CGFloat, y: CGFloat)
-    {
+    init(frame frameRect: NSRect, x: CGFloat, y: CGFloat) {
+        super.init(frame: frameRect)
         self.frame = CGRectMake(x, y, viewLength, viewHeight)
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
@@ -262,6 +261,10 @@ class GroupSubview: NSView
         label.drawsBackground = false
         label.selectable = false
         self.addSubview(label)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setSnapped(inVal: Bool)
