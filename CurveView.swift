@@ -44,8 +44,7 @@ class CurveView: NSView {
             subviewArray.insert([], atIndex: i)
             for q in 0...4
             {
-                var temp = GroupSubview()
-                temp.startUp(CGFloat(arc4random_uniform(UInt32(self.frame.height))), y: CGFloat(arc4random_uniform(UInt32(self.frame.height))))
+                var temp = GroupSubview(inRect: CGRectMake(CGFloat(arc4random_uniform(UInt32(self.frame.height))), CGFloat(arc4random_uniform(UInt32(self.frame.height))), 100, 100))
                 subviewArray[i].insert(temp, atIndex: q)
                 self.addSubview(subviewArray[i][q])
             }

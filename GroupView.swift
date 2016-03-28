@@ -41,7 +41,7 @@ class GroupView: NSView {
         for _ in 0...numberOfSubviews - 1
         {
             
-            let temp = GroupSubview(frame: CGRectMake(position, (viewHeight / 2) - 25, 50, 50), x: position, y: (viewHeight / 2) - 25)
+            let temp = GroupSubview(inRect: CGRectMake(position, (viewHeight / 2) - 25, 50, 50))
             //temp.startUp(position, y: (viewHeight / 2) - 25)
             subviewArray.append(temp)
             self.addSubview(subviewArray[subviewArray.count - 1])
@@ -106,7 +106,7 @@ class GroupView: NSView {
     
     
     func addView(obj:AnyObject?) {
-        let temp = GroupSubview(frame: CGRectMake(position, (viewHeight / 2) - 25, 50, 50), x: position, y: (viewHeight / 2) - 25)
+        let temp = GroupSubview(inRect: CGRectMake(position, (viewHeight / 2) - 25, 50, 50))
         //temp.startUp(position, y: (viewHeight / 2) - 25)
         subviewArray.append(temp)
         self.addSubview(temp)
@@ -249,12 +249,12 @@ class GroupSubview: NSView
     var student = Student()
     var pointerloc = -1
     
-    init(frame frameRect: NSRect, x: CGFloat, y: CGFloat) {
-        super.init(frame: frameRect)
-        self.frame = CGRectMake(x, y, viewLength, viewHeight)
+    init(inRect: NSRect) {
+        super.init(frame: inRect)
+        self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
-        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight)) //moveable label
+        let label = NSTextField(frame: CGRectMake(0, 0, inRect.width, inRect.height)) //moveable label
         label.stringValue = "test"
         label.editable = false
         label.bezeled  = false
