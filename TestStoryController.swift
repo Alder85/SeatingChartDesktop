@@ -19,18 +19,8 @@ class TestStoryController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let potatoe = CurveView(size: 500, isLeft: true, rows: 5, length: 60)
+        let potatoe = CurveView(size: 500, isLeft: false, rows: 6, length: 50)
         self.view.addSubview(potatoe)
-        
-        //let potatoe2 = CurveView(inRect: CGRectMake(50, 50, 400, 400), isLeft: false, rows: 3, length: 50)
-        //self.view.addSubview(potatoe2)
-        
-      //  let bigpotatoe = CurveView(inRect: CGRectMake(100, 100, 150, 150), isLeft: false)
-        //self.view.addSubview(bigpotatoe)
-        //let temp = GroupView()
-        //temp.frame = CGRectMake(50,50,100,100)
-       // temp.startUp(3)
-        //self.view.addSubview(temp)
     }
     
 
