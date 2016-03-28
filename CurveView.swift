@@ -21,6 +21,7 @@ class CurveView: NSView {
     var numRows: CGFloat
     var rowLength: CGFloat
     var buttonArray: [NSButton] = []
+    var subviewArray: [[GroupSubview]] = [] //row, subview
     var editable = false
     
     var leftRect = false
@@ -28,7 +29,8 @@ class CurveView: NSView {
     
     var updateTimer = NSTimer() //solves dragging issue
     
-    init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat) {
+    init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat)
+    {
         frameRect = CGRect(origin: CGPointMake(0,0), size: CGSize(width: size, height: size))
         leftRect = isLeft
         numRows = rows
@@ -37,6 +39,17 @@ class CurveView: NSView {
         makeButtons()
         addEditToggle()
         hideButtons()
+        for i in 0...(Int(rows - 1))
+        {
+            subviewArray.insert([], atIndex: i)
+            for q in 0...4
+            {
+                var temp = GroupSubview()
+                temp.startUp(CGFloat(arc4random_uniform(UInt32(self.frame.height))), y: CGFloat(arc4random_uniform(UInt32(self.frame.height))))
+                subviewArray[i].insert(temp, atIndex: q)
+                self.addSubview(subviewArray[i][q])
+            }
+        }
         
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
@@ -151,7 +164,8 @@ class CurveView: NSView {
         self.needsDisplay = true
     }
 
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     

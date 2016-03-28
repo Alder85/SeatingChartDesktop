@@ -4,7 +4,7 @@
 //  Created by DEAN, JOSHUA on 1/27/16.
 //
 //
-// CSV Format   >>"Heading,Heading,Heading\nData,Data,Data\nData,Data,Data
+// CSV Format   >>"Heading,Heading,Heading\nData,Data,Data\nData,Data,Data"
 // Array Format >> [["Heading", "Heading", "Heading"],
 //                  ["Data",    "Data",    "Data"   ],
 //                  ["Data",    "Data",    "Data"   ]]
