@@ -44,9 +44,9 @@ class CurveView: NSView {
             subviewArray.insert([], atIndex: i)
             for q in 0...4
             {
-                var temp = GroupSubview(inRect: CGRectMake(CGFloat(arc4random_uniform(UInt32(self.frame.height))), CGFloat(arc4random_uniform(UInt32(self.frame.height))), 100, 100))
+                let temp = GroupSubview(inRect: CGRectMake(CGFloat(arc4random_uniform(UInt32(self.frame.height))), CGFloat(arc4random_uniform(UInt32(self.frame.height))), 50, 50))
                 subviewArray[i].insert(temp, atIndex: q)
-                self.addSubview(subviewArray[i][q])
+                //self.addSubview(subviewArray[i][q])
             }
         }
         
@@ -86,7 +86,7 @@ class CurveView: NSView {
         button.title = "+"
         button.action = "addView:"
         button.target = self
-        button.identifier = String(row)
+        button.identifier = String(row - 1)
         self.addSubview(button)
         buttonArray.append(button)
     }
@@ -100,19 +100,29 @@ class CurveView: NSView {
         button.title = "-"
         button.action = "removeView:"
         button.target = self
-        button.identifier = String(row)
+        button.identifier = String(row - 1)
         self.addSubview(button)
         buttonArray.append(button)
     }
     
     func addView(obj: NSButton)
     {
-        Swift.print("add" + obj.identifier!)
+        let rowNumber = Int(obj.identifier!)
+        Swift.print("add" + String(rowNumber))
+        let temp = GroupSubview(inRect: CGRectMake(0, 0, 50, 50))
+        temp.setLabelString("test " + String(subviewArray[rowNumber!].count))
+        subviewArray[rowNumber!].insert(temp, atIndex: subviewArray[rowNumber!].count)
     }
     
     func removeView(obj: NSButton)
     {
-        Swift.print("subtract" + obj.identifier!)
+        let rowNumber = Int(obj.identifier!)
+        Swift.print("subtract" + String(rowNumber))
+        if(subviewArray[rowNumber!].count > 0)
+        {
+            subviewArray[rowNumber!][subviewArray[rowNumber!].count - 1].removeFromSuperview()
+            subviewArray[rowNumber!].removeAtIndex(subviewArray[rowNumber!].count - 1)
+        }
     }
     
     func addEditToggle()
@@ -182,7 +192,12 @@ class CurveView: NSView {
             {
                 let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
                 makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
+                if i == 5
+                {
+                    makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+                }
             }
+
         }
         else
         {
@@ -200,6 +215,34 @@ class CurveView: NSView {
         bPath.stroke()
 //*/
     }
+    
+    func makeRightSubviewCurve(startSpot: CGFloat, length: CGFloat, curveNumber: Int)
+    {
+        let numSubviews = subviewArray[curveNumber].count
+        if numSubviews <= 0
+        {
+            return
+        }
+        for i in 0...numSubviews - 1
+        {
+            let t = ((M_PI / 2) / Double(numSubviews - 1)) * Double(i)
+            //let t = M_PI / 2
+            let tempX = round( CGFloat(Double(startSpot) * cos(t)) )
+            let tempY = round( CGFloat(Double(startSpot) * sin(t)) )
+        
+            subviewArray[curveNumber][i].frame = CGRectMake(tempX, tempY, 50, 50)
+            
+            self.addSubview(subviewArray[curveNumber][i])
+        }
+        if numSubviews == 1
+        {
+            let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
+            subviewArray[curveNumber][0].frame = CGRectMake(tempDegree, tempDegree, 50, 50)
+            self.addSubview(subviewArray[curveNumber][0])
+        }
+    }
+    
+    
     func makeRightCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
     {
         CGContextAddArc(context, 0, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 0) //big curve
@@ -213,6 +256,7 @@ class CurveView: NSView {
         CGContextMoveToPoint(context, 0, startSpot)                                 //left line
         CGContextAddLineToPoint(context, 0, startSpot + length)
         CGContextStrokePath(context)
+        
     }
     
     func makeLeftCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)

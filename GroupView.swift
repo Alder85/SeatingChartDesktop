@@ -144,7 +144,6 @@ class GroupView: NSView {
     
     func getSubviewWithName(name: String) -> Int
     {
-        var value = -1
         if subviewArray.count > 0
         {
             for i in 0...subviewArray.count - 1
@@ -155,7 +154,7 @@ class GroupView: NSView {
                 }
             }
         }
-        return value
+        return -1
     }
     
     func doDaSnap(inPoint: CGPoint) -> (Bool, Int)
@@ -164,8 +163,8 @@ class GroupView: NSView {
         {
             for i in 0...subviewArray.count - 1
             {
-                let pointx = inPoint.x
-                let pointy = inPoint.y
+               // let pointx = inPoint.x
+               // let pointy = inPoint.y
                 
                 let xLow  = (Double(subviewArray[i].frame.minX) + locX)
                 let xHigh = (Double(subviewArray[i].frame.maxX) + locX)
@@ -248,23 +247,30 @@ class GroupSubview: NSView
     var isSnapped = false
     var student = Student()
     var pointerloc = -1
+    var label: NSTextField
     
     init(inRect: NSRect) {
-        super.init(frame: inRect)
-        self.frame = inRect
-        self.setNeedsDisplayInRect(self.frame) //makes context exist
-        
-        let label = NSTextField(frame: CGRectMake(0, 0, inRect.width, inRect.height)) //moveable label
+        label = NSTextField(frame: CGRectMake(0, 0, inRect.width, inRect.height)) //moveable label
         label.stringValue = "test"
         label.editable = false
         label.bezeled  = false
         label.drawsBackground = false
         label.selectable = false
+        
+        
+        super.init(frame: inRect)
+        self.frame = inRect
+        self.setNeedsDisplayInRect(self.frame) //makes context exist
         self.addSubview(label)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setLabelString(inLabel: String)
+    {
+        label.stringValue = inLabel
     }
     
     func setSnapped(inVal: Bool)
