@@ -20,7 +20,7 @@ class TestSquareController: NSViewController {
     
     override func viewDidLoad() {
         
-        let tempG = GroupView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
+        let tempG = RectangleView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()

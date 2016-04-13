@@ -10,6 +10,8 @@
 		331AF8B11C69013A000A6F63 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331AF8B01C69013A000A6F63 /* StudentView.swift */; };
 		3351A9F11C592CC0004D9ED9 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3351A9F01C592CC0004D9ED9 /* CSV.swift */; };
 		33580C8A1C6503C800F74A93 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33580C891C6503C800F74A93 /* Class.swift */; };
+		335C28601CBE9FCE0063B262 /* GroupSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C285F1CBE9FCE0063B262 /* GroupSubview.swift */; };
+		335C28621CBEA00B0063B262 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C28611CBEA00B0063B262 /* RectangleView.swift */; };
 		338164121C63B90400220957 /* DataProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338164111C63B90400220957 /* DataProcessing.swift */; };
 		339D38611C626172003F6393 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D38601C626172003F6393 /* Student.swift */; };
 		339D38681C626434003F6393 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D38671C626434003F6393 /* UtilityFunctions.swift */; };
@@ -94,6 +96,8 @@
 		331AF8B01C69013A000A6F63 /* StudentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		3351A9F01C592CC0004D9ED9 /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSV.swift; sourceTree = "<group>"; };
 		33580C891C6503C800F74A93 /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		335C285F1CBE9FCE0063B262 /* GroupSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupSubview.swift; sourceTree = "<group>"; };
+		335C28611CBEA00B0063B262 /* RectangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		338164111C63B90400220957 /* DataProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProcessing.swift; sourceTree = "<group>"; };
 		339D38601C626172003F6393 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		339D38671C626434003F6393 /* UtilityFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				33D0CD951C6A51F400462563 /* CanvasView.swift */,
 				33DD0FA31C74D84300D66F44 /* GroupView.swift */,
 				33A0F38F1C84AA4600122A15 /* CurveView.swift */,
+				335C285F1CBE9FCE0063B262 /* GroupSubview.swift */,
+				335C28611CBEA00B0063B262 /* RectangleView.swift */,
 			);
 			name = "Sample App Classes";
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 				33DD0FA41C74D84300D66F44 /* GroupView.swift in Sources */,
 				33A0F3901C84AA4600122A15 /* CurveView.swift in Sources */,
 				33D0CD961C6A51F400462563 /* CanvasView.swift in Sources */,
+				335C28621CBEA00B0063B262 /* RectangleView.swift in Sources */,
 				4F9B545B15816762005E917A /* DriveSampleAppController.m in Sources */,
 				3351A9F11C592CC0004D9ED9 /* CSV.swift in Sources */,
 				5BF0F39D1C4FF27700734DC4 /* TestStoryController.swift in Sources */,
@@ -424,6 +431,7 @@
 				33580C8A1C6503C800F74A93 /* Class.swift in Sources */,
 				4FF21BEB1626428F00805586 /* GTLDrive_Sources.m in Sources */,
 				5B4FCBE01C74D6D50032F4C8 /* TestSquareController.swift in Sources */,
+				335C28601CBE9FCE0063B262 /* GroupSubview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

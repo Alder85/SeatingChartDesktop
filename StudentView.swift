@@ -21,7 +21,6 @@ class StudentView: NSView {
     var offsetY: CGFloat = 0
     var updateTimer = NSTimer()
     var student = Student()
-    var groups = GroupView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
     var studentLocations: [String] = retrieveStringArray("StudentLoc")
     var arrayIndexes: [Int] = []
     
@@ -31,7 +30,6 @@ class StudentView: NSView {
         delay(0.1)
         {
             Swift.print(self.superview?.subviews)
-            self.groups = self.superview!.subviews[0] as! GroupView
             for i in 0...Int((self.superview?.subviews.count)!) - 1
             {
                 if self.superview?.subviews[i] is GroupView /*|| ((self.superview?.subviews[i].isKindOfClass(CurveView)) != nil)*/
@@ -56,19 +54,6 @@ class StudentView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateLocation(obj:AnyObject?)
-    {
-        if groups.isdragging
-        {
-            var subviewlocation = groups.getSubviewWithName(student.getName())
-            if subviewlocation > -1
-            {
-                let i = groups.getCoordsOfSubview(subviewlocation).x
-                let h = groups.getCoordsOfSubview(subviewlocation).y
-                self.frame = CGRectMake(i, h, viewLength, viewHeight)
-            }
-        }
-    }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
         return true
@@ -87,12 +72,15 @@ class StudentView: NSView {
         for h in 0...arrayIndexes.count - 1
         {
             let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
-            for g in 0...currentSubview.subviewArray.count - 1
+            for x in 0...currentSubview.subviewArray.count - 1
             {
-                if currentSubview.subviewArray[g].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                for y in 0...currentSubview.subviewArray[0].count - 1
                 {
-                    currentSubview.subviewArray[g].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
-                    break
+                    if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                    {
+                        currentSubview.subviewArray[x][y].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
+                        break
+                    }
                 }
             }
         }
@@ -141,15 +129,18 @@ class StudentView: NSView {
         for h in 0...arrayIndexes.count - 1
         {
             let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
-            for g in 0...currentSubview.subviewArray.count - 1
+            for x in 0...currentSubview.subviewArray.count - 1
             {
-                if currentSubview.subviewArray[g].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                for y in 0...currentSubview.subviewArray[0].count - 1
                 {
-                    let i = currentSubview.subviewArray[g].frame.minX + currentSubview.frame.minX
-                    let h = currentSubview.subviewArray[g].frame.minY + currentSubview.frame.minY
-                    currentSubview.subviewArray[g].setStudent(student)
-                    self.frame = CGRectMake(i, h, viewLength, viewHeight)
-                    break
+                    if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                    {
+                        let i = currentSubview.subviewArray[x][y].frame.minX + currentSubview.frame.minX
+                        let h = currentSubview.subviewArray[x][y].frame.minY + currentSubview.frame.minY
+                        currentSubview.subviewArray[x][y].setStudent(student)
+                        self.frame = CGRectMake(i, h, viewLength, viewHeight)
+                        break
+                    }
                 }
             }
         }

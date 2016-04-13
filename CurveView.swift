@@ -11,23 +11,18 @@ import Cocoa
 import AppKit
 import Darwin
 
-class CurveView: NSView {
+class CurveView: GroupView {
     //Dragable stuff
-    var lastLocation: CGPoint = CGPointMake(0, 0)
-    var acceptsFirstResponer = true
-    var acceptsFirstMouse = true
-    var firstClick = CGPoint()
-    var firstFrame = CGPoint()
+    
+    
     var numRows: CGFloat
     var rowLength: CGFloat
     var buttonArray: [NSButton] = []
-    var subviewArray: [[GroupSubview]] = [] //row, subview
-    var editable = false
+    
+    
     
     var leftRect = false
     var frameRect: CGRect
-    
-    var updateTimer = NSTimer() //solves dragging issue
     
     init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat)
     {
@@ -146,20 +141,19 @@ class CurveView: NSView {
         self.addSubview(button)
     }
     
-    func toggleEditable(obj: NSButton)
+    override func toggleEditable(obj: AnyObject?)
     {
         
         if editable
         {
-            editable = false
             hideButtons()
         }
         else
         {
-            editable = true
             showButtons()
         }
         redraw()
+        super.toggleEditable(obj)
     }
     
     func hideButtons()
@@ -301,15 +295,9 @@ class CurveView: NSView {
         */
     }
 
-    override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
-        return true
-    }
     
-    override func mouseDown(theEvent: NSEvent)
-    {
-        firstClick = theEvent.locationInWindow
-        firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
-    }
+    
+    
     
     override func mouseDragged(theEvent: NSEvent)
     {
