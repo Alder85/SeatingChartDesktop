@@ -84,6 +84,8 @@ class CurveView: NSView {
         button.setButtonType(NSButtonType.MomentaryLightButton)
         button.bezelStyle = NSBezelStyle.SmallSquareBezelStyle
         button.title = "+"
+        //button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
+        button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
         button.action = "addView:"
         button.target = self
         button.identifier = String(row - 1)
@@ -98,6 +100,8 @@ class CurveView: NSView {
         button.setButtonType(NSButtonType.MomentaryLightButton)
         button.bezelStyle = NSBezelStyle.SmallSquareBezelStyle
         button.title = "-"
+        button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
+        
         button.action = "removeView:"
         button.target = self
         button.identifier = String(row - 1)
@@ -109,9 +113,10 @@ class CurveView: NSView {
     {
         let rowNumber = Int(obj.identifier!)
         Swift.print("add" + String(rowNumber))
-        let temp = GroupSubview(inRect: CGRectMake(0, 0, 50, 50))
+        let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
         temp.setLabelString("test " + String(subviewArray[rowNumber!].count))
         subviewArray[rowNumber!].insert(temp, atIndex: subviewArray[rowNumber!].count)
+        redraw()
     }
     
     func removeView(obj: NSButton)
@@ -123,6 +128,7 @@ class CurveView: NSView {
             subviewArray[rowNumber!][subviewArray[rowNumber!].count - 1].removeFromSuperview()
             subviewArray[rowNumber!].removeAtIndex(subviewArray[rowNumber!].count - 1)
         }
+        redraw()
     }
     
     func addEditToggle()
@@ -134,6 +140,7 @@ class CurveView: NSView {
             button.frame = CGRectMake(0, self.frame.height - toggleSize, toggleSize, toggleSize)
         }
         button.setButtonType(NSButtonType.SwitchButton) //moveable checkbox
+        button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
         button.action = "toggleEditable:"
         button.target = self
         self.addSubview(button)
@@ -141,6 +148,7 @@ class CurveView: NSView {
     
     func toggleEditable(obj: NSButton)
     {
+        
         if editable
         {
             editable = false
@@ -151,6 +159,7 @@ class CurveView: NSView {
             editable = true
             showButtons()
         }
+        redraw()
     }
     
     func hideButtons()
@@ -168,6 +177,11 @@ class CurveView: NSView {
         }
     }
     
+    func redraw()
+    {
+        let dummy = false
+        redraw(dummy)
+    }
     func redraw(obj: AnyObject?) //redraws view, solves dragging issues
     {
         self.needsDisplay = true
@@ -192,10 +206,10 @@ class CurveView: NSView {
             {
                 let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
                 makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
-                if i == 5
-                {
+               // if i == 5
+              //  {
                     makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
-                }
+                //}
             }
 
         }
@@ -309,6 +323,7 @@ class CurveView: NSView {
         {
             self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))
         }
+        redraw()
     }
     
     func edgeCheck(checkFrame: CGRect) -> CGRect
