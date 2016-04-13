@@ -24,28 +24,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StudentView.swift"
-            timestampString = "479750270.181407"
+            timestampString = "482253961.114583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "mouseDragged(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StudentView.swift"
-            timestampString = "479750270.181407"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "rightMouseDown(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -88,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StudentView.swift"
-            timestampString = "479750671.99316"
+            timestampString = "482254627.20897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "StudentView"
             landmarkType = "3">
          </BreakpointContent>
@@ -109,8 +93,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
             endingLineNumber = "190"
-            landmarkName = "isInRange(_:val1:val2:)"
-            landmarkType = "5">
+            landmarkName = "GroupView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -152,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StudentView.swift"
-            timestampString = "479750270.181407"
+            timestampString = "482253961.114583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "rightMouseDown(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,12 +152,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StudentView.swift"
-            timestampString = "479750270.181407"
+            timestampString = "482253961.114583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "mouseDragged(_:)"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "setLocation(_:ypoint:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -206,6 +190,22 @@
             startingLineNumber = "222"
             endingLineNumber = "222"
             landmarkName = "mouseDragged(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GroupView.swift"
+            timestampString = "482168821.051666"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "setSnapped(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

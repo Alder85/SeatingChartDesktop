@@ -22,6 +22,8 @@ class StudentView: NSView {
     var updateTimer = NSTimer()
     var student = Student()
     var groups = GroupView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
+    var studentLocations: [String] = retrieveStringArray("StudentLoc")
+    var arrayIndexes: [Int] = []
     
     init(inRect: CGRect, inStudent: Student)
     {
@@ -30,6 +32,13 @@ class StudentView: NSView {
         {
             Swift.print(self.superview?.subviews)
             self.groups = self.superview!.subviews[0] as! GroupView
+            for i in 0...Int((self.superview?.subviews.count)!) - 1
+            {
+                if self.superview?.subviews[i] is GroupView /*|| ((self.superview?.subviews[i].isKindOfClass(CurveView)) != nil)*/
+                {
+                    self.arrayIndexes.append(i)
+                }
+            }
         }
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
@@ -75,12 +84,17 @@ class StudentView: NSView {
         clickX = firstClick.x
         clickY = firstClick.y
         
-        if groups.doDaSnap(CGPointMake(clickX, clickY)).0
+        for h in 0...arrayIndexes.count - 1
         {
-            let change = groups.doDaSnap(CGPointMake(clickX, clickY)).1
-            groups.setSubviewSnap(change, value: false)
-            groups.subviewArray[change].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
-            //groups.subviewArray[change].setDaStudentView(StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: Student(inName: "", inChair: 0, inInstrument: "")))
+            let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
+            for g in 0...currentSubview.subviewArray.count - 1
+            {
+                if currentSubview.subviewArray[g].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                {
+                    currentSubview.subviewArray[g].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
+                    break
+                }
+            }
         }
         
     }
@@ -123,30 +137,20 @@ class StudentView: NSView {
         Swift.print(clickX)
         Swift.print(clickY)
         
-        if groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).0
+        
+        for h in 0...arrayIndexes.count - 1
         {
-            if(groups.getSubviewSnap(groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1) == false)
+            let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
+            for g in 0...currentSubview.subviewArray.count - 1
             {
-                let subviewarrayloc = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
-                let i = groups.getCoordsOfSubview(subviewarrayloc).x
-                let h = groups.getCoordsOfSubview(subviewarrayloc).y
-                let change = groups.doDaSnap(CGPointMake(self.frame.midX, self.frame.midY)).1
-                groups.setSubviewSnap(change, value: true)
-                groups.subviewArray[subviewarrayloc].setStudent(student)
-                for y in 1...4
+                if currentSubview.subviewArray[g].isInside(CGPointMake(self.frame.midX, self.frame.midY))
                 {
-                    if (self.superview!.subviews[y] as! StudentView).student.getName() == self.student.getName()
-                    {
-                        groups.subviewArray[subviewarrayloc].pointerloc = y
-                        break
-                    }
+                    let i = currentSubview.subviewArray[g].frame.minX + currentSubview.frame.minX
+                    let h = currentSubview.subviewArray[g].frame.minY + currentSubview.frame.minY
+                    currentSubview.subviewArray[g].setStudent(student)
+                    self.frame = CGRectMake(i, h, viewLength, viewHeight)
+                    break
                 }
-                //groups.subviewArray[subviewarrayloc].setDaStudentView(self)
-                self.frame = CGRectMake(i, h, viewLength, viewHeight)
-            }
-            else
-            {
-                self.frame = CGRectMake(0, 0, viewLength, viewHeight)
             }
         }
     }

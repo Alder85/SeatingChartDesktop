@@ -221,9 +221,18 @@ class GroupView: NSView {
             {
                 if subviewArray[f].student.getName() != ""
                 {
-                    let i = getCoordsOfSubview(f).x
-                    let h = getCoordsOfSubview(f).y
-                    (self.superview!.subviews[subviewArray[f].pointerloc] as! StudentView).frame = CGRectMake(i, h, (self.superview!.subviews[subviewArray[f].pointerloc] as! StudentView).viewLength, (self.superview!.subviews[subviewArray[f].pointerloc] as! StudentView).viewHeight)
+                    for r in 0...Int((self.superview?.subviews.count)!) - 1
+                    {
+                        if self.superview?.subviews[r] is StudentView
+                        {
+                            if (self.superview?.subviews[r] as! StudentView).student.getName() == subviewArray[f].student.getName()
+                            {
+                                let i = getCoordsOfSubview(f).x
+                                let h = getCoordsOfSubview(f).y
+                                (self.superview?.subviews[r] as! StudentView).frame = CGRectMake(i, h, viewLength, viewHeight)
+                            }
+                        }
+                    }
                 }
             }
        
@@ -276,6 +285,21 @@ class GroupSubview: NSView
     func setSnapped(inVal: Bool)
     {
         isSnapped = inVal
+    }
+    
+    func isInRange(testVal: CGFloat, val1: Double, val2: Double) -> Bool
+    {
+        return Double(testVal) > val1 && Double(testVal) < val2
+    }
+    
+    func isInside(inPoint: CGPoint) -> Bool
+    {
+        if isInRange(inPoint.x, val1: Double((self.superview?.frame.minX)! + frame.minX), val2: Double((self.superview?.frame.minX)! + frame.maxX)) &&
+            isInRange(inPoint.y, val1: Double((self.superview?.frame.minY)! + frame.minY), val2: Double((self.superview?.frame.minY)! + frame.maxY))
+        {
+            return true
+        }
+        return false
     }
     
     func getSnapped() -> Bool

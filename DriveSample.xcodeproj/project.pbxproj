@@ -215,9 +215,9 @@
 			isa = PBXGroup;
 			children = (
 				33FA8F2F1C46B52000BE536E /* GTMOAuth2Window.xib */,
-				4F16F59313DF673000811114 /* DriveSampleWindow.xib */,
 				4FA6F3D11034AEC400C5DFA5 /* MainMenu.xib */,
 				5BF0F3941C4FF02200734DC4 /* TestStory.storyboard */,
+				4F16F59313DF673000811114 /* DriveSampleWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
