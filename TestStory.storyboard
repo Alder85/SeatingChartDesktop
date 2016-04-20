@@ -187,13 +187,13 @@
             <objects>
                 <viewController title="TestSquare" id="TxT-vR-iwP" customClass="TestSquareController" customModule="DriveSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="MMZ-Gy-CHl">
-                        <rect key="frame" x="0.0" y="0.0" width="679" height="392"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1023" height="780"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>
                 <customObject id="Vjp-7V-OeU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="166.5" y="964"/>
+            <point key="canvasLocation" x="-5.5" y="1158"/>
         </scene>
     </scenes>
 </document>

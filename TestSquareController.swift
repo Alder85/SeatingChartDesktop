@@ -20,7 +20,7 @@ class TestSquareController: NSViewController {
     
     override func viewDidLoad() {
         
-        let tempG = RectangleView(inRect: CGRectMake(50, 100, 300, 100), subviews: 1)
+        let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
@@ -32,7 +32,8 @@ class TestSquareController: NSViewController {
         //let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
         //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
         
-        
+        let potatoe = CurveView(size: 500, isLeft: false, rows: 6, length: 50)
+        self.view.addSubview(potatoe)
         
         //temp1.frame = CGRectMake(0,0,200,200)
         let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
