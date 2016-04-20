@@ -89,6 +89,8 @@ class StudentView: NSView {
                 }
             }
         }
+
+        
     }
     
     override func rightMouseDown(theEvent : NSEvent) {
