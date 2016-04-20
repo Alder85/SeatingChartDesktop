@@ -42,31 +42,10 @@ class TestStoryController: NSViewController {
        // self.view.addSubview(temp3)
        // self.view.addSubview(temp4)
 */
-        let csv: CSV
         
-        do
-        {
-            try csv = CSV(input: loadCSV())
-            let studentArray: [Student] = dataToStudentArray(csv.dataArray)
-            for x in 0...studentArray.count - 1
-            {
-                let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
-                self.view.addSubview(temp)
-            }
-        }
-        catch
-        {
-            Swift.print("failed")
-        }
-
     }
     
-    func loadCSV() throws -> String
-    {
-        let contents = try String(contentsOfFile: "/Users/735582/Desktop/MOCK_DATA.csv", encoding: NSUTF8StringEncoding)
-        Swift.print(contents)
-        return contents
-    }
+    
 
     
     override var representedObject: AnyObject? {

@@ -35,6 +35,7 @@ class TestSquareController: NSViewController {
         let potatoe = CurveView(size: 500, isLeft: false, rows: 6, length: 50)
         self.view.addSubview(potatoe)
         
+        /*
         //temp1.frame = CGRectMake(0,0,200,200)
         let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
         let temp1 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent1)
@@ -53,36 +54,39 @@ class TestSquareController: NSViewController {
         self.view.addSubview(temp2)
         self.view.addSubview(temp3)
         self.view.addSubview(temp4)
+        */
         
+        let csv: CSV
         
+        do
+        {
+            try csv = CSV(input: loadCSV())
+            let studentArray: [Student] = dataToStudentArray(csv.dataArray)
+            for x in 0...studentArray.count - 1
+            {
+                let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
+                self.view.addSubview(temp)
+            }
+        }
+        catch
+        {
+            Swift.print("failed")
+        }
 
         
-        /*let temp1 = StudentView()
-        temp1.frame = CGRectMake(0,0,100,100)
-        let textField1 = NSTextField(frame: CGRectMake(0,0,50,50))
-        textField1.stringValue = "test"
-        textField1.editable = false
-        //temp.addSubview(textField)
-        let tempStudent1 = Student(inName: "Bob", inChair: 5, inInstrument: "Trumpet")
-        temp1.startUp(tempStudent1, group: temp2)
-       
-        
-        //let temp2 = GroupView()
-        //temp2.frame = CGRectMake(0,0,100,100)
-        //temp2.startUp(1)
-        self.view.addSubview(temp2)
-        
-        self.view.addSubview(temp)
-         self.view.addSubview(temp1)
-        
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+        /*        let userDefaults = NSUserDefaults.standardUserDefaults()
         let encodedData = NSKeyedArchiver.archivedDataWithRootObject(temp2)
         userDefaults.setObject(encodedData, forKey: "Group1")
         userDefaults.synchronize()*/
 
     }
     
-    
+    func loadCSV() throws -> String
+    {
+        let contents = try String(contentsOfFile: "/Users/735582/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        Swift.print(contents)
+        return contents
+    }
     
     override var representedObject: AnyObject? {
         didSet {
