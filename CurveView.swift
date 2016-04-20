@@ -22,15 +22,14 @@ class CurveView: GroupView {
     
     
     var leftRect = false
-    var frameRect: CGRect
+    
     
     init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat)
     {
-        frameRect = CGRect(origin: CGPointMake(0,0), size: CGSize(width: size, height: size))
         leftRect = isLeft
         numRows = rows
         rowLength = length
-        super.init(frame: frameRect)
+        super.init(inFrame: CGRect(origin: CGPointMake(0,0), size: CGSize(width: size, height: size)))
         makeButtons()
         addEditToggle()
         hideButtons()
@@ -171,15 +170,7 @@ class CurveView: GroupView {
         }
     }
     
-    func redraw()
-    {
-        let dummy = false
-        redraw(dummy)
-    }
-    func redraw(obj: AnyObject?) //redraws view, solves dragging issues
-    {
-        self.needsDisplay = true
-    }
+    
 
     required init?(coder: NSCoder)
     {
@@ -298,49 +289,8 @@ class CurveView: GroupView {
     
     
     
+
     
-    override func mouseDragged(theEvent: NSEvent)
-    {
-        
-        let clickX = theEvent.locationInWindow.x
-        let clickY = theEvent.locationInWindow.y
-        let offsetX = clickX - firstClick.x
-        let offsetY = clickY - firstClick.y
-        
-        if editable
-        {
-            self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))
-        }
-        redraw()
-    }
-    
-    func edgeCheck(checkFrame: CGRect) -> CGRect
-    {
-        var x = checkFrame.minX
-        var y = checkFrame.minY
-        let maxX = checkFrame.maxX
-        let maxY = checkFrame.maxY
-        let width = checkFrame.width
-        let height = checkFrame.height
-        let bigFrame = self.superview!.frame
-        if(x < bigFrame.minX)
-        {
-            x = 0
-        }
-        if(y < bigFrame.minY)
-        {
-            y = 0
-        }
-        if(maxX > bigFrame.maxX)
-        {
-            x = bigFrame.maxX - width
-        }
-        if(maxY > bigFrame.maxY)
-        {
-            y = bigFrame.maxY - height
-        }
-        return CGRectMake(x, y, width, height)
-    }
     
 
 }

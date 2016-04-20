@@ -27,14 +27,17 @@ class StudentView: NSView {
     init(inRect: CGRect, inStudent: Student)
     {
         super.init(frame: inRect)
-        delay(0.1)
+        delay(0.3)
         {
             Swift.print(self.superview?.subviews)
-            for i in 0...Int((self.superview?.subviews.count)!) - 1
+            if self.superview?.subviews != nil
             {
-                if self.superview?.subviews[i] is GroupView /*|| ((self.superview?.subviews[i].isKindOfClass(CurveView)) != nil)*/
+                for i in 0...Int((self.superview?.subviews.count)!) - 1
                 {
-                    self.arrayIndexes.append(i)
+                    if self.superview?.subviews[i] is GroupView
+                    {
+                        self.arrayIndexes.append(i)
+                    }
                 }
             }
         }
@@ -50,10 +53,9 @@ class StudentView: NSView {
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
 
-    required init?(coder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
         return true
@@ -69,22 +71,24 @@ class StudentView: NSView {
         clickX = firstClick.x
         clickY = firstClick.y
         
-        for h in 0...arrayIndexes.count - 1
+        if arrayIndexes.count > 0
         {
-            let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
-            for x in 0...currentSubview.subviewArray.count - 1
+            for h in 0...arrayIndexes.count - 1
             {
-                for y in 0...currentSubview.subviewArray[0].count - 1
+                let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
+                for x in 0...currentSubview.subviewArray.count - 1
                 {
-                    if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                    for y in 0...currentSubview.subviewArray[0].count - 1
                     {
-                        currentSubview.subviewArray[x][y].setStudent(Student(inName: "", inChair: 0, inInstrument: ""))
-                        break
+                        if currentSubview.subviewArray[x][y].isInside(CGPointMake(clickX, clickY))
+                        {
+                            currentSubview.subviewArray[x][y].setStudentView(StudentView(inRect: CGRectMake(0, 0, 0, 0), inStudent: Student(inName: "", inChair: 12, inInstrument: "")))
+                            break
+                        }
                     }
                 }
             }
         }
-        
     }
     
     override func rightMouseDown(theEvent : NSEvent) {
@@ -111,12 +115,30 @@ class StudentView: NSView {
     {
         //groups = GroupView(inView: self.superview!.subviews[0])
         //Swift.print(self.superview!.subviews)
+        arrayIndexes = []
+        Swift.print(self.superview?.subviews)
+            
+        if self.superview?.subviews != nil
+        {
+            for i in 0...Int((self.superview?.subviews.count)!) - 1
+            {
+                if self.superview?.subviews[i] is GroupView
+                {
+                    self.arrayIndexes.append(i)
+                }
+            }
+        }
         clickX = theEvent.locationInWindow.x
         clickY = theEvent.locationInWindow.y
+        Swift.print(clickX)
+        Swift.print(clickY)
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
+        if(clickX < self.frame.maxX)
+        {
+            self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
+        }
     }
     
     override func mouseUp(theEvent: NSEvent)
@@ -125,21 +147,37 @@ class StudentView: NSView {
         Swift.print(clickX)
         Swift.print(clickY)
         
-        
-        for h in 0...arrayIndexes.count - 1
+        if arrayIndexes.count > 0
         {
-            let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
-            for x in 0...currentSubview.subviewArray.count - 1
+            for h in 0...arrayIndexes.count - 1
             {
-                for y in 0...currentSubview.subviewArray[0].count - 1
+                let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
+                for x in 0...currentSubview.subviewArray.count - 1
                 {
-                    if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                    for y in 0...currentSubview.subviewArray[0].count - 1
                     {
-                        let i = currentSubview.subviewArray[x][y].frame.minX + currentSubview.frame.minX
-                        let h = currentSubview.subviewArray[x][y].frame.minY + currentSubview.frame.minY
-                        currentSubview.subviewArray[x][y].setStudent(student)
-                        self.frame = CGRectMake(i, h, viewLength, viewHeight)
-                        break
+                        if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                        {
+                            if let _ = currentSubview.subviewArray[x][y].studentview
+                            {
+                                if currentSubview.subviewArray[x][y].studentview?.student.getName() == ""
+                                {
+                                    let i = currentSubview.subviewArray[x][y].frame.minX + currentSubview.frame.minX
+                                    let h = currentSubview.subviewArray[x][y].frame.minY + currentSubview.frame.minY
+                                    currentSubview.subviewArray[x][y].setStudentView(self)
+                                    self.frame = CGRectMake(i, h, viewLength, viewHeight)
+                                    break
+                                }
+                            }
+                            else
+                            {
+                                let i = currentSubview.subviewArray[x][y].frame.minX + currentSubview.frame.minX
+                                let h = currentSubview.subviewArray[x][y].frame.minY + currentSubview.frame.minY
+                                currentSubview.subviewArray[x][y].setStudentView(self)
+                                self.frame = CGRectMake(i, h, viewLength, viewHeight)
+                                break
+                            }
+                        }
                     }
                 }
             }

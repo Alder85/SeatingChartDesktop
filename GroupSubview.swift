@@ -15,7 +15,7 @@ class GroupSubview: NSView
     let viewLength: CGFloat = 50
     let viewHeight: CGFloat  = 50
     var isSnapped = false
-    var student = Student()
+    var studentview: StudentView?
     var pointerloc = -1
     var label: NSTextField
     
@@ -68,14 +68,9 @@ class GroupSubview: NSView
         return isSnapped
     }
     
-    func setStudent(dastudent: Student)
+    func setStudentView(dastudent: StudentView)
     {
-        student = dastudent
-    }
-    
-    func getStudent() -> Student
-    {
-        return student
+        studentview = dastudent
     }
     
     func getFrame() -> CGRect
