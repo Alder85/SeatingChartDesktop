@@ -8,6 +8,7 @@
 
 
 import Cocoa
+import Darwin
 
 class TestStoryController: NSViewController {
     //potatoepotatoe
@@ -49,7 +50,7 @@ class TestStoryController: NSViewController {
             let studentArray: [Student] = dataToStudentArray(csv.dataArray)
             for x in 0...studentArray.count - 1
             {
-                let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: studentArray[x])
+                let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
                 self.view.addSubview(temp)
             }
         }
