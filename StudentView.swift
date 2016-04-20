@@ -89,6 +89,8 @@ class StudentView: NSView {
                 }
             }
         }
+
+        
     }
     
     override func rightMouseDown(theEvent : NSEvent) {
@@ -135,10 +137,7 @@ class StudentView: NSView {
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        if(clickX < self.frame.maxX)
-        {
-            self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
-        }
+        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
     }
     
     override func mouseUp(theEvent: NSEvent)
