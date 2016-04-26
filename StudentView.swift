@@ -63,7 +63,8 @@ class StudentView: NSView {
     
     override func mouseDown(theEvent: NSEvent)
     {
-        Swift.print(self.superview!.subviews)
+        //Swift.print(self.superview!.subviews)
+        Swift.print("Mouse Down S")
         
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
@@ -71,25 +72,7 @@ class StudentView: NSView {
         clickX = firstClick.x
         clickY = firstClick.y
         
-        if arrayIndexes.count > 0
-        {
-            for h in 0...arrayIndexes.count - 1
-            {
-                let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
-                for x in 0...currentSubview.subviewArray.count - 1
-                {
-                    for y in 0...currentSubview.subviewArray[0].count - 1
-                    {
-                        if currentSubview.subviewArray[x][y].isInside(CGPointMake(clickX, clickY))
-                        {
-                            currentSubview.subviewArray[x][y].setStudentView(StudentView(inRect: CGRectMake(0, 0, 0, 0), inStudent: Student(inName: "", inChair: 12, inInstrument: "")))
-                            break
-                        }
-                    }
-                }
-            }
-        }
-
+        checkForRemovingStudentFromSeat()
         
     }
     
@@ -115,21 +98,14 @@ class StudentView: NSView {
     
     override func mouseDragged(theEvent: NSEvent)
     {
+        Swift.print("Mouse Drag S")
         //groups = GroupView(inView: self.superview!.subviews[0])
         //Swift.print(self.superview!.subviews)
-        arrayIndexes = []
-        Swift.print(self.superview?.subviews)
-            
-        if self.superview?.subviews != nil
-        {
-            for i in 0...Int((self.superview?.subviews.count)!) - 1
-            {
-                if self.superview?.subviews[i] is GroupView
-                {
-                    self.arrayIndexes.append(i)
-                }
-            }
-        }
+        
+        checkForGroupViews()
+        
+        snap()
+        
         clickX = theEvent.locationInWindow.x
         clickY = theEvent.locationInWindow.y
         Swift.print(clickX)
@@ -140,12 +116,45 @@ class StudentView: NSView {
         self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
     }
     
-    override func mouseUp(theEvent: NSEvent)
+    func checkForRemovingStudentFromSeat()
     {
-        
-        Swift.print(clickX)
-        Swift.print(clickY)
-        
+        if arrayIndexes.count > 0
+        {
+            for h in 0...arrayIndexes.count - 1
+            {
+                let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
+                for x in 0...currentSubview.subviewArray.count - 1
+                {
+                    for y in 0...currentSubview.subviewArray[0].count - 1
+                    {
+                        if currentSubview.subviewArray[x][y].isInside(CGPointMake(clickX, clickY))
+                        {
+                            currentSubview.subviewArray[x][y].setStudentView(StudentView(inRect: CGRectMake(0, 0, 0, 0), inStudent: Student(inName: "", inChair: 12, inInstrument: "")))
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func checkForGroupViews()
+    {
+        arrayIndexes = []
+        if self.superview?.subviews != nil
+        {
+            for i in 0...Int((self.superview?.subviews.count)!) - 1
+            {
+                if self.superview?.subviews[i] is GroupView
+                {
+                    self.arrayIndexes.append(i)
+                }
+            }
+        }
+    }
+    
+    func snap()
+    {
         if arrayIndexes.count > 0
         {
             for h in 0...arrayIndexes.count - 1
@@ -181,6 +190,5 @@ class StudentView: NSView {
                 }
             }
         }
-        
     }
 }
