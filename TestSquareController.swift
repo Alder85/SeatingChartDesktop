@@ -32,7 +32,7 @@ class TestSquareController: NSViewController {
         //let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
         //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
         
-        let potatoe = CurveView(size: 500, isLeft: false, rows: 6, length: 50)
+        let potatoe = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         self.view.addSubview(potatoe)
         
         /*
