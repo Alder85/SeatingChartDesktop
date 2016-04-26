@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Cocoa
+import AppKit
 
 func dataToStudentArray(dataArray: [[String]]) -> [Student]
 {
@@ -18,7 +20,19 @@ func dataToStudentArray(dataArray: [[String]]) -> [Student]
     }
     return outArray
 }
-
+extension NSView {
+    var backgroundColor: NSColor? {
+        get {
+            guard let layer = layer, backgroundColor = layer.backgroundColor else { return nil }
+            return NSColor(CGColor: backgroundColor)
+        }
+        
+        set {
+            wantsLayer = true
+            layer?.backgroundColor = newValue?.CGColor
+        }
+    }
+}
 
 /*
  *  MAXIMUM EFFICIENCY

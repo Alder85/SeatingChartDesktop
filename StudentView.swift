@@ -41,15 +41,15 @@ class StudentView: NSView {
                 }
             }
         }
-        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
+        //let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
-        label.stringValue = student.getName()
-        label.editable = false
-        self.addSubview(label)
+        //label.stringValue = student.getName()
+        //label.editable = false
+       // self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
-        label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
-        
+        //label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
+        self.backgroundColor = NSColor.redColor()
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
 
