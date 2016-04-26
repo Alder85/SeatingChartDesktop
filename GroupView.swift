@@ -52,6 +52,7 @@ class GroupView: NSView
     }
     override func mouseDown(theEvent: NSEvent)
     {
+        Swift.print("Mouse Down")
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
     }
@@ -61,12 +62,14 @@ class GroupView: NSView
         let dummy = false
         redraw(dummy)
     }
+    
     func redraw(obj: AnyObject?) //redraws view, solves dragging issues
     {
         self.needsDisplay = true
     }
     
     override func mouseDragged(theEvent: NSEvent) {
+        Swift.print("Mouse Drag")
         let clickX = theEvent.locationInWindow.x
         let clickY = theEvent.locationInWindow.y
         let offsetX = clickX - firstClick.x
