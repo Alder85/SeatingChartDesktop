@@ -104,7 +104,7 @@ class StudentView: NSView {
         
         checkForGroupViews()
         
-        snap()
+       
         
         clickX = theEvent.locationInWindow.x
         clickY = theEvent.locationInWindow.y
@@ -114,6 +114,9 @@ class StudentView: NSView {
         offsetY = clickY - firstClick.y
         
         self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
+    }
+    override func mouseUp(theEvent: NSEvent) {
+        snap()
     }
     
     func checkForRemovingStudentFromSeat()

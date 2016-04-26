@@ -83,7 +83,7 @@ class TestSquareController: NSViewController {
     
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: "/Users/732408/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        let contents = try String(contentsOfFile: "/Users/735582/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
         Swift.print(contents)
         return contents
     }

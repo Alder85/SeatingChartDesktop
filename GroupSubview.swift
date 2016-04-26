@@ -17,21 +17,22 @@ class GroupSubview: NSView
     var isSnapped = false
     var studentview: StudentView?
     var pointerloc = -1
-    var label: NSTextField
+    //var label: NSTextField
     
     init(inRect: NSRect) {
+        /*
         label = NSTextField(frame: CGRectMake(0, 0, inRect.width, inRect.height)) //moveable label
         label.stringValue = "test"
         label.editable = false
         label.bezeled  = false
         label.drawsBackground = false
         label.selectable = false
-        
+        */
         
         super.init(frame: inRect)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
-        self.addSubview(label)
+       // self.addSubview(label)
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +41,7 @@ class GroupSubview: NSView
     
     func setLabelString(inLabel: String)
     {
-        label.stringValue = inLabel
+        //label.stringValue = inLabel
     }
     
     func setSnapped(inVal: Bool)

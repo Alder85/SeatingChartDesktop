@@ -91,7 +91,7 @@ class GroupView: NSView
                         {
                             let i = getCoordsOfSubview(x, y: y).x
                             let h = getCoordsOfSubview(x, y: y).y
-                            subviewArray[x][y].studentview!.frame = CGRectMake(i, h, frameRect.width, frameRect.height)
+                            subviewArray[x][y].studentview!.frame = CGRectMake(i, h, 50, 50)
                         }
                     }
                 }
