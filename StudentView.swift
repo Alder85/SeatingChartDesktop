@@ -104,8 +104,6 @@ class StudentView: NSView {
         
         checkForGroupViews()
         
-       
-        
         clickX = theEvent.locationInWindow.x
         clickY = theEvent.locationInWindow.y
         Swift.print(clickX)
@@ -121,6 +119,7 @@ class StudentView: NSView {
     
     func checkForRemovingStudentFromSeat()
     {
+        //checkForGroupViews()
         if arrayIndexes.count > 0
         {
             for h in 0...arrayIndexes.count - 1
@@ -128,7 +127,7 @@ class StudentView: NSView {
                 let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
                 for x in 0...currentSubview.subviewArray.count - 1
                 {
-                    for y in 0...currentSubview.subviewArray[0].count - 1
+                    for y in 0...currentSubview.subviewArray[x].count - 1
                     {
                         if currentSubview.subviewArray[x][y].isInside(CGPointMake(clickX, clickY))
                         {
@@ -165,7 +164,7 @@ class StudentView: NSView {
                 let currentSubview = self.superview!.subviews[arrayIndexes[h]] as! GroupView
                 for x in 0...currentSubview.subviewArray.count - 1
                 {
-                    for y in 0...currentSubview.subviewArray[0].count - 1
+                    for y in 0...currentSubview.subviewArray[x].count - 1
                     {
                         if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
                         {
