@@ -76,29 +76,32 @@ class GroupView: NSView
         let offsetY = clickY - firstClick.y
         if editable
         {
-            frameRect = self.frame
-            self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, frameRect.width, frameRect.height)
-            //locX = Double(offsetX + firstFrame.x)
-            //locY = Double(offsetY + firstFrame.y)
-            
-            for y in 0...subviewArray[0].count - 1
+            moveAllViewsWithGroup(offsetX, offsetY: offsetY)
+        }
+        redraw()
+    }
+    
+    func moveAllViewsWithGroup(offsetX: CGFloat, offsetY: CGFloat)
+    {
+        frameRect = self.frame
+        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, frameRect.width, frameRect.height)
+        
+        for x in 0...subviewArray.count - 1
+        {
+            for y in 0...subviewArray[x].count - 1
             {
-                for x in 0...subviewArray.count - 1
+                if let _ = subviewArray[x][y].studentview
                 {
-                    if let _ = subviewArray[x][y].studentview
+                    if subviewArray[x][y].studentview?.student.getName() != ""
                     {
-                        if subviewArray[x][y].studentview?.student.getName() != ""
-                        {
-                            let i = getCoordsOfSubview(x, y: y).x
-                            let h = getCoordsOfSubview(x, y: y).y
-                            subviewArray[x][y].studentview!.frame = CGRectMake(i, h, 50, 50)
-                        }
+                        let i = getCoordsOfSubview(x, y: y).x
+                        let h = getCoordsOfSubview(x, y: y).y
+                        subviewArray[x][y].studentview!.frame = CGRectMake(i, h, 50, 50)
                     }
                 }
             }
-            self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))
         }
-        redraw()
+        self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))
     }
     
     func edgeCheck(checkFrame: CGRect) -> CGRect
