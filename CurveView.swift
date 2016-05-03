@@ -44,6 +44,20 @@ class CurveView: GroupView {
             }
         }
         
+        
+        for i in 1...Int(numRows)
+        {
+            let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
+            if !leftRect
+            {
+                makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+            }
+            else
+            {
+                makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+            }
+        }
+        
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
@@ -108,7 +122,7 @@ class CurveView: GroupView {
         let rowNumber = Int(obj.identifier!)
         Swift.print("add" + String(rowNumber))
         let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
-        temp.setLabelString("test " + String(subviewArray[rowNumber!].count))
+        //temp.setLabelString("test " + String(subviewArray[rowNumber!].count))
         subviewArray[rowNumber!].insert(temp, atIndex: subviewArray[rowNumber!].count)
         redraw()
     }
@@ -193,7 +207,7 @@ class CurveView: GroupView {
                 makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
                // if i == 5
               //  {
-                    makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+                    //makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
                 //}
             }
 
@@ -204,7 +218,7 @@ class CurveView: GroupView {
             {
                 let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
                 makeLeftCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
-                makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+               // makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
             }
         }
 
