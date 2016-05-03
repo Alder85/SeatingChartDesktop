@@ -17,32 +17,37 @@ class GroupSubview: NSView
     var isSnapped = false
     var studentview: StudentView?
     var pointerloc = -1
-    //var label: NSTextField
     
     init(inRect: NSRect) {
-        /*
-        label = NSTextField(frame: CGRectMake(0, 0, inRect.width, inRect.height)) //moveable label
-        label.stringValue = "test"
-        label.editable = false
-        label.bezeled  = false
-        label.drawsBackground = false
-        label.selectable = false
-        */
+        
         
         super.init(frame: inRect)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
-       // self.addSubview(label)
+        
+        /*
+        self.wantsLayer = true
+        self.layer!.borderWidth = 2
+        self.layer!.cornerRadius = 10
+        */
     }
+    
+    override func drawRect(dirtyRect: NSRect)
+    {
+        super.drawRect(dirtyRect)
+        
+        let bPath:NSBezierPath = NSBezierPath(roundedRect: dirtyRect, xRadius: 15, yRadius: 15)
+        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        borderColor.set()
+        bPath.stroke()
+            
+    }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLabelString(inLabel: String)
-    {
-        //label.stringValue = inLabel
-    }
     
     func setSnapped(inVal: Bool)
     {
@@ -79,15 +84,4 @@ class GroupSubview: NSView
         return self.frame
     }
     
-    override func drawRect(dirtyRect: NSRect)
-    {
-        super.drawRect(dirtyRect)
-        
-        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
-        
-        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        borderColor.set()
-        bPath.stroke()
-        
-    }
 }

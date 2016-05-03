@@ -49,8 +49,16 @@ class StudentView: NSView {
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         //label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
-        self.backgroundColor = NSColor.redColor()
+        //self.backgroundColor = NSColor.redColor()
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
+    }
+    
+    override func drawRect(dirtyRect: NSRect)
+    {
+        
+        NSColor.purpleColor().setFill()
+        NSRectFill(dirtyRect)
+        super.drawRect(dirtyRect)
     }
 
     required init?(coder aDecoder: NSCoder) {
