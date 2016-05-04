@@ -36,7 +36,7 @@ class GroupView: NSView
     
     func getCoordsOfSubview(x: Int, y: Int) -> CGPoint
     {
-        return CGPoint(x: (subviewArray[x][y].frame.minX + CGFloat(frameRect.minX)), y: (subviewArray[x][y].frame.minY + CGFloat(frameRect.minY)))
+        return CGPoint(x: (subviewArray[x][y].frame.minX + CGFloat(self.frame.minX)), y: (subviewArray[x][y].frame.minY + CGFloat(self.frame.minY)))
     }
     
     func isInRange(testVal: CGFloat, val1: Double, val2: Double) -> Bool
@@ -80,7 +80,8 @@ class GroupView: NSView
     func detectPan(recognizer:NSPanGestureRecognizer) {
         let translation =  recognizer.locationInView(self.superview!)
         Swift.print(translation)
-        self.frame = CGRectMake(lastLocation.x + translation.x - 25, lastLocation.y + translation.y - 25, self.frame.width, self.frame.height)
+        self.frame = edgeCheck(CGRectMake(lastLocation.x + translation.x - 25, lastLocation.y + translation.y - 25, self.frame.width, self.frame.height))
+        moveAllViewsWithGroup()
     }
     
     func redraw()
@@ -95,10 +96,10 @@ class GroupView: NSView
     }
     
     
-    func moveAllViewsWithGroup(offsetX: CGFloat, offsetY: CGFloat)
+    func moveAllViewsWithGroup()
     {
-        frameRect = self.frame
-        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, frameRect.width, frameRect.height)
+        /*frameRect = self.frame
+        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, frameRect.width, frameRect.height)*/
         
         for x in 0...subviewArray.count - 1
         {
@@ -110,12 +111,12 @@ class GroupView: NSView
                     {
                         let i = getCoordsOfSubview(x, y: y).x
                         let h = getCoordsOfSubview(x, y: y).y
-                        subviewArray[x][y].studentview!.frame = CGRectMake(i, h, 50, 50)
+                        subviewArray[x][y].studentview!.frame = CGRectMake(i, h, subviewArray[x][y].studentview!.frame.width, subviewArray[x][y].studentview!.frame.height)
                     }
                 }
             }
         }
-        self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))
+        /*self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))*/
     }
     
     func edgeCheck(checkFrame: CGRect) -> CGRect
