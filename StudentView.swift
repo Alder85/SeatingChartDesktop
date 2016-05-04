@@ -81,7 +81,6 @@ class StudentView: NSView {
         clickY = firstClick.y
         
         checkForRemovingStudentFromSeat()
-        
     }
     
     override func rightMouseDown(theEvent : NSEvent) {

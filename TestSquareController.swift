@@ -22,6 +22,7 @@ class TestSquareController: NSViewController {
         
         let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
+        /*
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
         //temp.frame = CGRectMake(0,0,200,200)
@@ -33,6 +34,9 @@ class TestSquareController: NSViewController {
         //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
         
         let potatoe = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
+        self.view.addSubview(potatoe)
+*/
+        let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
         self.view.addSubview(potatoe)
         
         /*

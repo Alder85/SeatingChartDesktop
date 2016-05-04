@@ -26,6 +26,8 @@ class GroupView: NSView
     init(inFrame: NSRect) {
         frameRect = inFrame
         super.init(frame: inFrame);
+        let panRecognizer = NSPanGestureRecognizer(target:self, action:"detectPan:")
+        self.gestureRecognizers = [panRecognizer]
     }
 
     required init?(coder: NSCoder) {
@@ -50,11 +52,35 @@ class GroupView: NSView
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
         return true
     }
+    /*
     override func mouseDown(theEvent: NSEvent)
     {
         Swift.print("Mouse Down")
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
+    }
+    override func mouseDragged(theEvent: NSEvent) {
+        self.needsDisplay = false
+        Swift.print("Mouse Drag")
+        let clickX = theEvent.locationInWindow.x
+        let clickY = theEvent.locationInWindow.y
+        let offsetX = clickX - firstClick.x
+        let offsetY = clickY - firstClick.y
+        if editable
+        {
+            moveAllViewsWithGroup(offsetX, offsetY: offsetY)
+        }
+    }
+    
+    override func mouseUp(theEvent: NSEvent) {
+        self.needsDisplay = true
+    }
+*/
+    
+    func detectPan(recognizer:NSPanGestureRecognizer) {
+        let translation =  recognizer.locationInView(self.superview!)
+        Swift.print(translation)
+        self.frame = CGRectMake(lastLocation.x + translation.x - 25, lastLocation.y + translation.y - 25, self.frame.width, self.frame.height)
     }
     
     func redraw()
@@ -68,18 +94,6 @@ class GroupView: NSView
         self.needsDisplay = true
     }
     
-    override func mouseDragged(theEvent: NSEvent) {
-        Swift.print("Mouse Drag")
-        let clickX = theEvent.locationInWindow.x
-        let clickY = theEvent.locationInWindow.y
-        let offsetX = clickX - firstClick.x
-        let offsetY = clickY - firstClick.y
-        if editable
-        {
-            moveAllViewsWithGroup(offsetX, offsetY: offsetY)
-        }
-        redraw()
-    }
     
     func moveAllViewsWithGroup(offsetX: CGFloat, offsetY: CGFloat)
     {

@@ -73,7 +73,7 @@ class RectangleView: GroupView
         self.addSubview(addViewButton)
         
         //change the time value if this gets laggy
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
     }
     
     
@@ -110,12 +110,6 @@ class RectangleView: GroupView
             position = position - 60
             numberOfSubviews--
         }
-    }
-    
-    
-    override func mouseUp(theEvent: NSEvent)
-    {
-        
     }
 
 }

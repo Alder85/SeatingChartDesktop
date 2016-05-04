@@ -60,7 +60,7 @@ class CurveView: GroupView {
         
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
     }
     
     func makeButtons()
@@ -194,7 +194,8 @@ class CurveView: GroupView {
     
     override func drawRect(dirtyRect: NSRect)
     {
-        super.drawRect(dirtyRect)
+
+        //super.drawRect(dirtyRect)
         let lineWidth: CGFloat = 5
         let context = NSGraphicsContext.currentContext()?.CGContext
         CGContextSetStrokeColorWithColor(context, NSColor.purpleColor().CGColor)
@@ -221,11 +222,13 @@ class CurveView: GroupView {
                // makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
             }
         }
-
+        CGContextSetStrokeColorWithColor(context, NSColor.greenColor().CGColor)
+        CGContextSetLineWidth(context, lineWidth)
         let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
         
-        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        borderColor.set()
+       // let borderColor = NSColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+        //borderColor.set()
+        
         bPath.stroke()
 //*/
     }
