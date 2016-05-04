@@ -118,7 +118,7 @@ class StudentView: NSView {
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight)
+        self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight))
     }
     override func mouseUp(theEvent: NSEvent) {
         snap()
@@ -126,7 +126,6 @@ class StudentView: NSView {
     
     func checkForRemovingStudentFromSeat()
     {
-        //checkForGroupViews()
         if arrayIndexes.count > 0
         {
             for h in 0...arrayIndexes.count - 1
@@ -199,5 +198,33 @@ class StudentView: NSView {
                 }
             }
         }
+    }
+    
+    func edgeCheck(checkFrame: CGRect) -> CGRect
+    {
+        var x = checkFrame.minX
+        var y = checkFrame.minY
+        let maxX = checkFrame.maxX
+        let maxY = checkFrame.maxY
+        let width = checkFrame.width
+        let height = checkFrame.height
+        let bigFrame = self.superview!.frame
+        if(x < bigFrame.minX)
+        {
+            x = 0
+        }
+        if(y < bigFrame.minY)
+        {
+            y = 0
+        }
+        if(maxX > bigFrame.maxX)
+        {
+            x = bigFrame.maxX - width
+        }
+        if(maxY > bigFrame.maxY)
+        {
+            y = bigFrame.maxY - height
+        }
+        return CGRectMake(x, y, width, height)
     }
 }
