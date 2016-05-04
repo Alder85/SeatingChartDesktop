@@ -35,6 +35,10 @@ extension NSView {
     var center: CGPoint {
         return CGPointMake(NSMidX(self.frame), NSMidY(self.frame))
     }
+    
+    var centerInFrame: CGPoint {
+        return CGPointMake(self.frame.width / 2, self.frame.height / 2)
+    }
 }
 
 /*

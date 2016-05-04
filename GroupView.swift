@@ -78,9 +78,11 @@ class GroupView: NSView
 */
     
     func detectPan(recognizer:NSPanGestureRecognizer) {
-        let translation =  recognizer.locationInView(self.superview!)
-        Swift.print(translation)
-        self.frame = CGRectMake(lastLocation.x + translation.x - 25, lastLocation.y + translation.y - 25, self.frame.width, self.frame.height)
+        let location = recognizer.locationInView(self.superview!)
+        //let translation = recognizer.translationInView(self)
+        
+        Swift.print(location, "    ", centerInFrame)
+        self.frame = CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height)
     }
     
     func redraw()
