@@ -45,19 +45,7 @@ class CurveView: GroupView {
         }
         
         
-        for i in 1...Int(numRows)
-        {
-            let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
-            if !leftRect
-            {
-                makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
-            }
-            else
-            {
-                makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
-            }
-        }
-        
+        updateSubviewCurves()
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
@@ -122,9 +110,11 @@ class CurveView: GroupView {
         let rowNumber = Int(obj.identifier!)
         Swift.print("add" + String(rowNumber))
         let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
-        //temp.setLabelString("test " + String(subviewArray[rowNumber!].count))
+        
         subviewArray[rowNumber!].insert(temp, atIndex: subviewArray[rowNumber!].count)
         redraw()
+        updateSubviewCurves()
+
     }
     
     func removeView(obj: NSButton)
@@ -137,6 +127,7 @@ class CurveView: GroupView {
             subviewArray[rowNumber!].removeAtIndex(subviewArray[rowNumber!].count - 1)
         }
         redraw()
+        updateSubviewCurves()
     }
     
     func addEditToggle()
@@ -152,6 +143,23 @@ class CurveView: GroupView {
         button.action = "toggleEditable:"
         button.target = self
         self.addSubview(button)
+    }
+    
+    func updateSubviewCurves()
+    {
+        for i in 1...Int(numRows)
+        {
+            let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
+            if !leftRect
+            {
+                makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+            }
+            else
+            {
+                makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+            }
+        }
+
     }
     
     override func toggleEditable(obj: AnyObject?)
@@ -181,6 +189,7 @@ class CurveView: GroupView {
         for i in 0...buttonArray.count - 1
         {
             buttonArray[i].hidden = false
+            self.addSubview(buttonArray[i])
         }
     }
     
@@ -208,7 +217,7 @@ class CurveView: GroupView {
                 makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
                // if i == 5
               //  {
-                    //makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+                   // makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
                 //}
             }
 
