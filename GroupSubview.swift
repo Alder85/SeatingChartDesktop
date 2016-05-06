@@ -31,7 +31,7 @@ class GroupSubview: NSView
         self.layer!.borderWidth = 2
         self.layer!.cornerRadius = 10
         */
-        self.backgroundColor = NSColor.greenColor()
+        //self.backgroundColor = NSColor.greenColor()
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
     }
     override var opaque: Bool{
@@ -49,6 +49,8 @@ class GroupSubview: NSView
         //let borderColor = NSColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
        // borderColor.set()
        // bPath.stroke()
+        NSColor.blueColor().setFill()
+        NSRectFill(dirtyRect);
             
     }
 

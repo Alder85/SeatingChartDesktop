@@ -32,6 +32,9 @@ extension NSView {
             wantsLayer = true
             layer?.backgroundColor = newValue?.CGColor
         }
+        
+
+
     }
     var center: CGPoint {
         return CGPointMake(NSMidX(self.frame), NSMidY(self.frame))

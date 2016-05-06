@@ -28,7 +28,7 @@ class GroupView: NSView
         super.init(frame: inFrame);
         let panRecognizer = NSPanGestureRecognizer(target:self, action:"detectPan:")
         self.gestureRecognizers = [panRecognizer]
-        self.backgroundColor = NSColor.redColor()
+        //self.backgroundColor = NSColor.whiteColor()
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
 
     }
