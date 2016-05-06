@@ -17,6 +17,7 @@ class GroupSubview: NSView
     var isSnapped = false
     var studentview: StudentView?
     var pointerloc = -1
+    var updateTimer = NSTimer()
     
     init(inRect: NSRect) {
         
@@ -30,16 +31,24 @@ class GroupSubview: NSView
         self.layer!.borderWidth = 2
         self.layer!.cornerRadius = 10
         */
+        self.backgroundColor = NSColor.greenColor()
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
     }
+    override var opaque: Bool{
+        return false
+    }
+    
+    
+
     
     override func drawRect(dirtyRect: NSRect)
     {
         super.drawRect(dirtyRect)
-        
-        let bPath:NSBezierPath = NSBezierPath(roundedRect: dirtyRect, xRadius: 15, yRadius: 15)
-        let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        borderColor.set()
-        bPath.stroke()
+       
+       // let bPath:NSBezierPath = NSBezierPath(roundedRect: dirtyRect, xRadius: 15, yRadius: 15)
+        //let borderColor = NSColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
+       // borderColor.set()
+       // bPath.stroke()
             
     }
 

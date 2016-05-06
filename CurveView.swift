@@ -230,6 +230,8 @@ class CurveView: GroupView {
         //borderColor.set()
         
         bPath.stroke()
+        
+        showButtons()
 //*/
     }
     

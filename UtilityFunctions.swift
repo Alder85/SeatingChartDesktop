@@ -21,6 +21,7 @@ func dataToStudentArray(dataArray: [[String]]) -> [Student]
     return outArray
 }
 extension NSView {
+    
     var backgroundColor: NSColor? {
         get {
             guard let layer = layer, backgroundColor = layer.backgroundColor else { return nil }
@@ -38,6 +39,16 @@ extension NSView {
     
     var centerInFrame: CGPoint {
         return CGPointMake(self.frame.width / 2, self.frame.height / 2)
+    }
+    func redraw()
+    {
+        let dummy = false
+        redraw(dummy)
+    }
+    
+    func redraw(obj: AnyObject?) //redraws view, solves dragging issues
+    {
+        self.needsDisplay = true
     }
 }
 

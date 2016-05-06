@@ -18,9 +18,9 @@ class GroupView: NSView
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var editable = false
-    
-    var subviewArray: [[GroupSubview]] = [] //row, subview
     var updateTimer = NSTimer()
+    var subviewArray: [[GroupSubview]] = [] //row, subview
+    
     var frameRect: CGRect
     
     init(inFrame: NSRect) {
@@ -28,6 +28,9 @@ class GroupView: NSView
         super.init(frame: inFrame);
         let panRecognizer = NSPanGestureRecognizer(target:self, action:"detectPan:")
         self.gestureRecognizers = [panRecognizer]
+        self.backgroundColor = NSColor.redColor()
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+
     }
 
     required init?(coder: NSCoder) {
@@ -52,30 +55,10 @@ class GroupView: NSView
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
         return true
     }
-    /*
-    override func mouseDown(theEvent: NSEvent)
-    {
-        Swift.print("Mouse Down")
-        firstClick = theEvent.locationInWindow
-        firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
-    }
-    override func mouseDragged(theEvent: NSEvent) {
-        self.needsDisplay = false
-        Swift.print("Mouse Drag")
-        let clickX = theEvent.locationInWindow.x
-        let clickY = theEvent.locationInWindow.y
-        let offsetX = clickX - firstClick.x
-        let offsetY = clickY - firstClick.y
-        if editable
-        {
-            moveAllViewsWithGroup(offsetX, offsetY: offsetY)
-        }
-    }
     
-    override func mouseUp(theEvent: NSEvent) {
-        self.needsDisplay = true
+    override var opaque: Bool{
+        return false
     }
-*/
     
     func detectPan(recognizer:NSPanGestureRecognizer) {
         let location = recognizer.locationInView(self.superview!)
@@ -84,17 +67,7 @@ class GroupView: NSView
         Swift.print(location, "    ", centerInFrame)
         self.frame = CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height)
     }
-    
-    func redraw()
-    {
-        let dummy = false
-        redraw(dummy)
-    }
-    
-    func redraw(obj: AnyObject?) //redraws view, solves dragging issues
-    {
-        self.needsDisplay = true
-    }
+
     
     
     func moveAllViewsWithGroup(offsetX: CGFloat, offsetY: CGFloat)

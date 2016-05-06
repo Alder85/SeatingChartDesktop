@@ -12,17 +12,11 @@ class TestSquareController: NSViewController {
     //potatoepotatoe
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
-    
-    
-    
-
-    
-    
     override func viewDidLoad() {
         
         let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
-        /*
+        
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
         //temp.frame = CGRectMake(0,0,200,200)
@@ -35,9 +29,9 @@ class TestSquareController: NSViewController {
         
         let potatoe = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         self.view.addSubview(potatoe)
-*/
-        let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
-        self.view.addSubview(potatoe)
+
+        //let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
+        //self.view.addSubview(potatoe)
         
         /*
         //temp1.frame = CGRectMake(0,0,200,200)
@@ -87,7 +81,7 @@ class TestSquareController: NSViewController {
     
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: "/Users/732408/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        let contents = try String(contentsOfFile: "/Users/735582/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
         Swift.print(contents)
         return contents
     }
