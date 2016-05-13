@@ -42,24 +42,37 @@ class StudentView: NSView {
             }
         }
         
-        //let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         student = inStudent
-        //label.stringValue = student.getName()
-        //label.editable = false
-       // self.addSubview(label)
+ 
+        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
+        
+        label.stringValue = student.getName()
+        label.editable = false
+        label.bezeled = false
+        label.drawsBackground = false
+        label.alignment = NSTextAlignment.Center
+        
+        label.font = NSFont(descriptor: NSFontDescriptor(name: "Arial-BoldItalicMT", size: 10), size: 10)
+        
+        self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
-        //label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
-        self.backgroundColor = NSColor.blackColor()
+        self.backgroundColor = NSColor.lightGrayColor()
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
     
     override func drawRect(dirtyRect: NSRect)
     {
         
-        NSColor.purpleColor().setFill()
-        NSRectFill(dirtyRect)
-        super.drawRect(dirtyRect)
+        //NSColor.purpleColor().setFill()
+        //NSRectFill(dirtyRect)
+        //super.drawRect(dirtyRect)
+    }
+    
+    override func mouseEntered(theEvent: NSEvent) {
+        super.mouseEntered(theEvent)
+        Swift.print("potatoe")
+        rightMouseDown(theEvent)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -89,6 +102,7 @@ class StudentView: NSView {
         theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector("action1:"), keyEquivalent: "")
         theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
         theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
+        theMenu.addItemWithTitle("terminate", action: Selector("remove:"), keyEquivalent: "")
         
         for item: AnyObject in theMenu.itemArray {
             if let menuItem = item as? NSMenuItem {
@@ -97,6 +111,10 @@ class StudentView: NSView {
         }
         
         NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+    }
+    func remove(sender: AnyObject?)
+    {
+        self.removeFromSuperview()
     }
     
     func setLocation(xpoint: CGFloat, ypoint: CGFloat)

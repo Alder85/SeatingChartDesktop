@@ -53,6 +53,7 @@ class GroupView: NSView
 
     //>>>DRAGGABLE STUFF<<<\\
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
+        Swift.print("potatoe")
         return true
     }
     
@@ -62,11 +63,15 @@ class GroupView: NSView
     
     func detectPan(recognizer:NSPanGestureRecognizer) {
         let location = recognizer.locationInView(self.superview!)
-        //let translation = recognizer.translationInView(self)
+        let translation = recognizer.translationInView(self)
         
-        Swift.print(location, "    ", centerInFrame)
-        self.frame = CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height)
-        moveAllViewsWithGroup()
+        //Swift.print(location, "    ", centerInFrame)
+       // let movePixelMinimumValue: CGFloat = 10
+       // if(translation.x > movePixelMinimumValue || translation.y > movePixelMinimumValue)
+       // {
+            self.frame = CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height)
+            moveAllViewsWithGroup()
+       // }
     }
 
     

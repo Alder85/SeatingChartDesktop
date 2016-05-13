@@ -29,6 +29,8 @@ class TestSquareController: NSViewController {
         
         let potatoe = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         self.view.addSubview(potatoe)
+        let potatoe2 = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        self.view.addSubview(potatoe2)
 
         //let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
         //self.view.addSubview(potatoe)
