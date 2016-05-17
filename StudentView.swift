@@ -50,11 +50,20 @@ class StudentView: NSView  {
                 }
             }
         }
-        //let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
+        
         student = inStudent
-        //label.stringValue = student.getName()
-        //label.editable = false
-       // self.addSubview(label)
+ 
+        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
+        
+        label.stringValue = student.getName()
+        label.editable = false
+        label.bezeled = false
+        label.drawsBackground = false
+        label.alignment = NSTextAlignment.Center
+        
+        label.font = NSFont(descriptor: NSFontDescriptor(name: "Arial-BoldItalicMT", size: 10), size: 10)
+        
+        self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         updateFrameArray()
@@ -107,6 +116,7 @@ class StudentView: NSView  {
         theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector("action1:"), keyEquivalent: "")
         theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
         theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
+        theMenu.addItemWithTitle("terminate", action: Selector("remove:"), keyEquivalent: "")
         
         for item: AnyObject in theMenu.itemArray {
             if let menuItem = item as? NSMenuItem {
@@ -115,6 +125,10 @@ class StudentView: NSView  {
         }
         
         NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+    }
+    func remove(sender: AnyObject?)
+    {
+        self.removeFromSuperview()
     }
     
     func setLocation(xpoint: CGFloat, ypoint: CGFloat)

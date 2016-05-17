@@ -52,21 +52,9 @@ class CurveView: GroupView {
                 //self.addSubview(subviewArray[i][q])
             }
         }
+        self.backgroundColor = NSColor.whiteColor()
         
-        
-        for i in 1...Int(numRows)
-        {
-            let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
-            if !leftRect
-            {
-                makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
-            }
-            else
-            {
-                makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
-            }
-        }
-        
+        updateSubviewCurves()
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
@@ -103,8 +91,8 @@ class CurveView: GroupView {
             for i in 1...Int(numRows)
             {
                 let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
-                makeAddButton(CGPointMake(y + 2, 2), row: i)
-                makeSubtractButton(CGPointMake(y + 20, 2), row: i)
+                makeAddButton(CGPointMake(y - 47, 2), row: i)
+                makeSubtractButton(CGPointMake(y - 25, 2), row: i)
             }
         }
         else
@@ -112,8 +100,8 @@ class CurveView: GroupView {
             for i in 1...Int(numRows)
             {
                 let y = ((self.frame.size.width - rowLength) / numRows) * (numRows - CGFloat(i))
-                makeAddButton(CGPointMake(y + 2, 2), row: i)
-                makeSubtractButton(CGPointMake(y + 20, 2), row: i)
+                makeAddButton(CGPointMake(y + 69, 2), row: i)
+                makeSubtractButton(CGPointMake(y + 91, 2), row: i)
             }
         }
     }
@@ -155,9 +143,12 @@ class CurveView: GroupView {
         let rowNumber = Int(obj.identifier!)
         Swift.print("add" + String(rowNumber))
         let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
-        //temp.setLabelString("test " + String(subviewArray[rowNumber!].count))
+        
         subviewArray[rowNumber!].insert(temp, atIndex: subviewArray[rowNumber!].count)
-        redraw()
+        //redraw()
+        updateSubviewCurves()
+        moveAllViewsWithGroup()
+
     }
     
     func removeView(obj: NSButton)
@@ -169,7 +160,9 @@ class CurveView: GroupView {
             subviewArray[rowNumber!][subviewArray[rowNumber!].count - 1].removeFromSuperview()
             subviewArray[rowNumber!].removeAtIndex(subviewArray[rowNumber!].count - 1)
         }
-        redraw()
+       // redraw()
+        updateSubviewCurves()
+        moveAllViewsWithGroup()
     }
     
     func addEditToggle()
@@ -185,6 +178,23 @@ class CurveView: GroupView {
         button.action = "toggleEditable:"
         button.target = self
         self.addSubview(button)
+    }
+    
+    func updateSubviewCurves()
+    {
+        for i in 1...Int(numRows)
+        {
+            let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
+            if !leftRect
+            {
+                makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+            }
+            else
+            {
+                makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+            }
+        }
+
     }
     
     override func toggleEditable(obj: AnyObject?)
@@ -214,6 +224,7 @@ class CurveView: GroupView {
         for i in 0...buttonArray.count - 1
         {
             buttonArray[i].hidden = false
+            self.addSubview(buttonArray[i])
         }
     }
     
@@ -225,7 +236,8 @@ class CurveView: GroupView {
         //super.drawRect(dirtyRect)
         let lineWidth: CGFloat = 5
         let context = NSGraphicsContext.currentContext()?.CGContext
-        CGContextSetStrokeColorWithColor(context, NSColor.purpleColor().CGColor)
+        //CGContextSetStrokeColorWithColor(context, NSColor.purpleColor().CGColor)
+        CGContextSetStrokeColorWithColor(context, NSColor(red: 255.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0).CGColor)
         CGContextSetLineWidth(context, lineWidth)
         if !leftRect
         {
@@ -235,7 +247,7 @@ class CurveView: GroupView {
                 makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
                // if i == 5
               //  {
-                    //makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
+                   // makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
                 //}
             }
 
@@ -251,12 +263,14 @@ class CurveView: GroupView {
         }
         CGContextSetStrokeColorWithColor(context, NSColor.greenColor().CGColor)
         CGContextSetLineWidth(context, lineWidth)
-        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
+       // let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
         
        // let borderColor = NSColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
         //borderColor.set()
         
-        bPath.stroke()
+       // bPath.stroke()
+        
+        showButtons()
 //*/
     }
     

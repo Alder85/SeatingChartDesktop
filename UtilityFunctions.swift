@@ -21,6 +21,7 @@ func dataToStudentArray(dataArray: [[String]]) -> [Student]
     return outArray
 }
 extension NSView {
+    
     var backgroundColor: NSColor? {
         get {
             guard let layer = layer, backgroundColor = layer.backgroundColor else { return nil }
@@ -31,6 +32,9 @@ extension NSView {
             wantsLayer = true
             layer?.backgroundColor = newValue?.CGColor
         }
+        
+
+
     }
     var center: CGPoint {
         return CGPointMake(NSMidX(self.frame), NSMidY(self.frame))
@@ -38,6 +42,16 @@ extension NSView {
     
     var centerInFrame: CGPoint {
         return CGPointMake(self.frame.width / 2, self.frame.height / 2)
+    }
+    func redraw()
+    {
+        let dummy = false
+        redraw(dummy)
+    }
+    
+    func redraw(obj: AnyObject?) //redraws view, solves dragging issues
+    {
+        self.needsDisplay = true
     }
 }
 
@@ -48,7 +62,13 @@ extension String
 {
     func substring(start: Int, end: Int) -> String
     {
-        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end + 1)))
+        
+        
+        let endVal = self.startIndex.advancedBy(end + 1)
+        let startVal = self.startIndex.advancedBy(start, limit: endVal)
+        return self.substringWithRange(Range<String.Index>(start: startVal, end: endVal))
+
+        //return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end + 1)))
     }
     func indexOf(string: String) -> String.Index? {
         return rangeOfString(string, options: .LiteralSearch, range: nil, locale: nil)?.startIndex

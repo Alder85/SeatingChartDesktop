@@ -27,7 +27,7 @@ class TestSquareController: NSViewController {
         
         /*let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
-        /*
+        
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
         //temp.frame = CGRectMake(0,0,200,200)
@@ -68,7 +68,7 @@ class TestSquareController: NSViewController {
         self.view.addSubview(temp4)
         */
         
-        let csv: CSV
+        let csv: CSwiftV
         
         rectangleViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(RectangleView.ArchiveURL.path!) as? [RectangleView])!
         
@@ -97,8 +97,12 @@ class TestSquareController: NSViewController {
         
         /*do
         {
-            try csv = CSV(input: loadCSV())
-            let studentArray: [Student] = dataToStudentArray(csv.dataArray)
+            let tempString = try loadCSV()
+            //try csv = CSV(input: tempString)
+
+
+            csv = CSwiftV(string: tempString)
+            let studentArray: [Student] = dataToStudentArray(csv.rows)
             for x in 0...studentArray.count - 1
             {
                 let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
@@ -124,8 +128,8 @@ class TestSquareController: NSViewController {
     
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: "/Users/732408/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
-        Swift.print(contents)
+        let contents = try String(contentsOfFile: "/Users/735582/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        //Swift.print(contents)
         return contents
     }
     
