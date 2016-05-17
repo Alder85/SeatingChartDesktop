@@ -57,7 +57,7 @@ class StudentView: NSView {
         self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
-        self.backgroundColor = NSColor.lightGrayColor()
+        self.backgroundColor = NSColor.cyanColor()
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
     

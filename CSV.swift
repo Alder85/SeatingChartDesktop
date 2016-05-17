@@ -69,10 +69,10 @@ class CSV {
     {
         var lastPos = 0
         var lineArray: [String] = []
-        
+        Swift.print(fileData)
         for x in 0...fileData.characters.count  //divide raw string into separate lines
         {
-            if(fileData.substring(x, end: x) == "\n")
+            if(fileData.substring(x, end: x) == "\r") //or /n
             {
                 lineArray.append(fileData.substring(lastPos, end: x - 1))
                 lastPos = x + 1;
@@ -82,7 +82,7 @@ class CSV {
                 break
             }
         }
-        
+        Swift.print(lineArray)
         
         for x in 0...lineArray.count - 1
         {

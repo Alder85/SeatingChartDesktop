@@ -56,12 +56,16 @@ class TestSquareController: NSViewController {
         self.view.addSubview(temp4)
         */
         
-        let csv: CSV
+        let csv: CSwiftV
         
         do
         {
-            try csv = CSV(input: loadCSV())
-            let studentArray: [Student] = dataToStudentArray(csv.dataArray)
+            let tempString = try loadCSV()
+            //try csv = CSV(input: tempString)
+
+
+            csv = CSwiftV(string: tempString)
+            let studentArray: [Student] = dataToStudentArray(csv.rows)
             for x in 0...studentArray.count - 1
             {
                 let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
@@ -84,7 +88,7 @@ class TestSquareController: NSViewController {
     func loadCSV() throws -> String
     {
         let contents = try String(contentsOfFile: "/Users/735582/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
-        Swift.print(contents)
+        //Swift.print(contents)
         return contents
     }
     

@@ -62,7 +62,13 @@ extension String
 {
     func substring(start: Int, end: Int) -> String
     {
-        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end + 1)))
+        
+        
+        let endVal = self.startIndex.advancedBy(end + 1)
+        let startVal = self.startIndex.advancedBy(start, limit: endVal)
+        return self.substringWithRange(Range<String.Index>(start: startVal, end: endVal))
+
+        //return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end + 1)))
     }
     func indexOf(string: String) -> String.Index? {
         return rangeOfString(string, options: .LiteralSearch, range: nil, locale: nil)?.startIndex
