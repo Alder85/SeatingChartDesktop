@@ -7,7 +7,7 @@ import Foundation
 import AppKit
 
 
-class StudentView: NSView {
+class StudentView: NSView  {
     var lastLocation:CGPoint = CGPointMake(0, 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
@@ -23,6 +23,15 @@ class StudentView: NSView {
     var student = Student()
     var studentLocations: [String] = retrieveStringArray("StudentLoc")
     var arrayIndexes: [Int] = []
+    var frameArray: [CGFloat] = [0.0, 0.0, 0.0, 0.0]
+    
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("StudentViews")
+    
+    struct PropertyKey {
+        static let frameKey = "frame"
+        static let studentKey = "student"
+    }
     
     init(inRect: CGRect, inStudent: Student)
     {
@@ -48,21 +57,31 @@ class StudentView: NSView {
        // self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
+        updateFrameArray()
         //label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
         //self.backgroundColor = NSColor.redColor()
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
+        aCoder.encodeObject(self.student, forKey: PropertyKey.studentKey)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let frameArray = aDecoder.decodeObjectForKey(PropertyKey.frameKey) as! [CGFloat]
+        
+        let student = aDecoder.decodeObjectForKey(PropertyKey.studentKey) as! Student
+        
+        // Must call designated initializer.
+        self.init(inRect: CGRectMake(frameArray[0], frameArray[1], frameArray[2], frameArray[3]), inStudent: student)
+    }
+    
     override func drawRect(dirtyRect: NSRect)
     {
-        
         NSColor.purpleColor().setFill()
         NSRectFill(dirtyRect)
         super.drawRect(dirtyRect)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
@@ -119,6 +138,7 @@ class StudentView: NSView {
         offsetY = clickY - firstClick.y
         
         self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight))
+        updateFrameArray()
     }
     override func mouseUp(theEvent: NSEvent) {
         snap()
@@ -198,6 +218,7 @@ class StudentView: NSView {
                 }
             }
         }
+        updateFrameArray()
     }
     
     func edgeCheck(checkFrame: CGRect) -> CGRect
@@ -226,5 +247,13 @@ class StudentView: NSView {
             y = bigFrame.maxY - height
         }
         return CGRectMake(x, y, width, height)
+    }
+    
+    func updateFrameArray()
+    {
+        frameArray[0] = self.frame.minX
+        frameArray[1] = self.frame.minY
+        frameArray[2] = self.frame.width
+        frameArray[3] = self.frame.height
     }
 }

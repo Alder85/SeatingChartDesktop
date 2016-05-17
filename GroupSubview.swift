@@ -15,15 +15,23 @@ class GroupSubview: NSView
     let viewLength: CGFloat = 50
     let viewHeight: CGFloat  = 50
     var isSnapped = false
-    var studentview: StudentView?
+    var studentview: StudentView! = StudentView(inRect: CGRectMake(0,0,0,0), inStudent: Student(inName: "", inChair: 0, inInstrument: ""))
     var pointerloc = -1
     
-    init(inRect: NSRect) {
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("GroupSubviews")
+    
+    struct PropertyKey {
+        static let studentViewKey = "studentView"
+    }
+    
+    init(inRect: NSRect, studentv: StudentView) {
         
         
         super.init(frame: inRect)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
+        self.studentview = studentv
         
         /*
         self.wantsLayer = true
@@ -31,6 +39,21 @@ class GroupSubview: NSView
         self.layer!.cornerRadius = 10
         */
     }
+    
+    convenience init(inRect: NSRect) {
+        
+        self.init(inRect: inRect, studentv: StudentView(inRect: CGRectMake(0,0,0,0), inStudent: Student(inName: "", inChair: 0, inInstrument: "")))
+        self.frame = inRect
+        self.setNeedsDisplayInRect(self.frame) //makes context exist
+        //self.studentview = studentv
+        
+        /*
+        self.wantsLayer = true
+        self.layer!.borderWidth = 2
+        self.layer!.cornerRadius = 10
+        */
+    }
+
     
     override func drawRect(dirtyRect: NSRect)
     {
@@ -44,8 +67,13 @@ class GroupSubview: NSView
     }
 
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.studentview, forKey: PropertyKey.studentViewKey)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        // Must call designated initializer.
+        self.init(inRect: CGRectMake(0,0,0,0), studentv: StudentView(inRect: CGRectMake(0,0,0,0), inStudent: Student(inName: "", inChair: 0, inInstrument: "")))
     }
     
     

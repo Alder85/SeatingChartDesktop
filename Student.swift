@@ -8,13 +8,22 @@
 
 import Foundation
 
-class Student: CustomStringConvertible
+class Student: NSObject, NSCoding
 {
     private var name: String        = "invalid name"
     private var instrument: String  = "invalid instrument"
     private var chair: Int          = -42
     
-    init()
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("Students")
+    
+    struct PropertyKey {
+        static let nameKey = "name"
+        static let instrumentKey = "instrument"
+        static let chairKey = "chair"
+    }
+    
+    override init()
     {
         
     }
@@ -31,6 +40,23 @@ class Student: CustomStringConvertible
         name = inName
         instrument = inInstrument
         chair = inChair
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
+        aCoder.encodeObject(instrument, forKey: PropertyKey.instrumentKey)
+        aCoder.encodeObject(chair, forKey: PropertyKey.chairKey)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
+        
+        let instrument = aDecoder.decodeObjectForKey(PropertyKey.instrumentKey) as! String
+        
+        let chair = aDecoder.decodeObjectForKey(PropertyKey.chairKey) as! Int
+        
+        // Must call designated initializer.
+        self.init(inName: name, inChair: chair, inInstrument: instrument)
     }
     
     func getName() -> String
@@ -63,7 +89,7 @@ class Student: CustomStringConvertible
         chair = inChair
     }
     
-    var description: String
+    override var description: String
     {
         return name + " plays " + instrument + " and is chair #" + String(chair)
     }

@@ -22,10 +22,12 @@ class GroupView: NSView
     var subviewArray: [[GroupSubview]] = [] //row, subview
     var updateTimer = NSTimer()
     var frameRect: CGRect
+    var frameArray: [CGFloat] = [0.0, 0.0, 0.0, 0.0]
     
     init(inFrame: NSRect) {
         frameRect = inFrame
         super.init(frame: inFrame);
+        updateFrameArray()
         let panRecognizer = NSPanGestureRecognizer(target:self, action:"detectPan:")
         self.gestureRecognizers = [panRecognizer]
     }
@@ -82,8 +84,9 @@ class GroupView: NSView
         //let translation = recognizer.translationInView(self)
         
         Swift.print(location, "    ", centerInFrame)
-        self.frame = CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height)
+        self.frame = edgeCheck(CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height))
         moveAllViewsWithGroup()
+        updateFrameArray()
     }
     
     func redraw()
@@ -114,6 +117,7 @@ class GroupView: NSView
                         let i = getCoordsOfSubview(x, y: y).x
                         let h = getCoordsOfSubview(x, y: y).y
                         subviewArray[x][y].studentview!.frame = CGRectMake(i, h, subviewArray[x][y].studentview!.frame.width, subviewArray[x][y].studentview!.frame.height)
+                        subviewArray[x][y].studentview!.updateFrameArray()
                     }
                 }
             }
@@ -147,6 +151,14 @@ class GroupView: NSView
             y = bigFrame.maxY - height
         }
         return CGRectMake(x, y, width, height)
+    }
+
+    func updateFrameArray()
+    {
+        frameArray[0] = self.frame.minX
+        frameArray[1] = self.frame.minY
+        frameArray[2] = self.frame.width
+        frameArray[3] = self.frame.height
     }
 
 }

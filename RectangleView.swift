@@ -21,6 +21,14 @@ class RectangleView: GroupView
     var locX = 50.0
     var locY = 100.0
     
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("RectangleViews")
+    
+    struct PropertyKey {
+        static let frameKey = "frame"
+        static let numberOfSubviewsKey = "numberOfSubviews"
+    }
+    
     convenience init(inView: NSView)
     {
         self.init(inRect: inView.frame, subviews: 1)
@@ -77,8 +85,18 @@ class RectangleView: GroupView
     }
     
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
+        aCoder.encodeObject(self.numberOfSubviews, forKey: PropertyKey.numberOfSubviewsKey)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let frameArray = aDecoder.decodeObjectForKey(PropertyKey.frameKey) as! [CGFloat]
+        
+        let numberOfSubviews = aDecoder.decodeObjectForKey(PropertyKey.numberOfSubviewsKey) as! Int
+        
+        // Must call designated initializer.
+        self.init(inRect: CGRectMake(frameArray[0], frameArray[1], frameArray[2], frameArray[3]), subviews: numberOfSubviews)
     }
 
     

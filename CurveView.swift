@@ -24,12 +24,21 @@ class CurveView: GroupView {
     var leftRect = false
     
     
-    init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat)
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("CurveViews")
+    
+    struct PropertyKey {
+        static let frameKey = "frame"
+        static let isLeftKey = "isLeft"
+        static let subviewArrayKey = "subviewArray"
+    }
+    
+    init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat, startX: CGFloat, startY: CGFloat)
     {
         leftRect = isLeft
         numRows = rows
         rowLength = length
-        super.init(inFrame: CGRect(origin: CGPointMake(0,0), size: CGSize(width: size, height: size)))
+        super.init(inFrame: CGRect(origin: CGPointMake(startX, startY), size: CGSize(width: size, height: size)))
         makeButtons()
         addEditToggle()
         hideButtons()
@@ -61,6 +70,30 @@ class CurveView: GroupView {
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+    }
+    
+    convenience init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat)
+    {
+        self.init(size: size, isLeft: isLeft, rows: rows, length: length, startX: 0.0, startY: 0.0)
+    }
+    
+    
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
+        aCoder.encodeObject(self.leftRect, forKey: PropertyKey.isLeftKey)
+        aCoder.encodeObject(self.subviewArray, forKey: PropertyKey.subviewArrayKey)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let frameArray = aDecoder.decodeObjectForKey(PropertyKey.frameKey) as! [CGFloat]
+        
+        let leftRect = aDecoder.decodeObjectForKey(PropertyKey.isLeftKey) as! Bool
+        
+        let subviewArray = aDecoder.decodeObjectForKey(PropertyKey.subviewArrayKey) as! [[GroupSubview]]
+        
+        // Must call designated initializer.
+        self.init(size: Int(frameArray[2]), isLeft: leftRect, rows: CGFloat(subviewArray.count), length: CGFloat(subviewArray[0].count), startX: frameArray[0], startY: frameArray[1])
     }
     
     func makeButtons()
@@ -184,12 +217,6 @@ class CurveView: GroupView {
         }
     }
     
-    
-
-    required init?(coder: NSCoder)
-    {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     
     override func drawRect(dirtyRect: NSRect)
@@ -329,8 +356,6 @@ class CurveView: GroupView {
         CGContextStrokePath(context)
         */
     }
-
-    
     
     
 
