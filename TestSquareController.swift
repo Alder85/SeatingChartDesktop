@@ -41,7 +41,7 @@ class TestSquareController: NSViewController {
         
         let potatoe1 = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         curveViewArray.append(potatoe1)
-        self.view.addSubview(potatoe1)*/
+        self.view.addSubview(potatoe1)
 
         /*let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
         rectangleViewArray.append(tempG)
