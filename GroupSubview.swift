@@ -46,9 +46,6 @@ class GroupSubview: NSView
         return false
     }
     
-    
-
-    
     convenience init(inRect: NSRect) {
         
         self.init(inRect: inRect, studentv: StudentView(inRect: CGRectMake(0,0,0,0), inStudent: Student(inName: "", inChair: 0, inInstrument: "")))

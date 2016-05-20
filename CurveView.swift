@@ -31,6 +31,7 @@ class CurveView: GroupView {
         static let frameKey = "frame"
         static let isLeftKey = "isLeft"
         static let subviewArrayKey = "subviewArray"
+        static let rowLengthKey = "rowLength"
     }
     
     init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat, startX: CGFloat, startY: CGFloat)
@@ -60,6 +61,31 @@ class CurveView: GroupView {
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
     }
     
+    convenience init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat, startX: CGFloat, startY: CGFloat, subArray: [[GroupSubview]])
+    {
+        self.init(size: size, isLeft: isLeft, rows: rows, length: length, startX: startX, startY: startY)
+        for x in 0...subArray.count - 1
+        {
+            if subArray[x].count < 5
+            {
+                let val = (5 - subArray[x].count)
+                for _ in 0...val - 1
+                {
+                    removeViewInt(x)
+                }
+            }
+            else if subArray[x].count > 5
+            {
+                
+                let val = (subArray[x].count - 5)
+                for _ in 0...val - 1
+                {
+                    addViewInt(x)
+                }
+            }
+        }
+    }
+    
     convenience init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat)
     {
         self.init(size: size, isLeft: isLeft, rows: rows, length: length, startX: 0.0, startY: 0.0)
@@ -71,6 +97,7 @@ class CurveView: GroupView {
         aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
         aCoder.encodeObject(self.leftRect, forKey: PropertyKey.isLeftKey)
         aCoder.encodeObject(self.subviewArray, forKey: PropertyKey.subviewArrayKey)
+        aCoder.encodeObject(self.rowLength, forKey: PropertyKey.rowLengthKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -80,8 +107,10 @@ class CurveView: GroupView {
         
         let subviewArray = aDecoder.decodeObjectForKey(PropertyKey.subviewArrayKey) as! [[GroupSubview]]
         
+        let rowLength = aDecoder.decodeObjectForKey(PropertyKey.rowLengthKey) as! CGFloat
+        
         // Must call designated initializer.
-        self.init(size: Int(frameArray[2]), isLeft: leftRect, rows: CGFloat(subviewArray.count), length: CGFloat(subviewArray[0].count), startX: frameArray[0], startY: frameArray[1])
+        self.init(size: Int(frameArray[2]), isLeft: leftRect, rows: CGFloat(subviewArray.count), length: rowLength, startX: frameArray[0], startY: frameArray[1], subArray: subviewArray)
     }
     
     func makeButtons()
@@ -140,27 +169,34 @@ class CurveView: GroupView {
     
     func addView(obj: NSButton)
     {
-        let rowNumber = Int(obj.identifier!)
+        addViewInt(Int(obj.identifier!)!)
+    }
+    
+    func addViewInt(rowNumber: Int)
+    {
         Swift.print("add" + String(rowNumber))
         let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
         
-        subviewArray[rowNumber!].insert(temp, atIndex: subviewArray[rowNumber!].count)
+        subviewArray[rowNumber].insert(temp, atIndex: subviewArray[rowNumber].count)
         //redraw()
         updateSubviewCurves()
         moveAllViewsWithGroup()
-
     }
     
     func removeView(obj: NSButton)
     {
-        let rowNumber = Int(obj.identifier!)
+        removeViewInt(Int(obj.identifier!)!)
+    }
+    
+    func removeViewInt(rowNumber: Int)
+    {
         Swift.print("subtract" + String(rowNumber))
-        if(subviewArray[rowNumber!].count > 0)
+        if(subviewArray[rowNumber].count > 0)
         {
-            subviewArray[rowNumber!][subviewArray[rowNumber!].count - 1].removeFromSuperview()
-            subviewArray[rowNumber!].removeAtIndex(subviewArray[rowNumber!].count - 1)
+            subviewArray[rowNumber][subviewArray[rowNumber].count - 1].removeFromSuperview()
+            subviewArray[rowNumber].removeAtIndex(subviewArray[rowNumber].count - 1)
         }
-       // redraw()
+        //redraw()
         updateSubviewCurves()
         moveAllViewsWithGroup()
     }

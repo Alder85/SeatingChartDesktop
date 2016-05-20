@@ -27,7 +27,7 @@ class TestSquareController: NSViewController {
         
         /*let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
-        
+        /*
         //temp2.frame = CGRectMake(0,0,100,100)
         super.viewDidLoad()
         //temp.frame = CGRectMake(0,0,200,200)
@@ -38,10 +38,11 @@ class TestSquareController: NSViewController {
         //let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
         //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
         */
-        
+
+
         let potatoe1 = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         curveViewArray.append(potatoe1)
-        self.view.addSubview(potatoe1)*/
+        self.view.addSubview(potatoe1) */
 
         /*let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
         rectangleViewArray.append(tempG)
@@ -83,8 +84,9 @@ class TestSquareController: NSViewController {
         
         for x in 0...curveViewArray.count - 1
         {
-            let temp = curveViewArray[x] as CurveView
-            self.view.addSubview(temp)
+           let temp1 = curveViewArray[x]
+           let temp = CurveView(size: Int(temp1.frameArray[2]), isLeft: temp1.leftRect, rows: CGFloat(temp1.subviewArray.count), length: temp1.rowLength, startX: temp1.frameArray[0], startY: temp1.frameArray[1], subArray: temp1.subviewArray)
+          self.view.addSubview(temp)
         }
         
         studentViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(StudentView.ArchiveURL.path!) as? [StudentView])!
@@ -95,14 +97,19 @@ class TestSquareController: NSViewController {
             self.view.addSubview(temp)
         }
         
+        for i in 0...Int(self.view.subviews.count) - 1
+        {
+            if self.view.subviews[i] is StudentView
+            {
+                (self.view.subviews[i] as! StudentView).checkForGroupViews()
+                (self.view.subviews[i] as! StudentView).snap()
+            }
+        }
+        
         /*do
         {
-            let tempString = try loadCSV()
-            //try csv = CSV(input: tempString)
-
-
-            csv = CSwiftV(string: tempString)
-            let studentArray: [Student] = dataToStudentArray(csv.rows)
+            try csv = CSV(input: loadCSV())
+            let studentArray: [Student] = dataToStudentArray(csv.dataArray)
             for x in 0...studentArray.count - 1
             {
                 let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
@@ -156,7 +163,6 @@ class TestSquareController: NSViewController {
                 studentViewArray.append(temp)
             }
         }
-        var tempCur = studentViewArray
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(studentViewArray, toFile: StudentView.ArchiveURL.path!)
         if !isSuccessfulSave {
             Swift.print("Failed to save student views...")

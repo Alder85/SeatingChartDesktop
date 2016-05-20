@@ -66,6 +66,7 @@ class StudentView: NSView  {
         self.addSubview(label)
         self.frame = inRect
         self.setNeedsDisplayInRect(self.frame) //makes context exist
+        self.backgroundColor = NSColor.cyanColor()
         updateFrameArray()
         //label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
         //self.backgroundColor = NSColor.redColor()
@@ -88,9 +89,16 @@ class StudentView: NSView  {
     
     override func drawRect(dirtyRect: NSRect)
     {
-        NSColor.purpleColor().setFill()
-        NSRectFill(dirtyRect)
-        super.drawRect(dirtyRect)
+        
+        //NSColor.purpleColor().setFill()
+        //NSRectFill(dirtyRect)
+        //super.drawRect(dirtyRect)
+    }
+    
+    override func mouseEntered(theEvent: NSEvent) {
+        super.mouseEntered(theEvent)
+        Swift.print("potatoe")
+        rightMouseDown(theEvent)
     }
     
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {

@@ -72,17 +72,6 @@ class GroupView: NSView
         moveAllViewsWithGroup()
         updateFrameArray()
     }
-    
-    func redraw()
-    {
-        let dummy = false
-        redraw(dummy)
-    }
-    
-    func redraw(obj: AnyObject?) //redraws view, solves dragging issues
-    {
-        self.needsDisplay = true
-    }
 
     
     
