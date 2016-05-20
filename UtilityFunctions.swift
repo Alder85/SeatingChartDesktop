@@ -10,6 +10,14 @@ import Foundation
 import Cocoa
 import AppKit
 
+/**
+    Converts a 2D string array, assumedly loaded from a CSV, to an array of Students
+
+    - Parameters:
+        - dataArray: String array to convert
+    - Returns: An array of Students
+    ![Shaquille O'Neil](http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/614.png&w=350&h=254)
+ */
 func dataToStudentArray(dataArray: [[String]]) -> [Student]
 {
     var outArray: [Student] = []
@@ -20,6 +28,7 @@ func dataToStudentArray(dataArray: [[String]]) -> [Student]
     }
     return outArray
 }
+
 extension NSView {
     
     var backgroundColor: NSColor? {
@@ -126,6 +135,12 @@ func retrieveStudentArrayArray(name: String) -> [[Student]]
     return [[]] 
 }
 
+/**
+    Delays for a time, in seconds
+    - Parameters:
+        - delay: Seconds to delay
+    ![Wait a minute](https://cdn.meme.am/instances/49880791.jpg)
+ */
 func delay(delay:Double, closure:()->()) {
     dispatch_after(
         dispatch_time(
@@ -134,4 +149,24 @@ func delay(delay:Double, closure:()->()) {
         ),
         dispatch_get_main_queue(), closure)
 }
+
+/**
+    Flips a Boolean value
+    - Note: Do not attempt to simplify, this is the scientifically proven most effective method
+    - Parameters:
+        - bool: The Boolean to be flipped
+    - Returns: The flipped Boolean
+ 
+    ![Visible Confusion](https://i.warosu.org/data/ck/thumb/0058/69/1412871056921s.jpg)
+ */
+func flipBoolean(var bool: Bool) -> Bool
+{
+    let bool1 = bool;
+    bool = false;
+    var bool2 = bool;
+    bool2 = bool1 == bool ? bool2 : bool1
+    bool = !bool2
+    return bool
+}
+
 
