@@ -10,7 +10,7 @@ import Cocoa
 
 class TestSquareController: NSViewController {
     //potatoepotatoe
-    var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
+    //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
@@ -91,36 +91,72 @@ class TestSquareController: NSViewController {
         
         studentViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(StudentView.ArchiveURL.path!) as? [StudentView])!
         
-        for x in 0...studentViewArray.count - 1
+        /*for x in 0...studentViewArray.count - 1
         {
             let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: studentViewArray[x].student)
             self.view.addSubview(temp)
-        }
+        }*/
         
-        for i in 0...Int(self.view.subviews.count) - 1
+        var studentsAlreadyCreated: [Int] = []
+
+        do
         {
-            if self.view.subviews[i] is StudentView
+            try csv = CSwiftV(string: loadCSV())
+            let studentArray: [Student] = dataToStudentArray(csv.rows)
+            for b in 0...studentArray.count - 1
             {
-                (self.view.subviews[i] as! StudentView).checkForGroupViews()
-                (self.view.subviews[i] as! StudentView).snap()
+                var isAdded = false
+                if studentViewArray.count > 0
+                {
+                    for x in 0...studentViewArray.count - 1
+                    {
+                        if !isNumberInArrayInt(x, numArray: studentsAlreadyCreated)
+                        {
+                            let loadedStudent = studentViewArray[x].student as Student
+                            if  loadedStudent.getName() == studentArray[b].getName() &&
+                                loadedStudent.getInstrument() == studentArray[b].getInstrument()
+                            {
+                                let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation()))
+                                self.view.addSubview(temp)
+                                isAdded = true
+                                studentsAlreadyCreated.append(x)
+                                break
+                            }
+                        }
+                    }
+                }
+                if !isAdded
+                {
+                    let temp = StudentView(inRect: CGRectMake(CGFloat(0), CGFloat(0), 50, 50), inStudent: Student(inArray: studentArray[b].getInformation()))
+                    self.view.addSubview(temp)
+                }
             }
-        }
-        
-        /*do
-        {
-            try csv = CSV(input: loadCSV())
-            let studentArray: [Student] = dataToStudentArray(csv.dataArray)
-            for x in 0...studentArray.count - 1
+            /*for x in 0...studentViewArray.count - 1
             {
-                let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: studentArray[x])
+                let loadedStudent = studentViewArray[x].student as Student
+                for b in 0...studentArray.count - 1
+                {
+                    if loadedStudent.getName() == studentArray[b].getName() &&
+                       loadedStudent.getInstrument() == studentArray[b].getInstrument()
+                    {
+                        let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation()))
+                        self.view.addSubview(temp)
+                    }
+                }
+            }*/
+            /*for x in 0...studentArray.count - 1
+            {
+                let temp = StudentView(inRect: CGRectMake(CGFloat(arc4random_uniform(500)), CGFloat(arc4random_uniform(500)), 50, 50), inStudent: Student(inArray: studentArray[x].getInformation()))
                 studentViewArray.append(temp)
                 self.view.addSubview(temp)
-            }
+            }*/
         }
         catch
         {
             Swift.print("failed")
-        }*/
+        }
+        
+        snapAllStudentViews()
         
         var updateTimer = NSTimer()
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "saveViews", userInfo: nil, repeats: true)
@@ -135,7 +171,7 @@ class TestSquareController: NSViewController {
     
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: "/Users/735582/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        let contents = try String(contentsOfFile: "/Users/732408/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
         //Swift.print(contents)
         return contents
     }
@@ -145,6 +181,7 @@ class TestSquareController: NSViewController {
         studentViewArray = []
         curveViewArray = []
         rectangleViewArray = []
+        
         for i in 0...Int(self.view.subviews.count) - 1
         {
             if self.view.subviews[i] is CurveView
@@ -163,6 +200,7 @@ class TestSquareController: NSViewController {
                 studentViewArray.append(temp)
             }
         }
+        
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(studentViewArray, toFile: StudentView.ArchiveURL.path!)
         if !isSuccessfulSave {
             Swift.print("Failed to save student views...")
@@ -194,6 +232,37 @@ class TestSquareController: NSViewController {
     override var representedObject: AnyObject? {
         didSet {
             // Update the view, if already loaded.
+        }
+    }
+    
+    func snapAllStudentViews()
+    {
+        for i in 0...Int(self.view.subviews.count) - 1
+        {
+            if self.view.subviews[i] is StudentView
+            {
+                (self.view.subviews[i] as! StudentView).checkForGroupViews()
+                (self.view.subviews[i] as! StudentView).snap()
+            }
+        }
+    }
+    
+    func isNumberInArrayInt(num: Int, numArray: [Int]) -> Bool
+    {
+        if numArray.count > 0
+        {
+            for x in 0...numArray.count - 1
+            {
+                if num == numArray[x]
+                {
+                    return true
+                }
+            }
+            return false
+        }
+        else
+        {
+            return false
         }
     }
     

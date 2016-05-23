@@ -10,6 +10,7 @@ import Foundation
 
 class Student: NSObject, NSCoding
 {
+    private var informationArray: [String] = []
     private var name: String        = "invalid name"
     private var instrument: String  = "invalid instrument"
     private var chair: Int          = -42
@@ -18,9 +19,7 @@ class Student: NSObject, NSCoding
     static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("Students")
     
     struct PropertyKey {
-        static let nameKey = "name"
-        static let instrumentKey = "instrument"
-        static let chairKey = "chair"
+        static let informationKey = "information"
     }
     
     override init()
@@ -30,6 +29,7 @@ class Student: NSObject, NSCoding
     
     init(inArray: [String])
     {
+        informationArray = inArray
         name = inArray[0]
         instrument = inArray[1]
         chair = Int(inArray[2])!
@@ -43,20 +43,14 @@ class Student: NSObject, NSCoding
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeObject(instrument, forKey: PropertyKey.instrumentKey)
-        aCoder.encodeObject(chair, forKey: PropertyKey.chairKey)
+        aCoder.encodeObject(informationArray, forKey: PropertyKey.informationKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
-        
-        let instrument = aDecoder.decodeObjectForKey(PropertyKey.instrumentKey) as! String
-        
-        let chair = aDecoder.decodeObjectForKey(PropertyKey.chairKey) as! Int
+        let informationArray = aDecoder.decodeObjectForKey(PropertyKey.informationKey) as! [String]
         
         // Must call designated initializer.
-        self.init(inName: name, inChair: chair, inInstrument: instrument)
+        self.init(inArray: informationArray)
     }
     
     func getName() -> String
@@ -87,6 +81,16 @@ class Student: NSObject, NSCoding
     func setChair(inChair: Int)
     {
         chair = inChair
+    }
+    
+    func getInformation() -> [String]
+    {
+        return informationArray
+    }
+    
+    func setInformation(str: String, loc: Int)
+    {
+        informationArray[loc] = str
     }
     
     override var description: String
