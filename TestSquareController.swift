@@ -12,6 +12,19 @@ class TestSquareController: NSViewController {
     //potatoepotatoe
     //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
+    @IBAction func addLeftCurveView(sender: AnyObject) {
+        let tempLeftCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        self.view.addSubview(tempLeftCurveView)
+    }
+    @IBAction func addRightCurveView(sender: AnyObject) {
+        let tempRightCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        self.view.addSubview(tempRightCurveView)
+    }
+    @IBAction func addRectangleView(sender: AnyObject) {
+        let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
+        self.view.addSubview(tempG)
+    }
+    
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
     var rectangleViewArray: [RectangleView] = []
@@ -38,9 +51,31 @@ class TestSquareController: NSViewController {
 
     }
     
+    var fileLocation: String = "/Users/735582/Desktop/ClassList.csv"//""
+    func openFile() {
+        
+        var myFileDialog: NSOpenPanel = NSOpenPanel()
+        myFileDialog.runModal()
+        
+        // Get the path to the file chosen in the NSOpenPanel
+        fileLocation = (myFileDialog.URL?.path)!
+        Swift.print(fileLocation)
+        /*
+        // Make sure that a path was chosen
+        if (path != nil) {
+            var err = NSError?()
+            let text = String(contentsOfFile: path!, encoding: NSUTF8StringEncoding, error: &err)
+            
+            if !(err != nil) {
+                NSLog(text!)
+            }
+        }
+        */
+    }
+    
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: "/Users/732408/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        let contents = try String(contentsOfFile: fileLocation, encoding: NSUTF8StringEncoding)
         //Swift.print(contents)
         return contents
     }
