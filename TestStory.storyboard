@@ -54,6 +54,19 @@
                     </view>
                 </viewController>
                 <customObject id="GAk-Qg-Vtp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="417" y="428"/>
+        </scene>
+        <!--TestSquare-->
+        <scene sceneID="759-Tr-2W3">
+            <objects>
+                <viewController title="TestSquare" id="TxT-vR-iwP" customClass="TestSquareController" customModule="DriveSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="MMZ-Gy-CHl">
+                        <rect key="frame" x="0.0" y="0.0" width="1023" height="780"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="Vjp-7V-OeU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu title="MainMenu" systemMenu="main" id="yKi-yN-8jR" userLabel="MainMenu">
                     <items>
                         <menuItem title="SampleApp" id="aIO-PX-I6j">
@@ -158,15 +171,28 @@
                                 </items>
                             </menu>
                         </menuItem>
-                        <menuItem title="Window" id="u6D-KS-ok3">
-                            <menu key="submenu" title="Window" systemMenu="window" id="bcN-g4-0Di">
+                        <menuItem title="Add View" id="9fN-oo-Zuz">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Add View" id="HZw-VC-YDo" userLabel="Add View">
                                 <items>
-                                    <menuItem title="Minimize" keyEquivalent="m" id="534-ml-HWE"/>
-                                    <menuItem title="Zoom" id="Q0S-m7-9fr"/>
-                                    <menuItem isSeparatorItem="YES" id="K9P-KQ-8bO">
-                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    <menuItem title="Left Curve View" id="fS4-gi-SnB">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="addLeftCurveView:" target="TxT-vR-iwP" id="neH-AV-cTr"/>
+                                        </connections>
                                     </menuItem>
-                                    <menuItem title="Bring All to Front" id="ZrY-w1-mSo"/>
+                                    <menuItem title="Right Curve View" id="Wce-08-Yw5">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="addRightCurveView:" target="TxT-vR-iwP" id="5zT-8z-VNn"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Rectangle View" id="xfK-0o-8t5" userLabel="Rectangle View">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="addRectangleView:" target="TxT-vR-iwP" id="REe-D9-bQK"/>
+                                        </connections>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </menuItem>
@@ -179,19 +205,6 @@
                         </menuItem>
                     </items>
                 </menu>
-            </objects>
-            <point key="canvasLocation" x="417" y="428"/>
-        </scene>
-        <!--TestSquare-->
-        <scene sceneID="759-Tr-2W3">
-            <objects>
-                <viewController title="TestSquare" id="TxT-vR-iwP" customClass="TestSquareController" customModule="DriveSample" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="MMZ-Gy-CHl">
-                        <rect key="frame" x="0.0" y="0.0" width="1023" height="780"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="Vjp-7V-OeU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5.5" y="1158"/>
         </scene>

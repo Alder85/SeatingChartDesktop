@@ -408,7 +408,22 @@ class CurveView: GroupView {
     }
     
     
-
+    override func rightMouseDown(theEvent : NSEvent) {
+        let theMenu = NSMenu(title: "Contextual menu")
+        theMenu.addItemWithTitle("Remove View", action: Selector("remove:"), keyEquivalent: "")
+        
+        for item: AnyObject in theMenu.itemArray {
+            if let menuItem = item as? NSMenuItem {
+                menuItem.target = self
+            }
+        }
+        
+        NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+    }
+    func remove(sender: AnyObject?)
+    {
+        self.removeFromSuperview()
+    }
     
     
 

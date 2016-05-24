@@ -12,63 +12,27 @@ class TestSquareController: NSViewController {
     //potatoepotatoe
     //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
+    @IBAction func addLeftCurveView(sender: AnyObject) {
+        let tempLeftCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        self.view.addSubview(tempLeftCurveView)
+    }
+    @IBAction func addRightCurveView(sender: AnyObject) {
+        let tempRightCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        self.view.addSubview(tempRightCurveView)
+    }
+    @IBAction func addRectangleView(sender: AnyObject) {
+        let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
+        self.view.addSubview(tempG)
+    }
+    
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
     var rectangleViewArray: [RectangleView] = []
     var firstsnap = false
     
-    
-    
-    
-
-    
-    
-    override func viewDidLoad() {
-        
-        /*let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
-        self.view.addSubview(tempG)
-        /*
-        //temp2.frame = CGRectMake(0,0,100,100)
-        super.viewDidLoad()
-        //temp.frame = CGRectMake(0,0,200,200)
-        let textField = NSTextField(frame: CGRectMake(0,0,100,100))
-        textField.stringValue = "test"
-        textField.editable = false
-        //temp.addSubview(textField)
-        //let tempStudent = Student(inName: "Joe", inChair: 12, inInstrument: "Trombone")
-        //let temp = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent, groupIn: tempG)
-        */
-
-
-        let potatoe1 = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
-        curveViewArray.append(potatoe1)
-        self.view.addSubview(potatoe1) */
-
-        /*let potatoe = TestView(frame: CGRectMake(0, 0, 50, 50))
-        rectangleViewArray.append(tempG)
-        self.view.addSubview(potatoe)*/
-        
-        /*
-        //temp1.frame = CGRectMake(0,0,200,200)
-        let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
-        let temp1 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent1)
-        
-        let tempStudent2 = Student(inName: "Connor", inChair: 12, inInstrument: "Trombone")
-        let temp2 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent2)
-        
-        let tempStudent3 = Student(inName: "Josh", inChair: 12, inInstrument: "Trombone")
-        let temp3 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent3)
-        
-        let tempStudent4 = Student(inName: "Trevon", inChair: 12, inInstrument: "Trombone")
-        let temp4 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent4)
-        
-        
-        self.view.addSubview(temp1)
-        self.view.addSubview(temp2)
-        self.view.addSubview(temp3)
-        self.view.addSubview(temp4)
-        */
-        
+    override func viewDidLoad()
+    {
+        openFile()
         let csv: CSwiftV
         
         rectangleViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(RectangleView.ArchiveURL.path!) as? [RectangleView])!
@@ -169,9 +133,31 @@ class TestSquareController: NSViewController {
 
     }
     
+    var fileLocation: String = "/Users/735582/Desktop/ClassList.csv"//""
+    func openFile() {
+        
+        var myFileDialog: NSOpenPanel = NSOpenPanel()
+        myFileDialog.runModal()
+        
+        // Get the path to the file chosen in the NSOpenPanel
+        fileLocation = (myFileDialog.URL?.path)!
+        Swift.print(fileLocation)
+        /*
+        // Make sure that a path was chosen
+        if (path != nil) {
+            var err = NSError?()
+            let text = String(contentsOfFile: path!, encoding: NSUTF8StringEncoding, error: &err)
+            
+            if !(err != nil) {
+                NSLog(text!)
+            }
+        }
+        */
+    }
+    
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: "/Users/732408/Desktop/ClassList.csv", encoding: NSUTF8StringEncoding)
+        let contents = try String(contentsOfFile: fileLocation, encoding: NSUTF8StringEncoding)
         //Swift.print(contents)
         return contents
     }
