@@ -491,7 +491,7 @@
 					"-DGTL_BUILT_AS_FRAMEWORK=1",
 					"-DDEBUG=1",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.DriveSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SeatingChart;
 				PRODUCT_NAME = DriveSample;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DriveSample-Bridging-Header.h";
@@ -513,7 +513,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.DriveSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SeatingChart;
 				PRODUCT_NAME = DriveSample;
 				SWIFT_OBJC_BRIDGING_HEADER = "DriveSample-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;

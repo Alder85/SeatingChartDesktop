@@ -67,39 +67,9 @@
                     </view>
                 </viewController>
                 <customObject id="Vjp-7V-OeU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <menu title="MainMenu" systemMenu="main" id="yKi-yN-8jR" userLabel="MainMenu">
+                <menu title="Seating Chart" systemMenu="main" id="yKi-yN-8jR" userLabel="MainMenu">
                     <items>
-                        <menuItem title="SampleApp" id="aIO-PX-I6j">
-                            <menu key="submenu" title="SampleApp" systemMenu="apple" id="NGY-cn-Sh2">
-                                <items>
-                                    <menuItem title="About the Sample" id="wwj-zb-R1E">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="NB9-5B-oOG">
-                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                    </menuItem>
-                                    <menuItem title="Preferences…" keyEquivalent="," id="nvL-d1-JjX"/>
-                                    <menuItem isSeparatorItem="YES" id="pc0-Xl-cdo">
-                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                    </menuItem>
-                                    <menuItem title="Services" id="y3m-r6-6av">
-                                        <menu key="submenu" title="Services" systemMenu="services" id="giV-Zo-Q6N"/>
-                                    </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="Qsz-2y-O0o">
-                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                    </menuItem>
-                                    <menuItem title="Hide NewApplication" keyEquivalent="h" id="jvI-hu-fvl"/>
-                                    <menuItem title="Hide Others" keyEquivalent="h" id="3Bv-se-UWp">
-                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                    </menuItem>
-                                    <menuItem title="Show All" id="tr7-MR-ITF"/>
-                                    <menuItem isSeparatorItem="YES" id="QeH-dw-Sth">
-                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                    </menuItem>
-                                    <menuItem title="Quit" keyEquivalent="q" id="REB-IZ-3gi"/>
-                                </items>
-                            </menu>
-                        </menuItem>
+                        <menuItem title="Seating Chart" id="aIO-PX-I6j"/>
                         <menuItem title="File" id="h9g-3O-hyw">
                             <menu key="submenu" title="File" id="4WF-c1-tH5">
                                 <items>

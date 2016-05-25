@@ -30,7 +30,6 @@ class GroupView: NSView
         updateFrameArray()
         let panRecognizer = NSPanGestureRecognizer(target:self, action:"detectPan:")
         self.gestureRecognizers = [panRecognizer]
-        //self.backgroundColor = NSColor.whiteColor()
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
 
     }
@@ -67,7 +66,7 @@ class GroupView: NSView
         let location = recognizer.locationInView(self.superview!)
         let translation = recognizer.translationInView(self)
         
-        Swift.print(location, "    ", centerInFrame)
+        //Swift.print(location, "    ", centerInFrame)
         self.frame = edgeCheck(CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height))
         moveAllViewsWithGroup()
         updateFrameArray()
@@ -77,9 +76,6 @@ class GroupView: NSView
     
     func moveAllViewsWithGroup()
     {
-        /*frameRect = self.frame
-        self.frame = CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, frameRect.width, frameRect.height)*/
-        
         for x in 0...subviewArray.count - 1
         {
             for y in 0...subviewArray[x].count - 1
@@ -96,7 +92,6 @@ class GroupView: NSView
                 }
             }
         }
-        /*self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, self.frame.width, self.frame.height))*/
     }
     
     func edgeCheck(checkFrame: CGRect) -> CGRect

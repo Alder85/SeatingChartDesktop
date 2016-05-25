@@ -38,8 +38,8 @@ class TestSquareController: NSViewController {
     
     override func viewDidLoad()
     {
-        //openFile()
-        let csv: CSwiftV
+        openFile()
+        let _: CSwiftV
         
         loadRectangleViews(RectangleView.ArchiveURL.path!)
         
@@ -58,23 +58,12 @@ class TestSquareController: NSViewController {
     var fileLocation: String = "/Users/732408/Desktop/ClassList.csv"//""
     func openFile() {
         
-        var myFileDialog: NSOpenPanel = NSOpenPanel()
+        let myFileDialog: NSOpenPanel = NSOpenPanel()
         myFileDialog.runModal()
         
         // Get the path to the file chosen in the NSOpenPanel
         fileLocation = (myFileDialog.URL?.path)!
         Swift.print(fileLocation)
-        /*
-        // Make sure that a path was chosen
-        if (path != nil) {
-            var err = NSError?()
-            let text = String(contentsOfFile: path!, encoding: NSUTF8StringEncoding, error: &err)
-            
-            if !(err != nil) {
-                NSLog(text!)
-            }
-        }
-        */
     }
     
     func loadCSV() throws -> String

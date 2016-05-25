@@ -178,7 +178,6 @@ class CurveView: GroupView {
         let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
         
         subviewArray[rowNumber].insert(temp, atIndex: subviewArray[rowNumber].count)
-        //redraw()
         updateSubviewCurves()
         moveAllViewsWithGroup()
     }
@@ -196,7 +195,6 @@ class CurveView: GroupView {
             subviewArray[rowNumber][subviewArray[rowNumber].count - 1].removeFromSuperview()
             subviewArray[rowNumber].removeAtIndex(subviewArray[rowNumber].count - 1)
         }
-        //redraw()
         updateSubviewCurves()
         moveAllViewsWithGroup()
     }
@@ -272,7 +270,6 @@ class CurveView: GroupView {
         //super.drawRect(dirtyRect)
         let lineWidth: CGFloat = 5
         let context = NSGraphicsContext.currentContext()?.CGContext
-        //CGContextSetStrokeColorWithColor(context, NSColor.purpleColor().CGColor)
         CGContextSetStrokeColorWithColor(context, NSColor(red: 255.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0).CGColor)
         CGContextSetLineWidth(context, lineWidth)
         if !leftRect
@@ -281,10 +278,6 @@ class CurveView: GroupView {
             {
                 let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
                 makeRightCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
-               // if i == 5
-              //  {
-                   // makeRightSubviewCurve(y, length: rowLength, curveNumber: (i-1))
-                //}
             }
 
         }
@@ -294,20 +287,12 @@ class CurveView: GroupView {
             {
                 let y = ((dirtyRect.size.width - rowLength) / numRows) * CGFloat(i)
                 makeLeftCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
-               // makeLeftSubviewCurve(y, length: rowLength, curveNumber: (i-1))
             }
         }
         CGContextSetStrokeColorWithColor(context, NSColor.greenColor().CGColor)
         CGContextSetLineWidth(context, lineWidth)
-       // let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
-        
-       // let borderColor = NSColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
-        //borderColor.set()
-        
-       // bPath.stroke()
         
         showButtons()
-//*/
     }
     
     func makeRightSubviewCurve(startSpot: CGFloat, length: CGFloat, curveNumber: Int)
@@ -392,19 +377,6 @@ class CurveView: GroupView {
         CGContextMoveToPoint(context, rect.width, startSpot)
         CGContextAddLineToPoint(context, rect.width, startSpot + length)                     //left line
         CGContextStrokePath(context)
-        /*
-        CGContextAddArc(context, rect.maxX, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
-        
-        CGContextMoveToPoint(context, rect.maxX - (startSpot + length), 0)                  //bottom line
-        CGContextAddLineToPoint(context, rect.maxX - startSpot, 0)
-        CGContextStrokePath(context)
-        
-        CGContextAddArc(context, rect.maxX, 0, startSpot, 0, CGFloat(M_PI) / 2, 1)          //little curve
-        
-        CGContextMoveToPoint(context, rect.maxX, startSpot)
-        CGContextAddLineToPoint(context, rect.maxX, startSpot + length)                     //left line
-        CGContextStrokePath(context)
-        */
     }
     
     
