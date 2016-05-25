@@ -15,28 +15,31 @@ class TestSquareController: NSViewController {
     @IBAction func addLeftCurveView(sender: AnyObject) {
         let tempLeftCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
         self.view.addSubview(tempLeftCurveView)
+        updateAllStudentViewsGroups()
     }
     @IBAction func addRightCurveView(sender: AnyObject) {
         let tempRightCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
         self.view.addSubview(tempRightCurveView)
+        updateAllStudentViewsGroups()
     }
     @IBAction func addRectangleView(sender: AnyObject) {
         let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
+        updateAllStudentViewsGroups()
     }
     
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
     var rectangleViewArray: [RectangleView] = []
     var firstsnap = false
+    var studentViewFilename = StudentView.ArchiveURL.path!
+    var curveViewFilename = CurveView.ArchiveURL.path!
+    var rectangleViewFilename = RectangleView.ArchiveURL.path!
     
-    
-    
-    
-
-    
-    
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
+        //openFile()
+        let csv: CSwiftV
         
         loadRectangleViews(RectangleView.ArchiveURL.path!)
         
@@ -47,11 +50,11 @@ class TestSquareController: NSViewController {
         snapAllStudentViews()
         
         var updateTimer = NSTimer()
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViews", userInfo: nil, repeats: true)
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
 
     }
     
-    var fileLocation: String = "/Users/735582/Desktop/ClassList.csv"//""
+    var fileLocation: String = "/Users/732408/Desktop/ClassList.csv"//""
     func openFile() {
         
         var myFileDialog: NSOpenPanel = NSOpenPanel()
@@ -80,7 +83,12 @@ class TestSquareController: NSViewController {
         return contents
     }
     
-    func saveViews()
+    func saveViewsWithTimer()
+    {
+        saveViews(studentViewFilename, curvefilename: curveViewFilename, rectanglefilename: rectangleViewFilename)
+    }
+    
+    func saveViews(studentfilename: String, curvefilename: String, rectanglefilename: String)
     {
         studentViewArray = []
         curveViewArray = []
@@ -105,7 +113,7 @@ class TestSquareController: NSViewController {
             }
         }
         
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(studentViewArray, toFile: StudentView.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(studentViewArray, toFile: studentfilename)
         if !isSuccessfulSave {
             Swift.print("Failed to save student views...")
         }
@@ -114,7 +122,7 @@ class TestSquareController: NSViewController {
             //Swift.print("Succeded to save student views")
         }
         
-        let isSuccessfulSave2 = NSKeyedArchiver.archiveRootObject(curveViewArray, toFile: CurveView.ArchiveURL.path!)
+        let isSuccessfulSave2 = NSKeyedArchiver.archiveRootObject(curveViewArray, toFile: curvefilename)
         if !isSuccessfulSave2 {
             Swift.print("Failed to save student views...")
         }
@@ -123,13 +131,24 @@ class TestSquareController: NSViewController {
             ///Swift.print("Succeded to save curve views")
         }
         
-        let isSuccessfulSave3 = NSKeyedArchiver.archiveRootObject(rectangleViewArray, toFile: RectangleView.ArchiveURL.path!)
+        let isSuccessfulSave3 = NSKeyedArchiver.archiveRootObject(rectangleViewArray, toFile: rectanglefilename)
         if !isSuccessfulSave3 {
             Swift.print("Failed to save student views...")
         }
         else
         {
             //Swift.print("Succeded to save rectangle views")
+        }
+    }
+    
+    func updateAllStudentViewsGroups()
+    {
+        for i in 0...Int(self.view.subviews.count) - 1
+        {
+            if self.view.subviews[i] is StudentView
+            {
+                (self.view.subviews[i] as! StudentView).checkForGroupViews()
+            }
         }
     }
     
