@@ -14,17 +14,21 @@ class TestSquareController: NSViewController {
     
     @IBAction func addLeftCurveView(sender: AnyObject) {
         let tempLeftCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
-        self.view.addSubview(tempLeftCurveView)
+        //self.view.addSubview(tempLeftCurveView)
+        self.view.addSubview(tempLeftCurveView, positioned: NSWindowOrderingMode.Below, relativeTo: self.view.subviews[16])
         updateAllStudentViewsGroups()
     }
     @IBAction func addRightCurveView(sender: AnyObject) {
         let tempRightCurveView = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
-        self.view.addSubview(tempRightCurveView)
+        //self.view.addSubview(tempRightCurveView)
+        self.view.addSubview(tempRightCurveView, positioned: NSWindowOrderingMode.Below, relativeTo: self.view.subviews[16])
+
         updateAllStudentViewsGroups()
     }
     @IBAction func addRectangleView(sender: AnyObject) {
         let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
-        self.view.addSubview(tempG)
+        //self.view.addSubview(tempG)
+        self.view.addSubview(tempG, positioned: NSWindowOrderingMode.Below, relativeTo: self.view.subviews[16])
         updateAllStudentViewsGroups()
     }
     
@@ -38,8 +42,8 @@ class TestSquareController: NSViewController {
     
     override func viewDidLoad()
     {
-        //openFile()
-        let csv: CSwiftV
+        openFile()
+        let _: CSwiftV
         
         loadRectangleViews(RectangleView.ArchiveURL.path!)
         
@@ -49,7 +53,8 @@ class TestSquareController: NSViewController {
         
         snapAllStudentViews()
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViews", userInfo: nil, repeats: true)
+        var updateTimer = NSTimer()
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
 
     }
     
