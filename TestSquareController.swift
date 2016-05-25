@@ -15,17 +15,17 @@ class TestSquareController: NSViewController {
     @IBAction func addLeftCurveView(sender: AnyObject) {
         let tempLeftCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
         self.view.addSubview(tempLeftCurveView)
-        updateAllStudentViewsGroups()
+        //updateAllStudentViewsGroups()
     }
     @IBAction func addRightCurveView(sender: AnyObject) {
         let tempRightCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
         self.view.addSubview(tempRightCurveView)
-        updateAllStudentViewsGroups()
+        //updateAllStudentViewsGroups()
     }
     @IBAction func addRectangleView(sender: AnyObject) {
         let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
-        updateAllStudentViewsGroups()
+        //updateAllStudentViewsGroups()
     }
     
     var studentViewArray: [StudentView] = []
@@ -49,8 +49,9 @@ class TestSquareController: NSViewController {
         
         snapAllStudentViews()
         
-        var updateTimer = NSTimer()
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
+        
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateAllStudentViewsGroups", userInfo: nil, repeats: true)
 
     }
     

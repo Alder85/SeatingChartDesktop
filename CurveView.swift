@@ -420,11 +420,10 @@ class CurveView: GroupView {
         
         NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
     }
+    
     func remove(sender: AnyObject?)
     {
         self.removeFromSuperview()
     }
-    
-    
 
 }
