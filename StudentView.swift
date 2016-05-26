@@ -38,7 +38,7 @@ class StudentView: NSView  {
         super.init(frame: inRect)
         delay(0.3)
         {
-            Swift.print(self.superview?.subviews)
+            //Swift.print(self.superview?.subviews)
             if self.superview?.subviews != nil
             {
                 for i in 0...Int((self.superview?.subviews.count)!) - 1
@@ -97,7 +97,7 @@ class StudentView: NSView  {
     
     override func mouseEntered(theEvent: NSEvent) {
         super.mouseEntered(theEvent)
-        Swift.print("potatoe")
+        //Swift.print("potatoe")
         rightMouseDown(theEvent)
     }
     
@@ -108,7 +108,7 @@ class StudentView: NSView  {
     override func mouseDown(theEvent: NSEvent)
     {
         //Swift.print(self.superview!.subviews)
-        Swift.print("Mouse Down S")
+        //Swift.print("Mouse Down S")
         
         firstClick = theEvent.locationInWindow
         firstFrame = CGPoint(x: self.frame.minX, y: self.frame.minY)
@@ -146,7 +146,7 @@ class StudentView: NSView  {
     
     override func mouseDragged(theEvent: NSEvent)
     {
-        Swift.print("Mouse Drag S")
+        //Swift.print("Mouse Drag S")
         //groups = GroupView(inView: self.superview!.subviews[0])
         //Swift.print(self.superview!.subviews)
         
@@ -154,8 +154,8 @@ class StudentView: NSView  {
         
         clickX = theEvent.locationInWindow.x
         clickY = theEvent.locationInWindow.y
-        Swift.print(clickX)
-        Swift.print(clickY)
+        //Swift.print(clickX)
+        //Swift.print(clickY)
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         

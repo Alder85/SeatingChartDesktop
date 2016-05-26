@@ -18,7 +18,7 @@ class TestSquareController: NSViewController {
         //updateAllStudentViewsGroups()
     }
     @IBAction func addRightCurveView(sender: AnyObject) {
-        let tempRightCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        let tempRightCurveView = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         self.view.addSubview(tempRightCurveView)
         //updateAllStudentViewsGroups()
     }
@@ -49,7 +49,7 @@ class TestSquareController: NSViewController {
         
         snapAllStudentViews()
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
         
         _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateAllStudentViewsGroups", userInfo: nil, repeats: true)
 

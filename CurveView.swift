@@ -174,7 +174,7 @@ class CurveView: GroupView {
     
     func addViewInt(rowNumber: Int)
     {
-        Swift.print("add" + String(rowNumber))
+        //Swift.print("add" + String(rowNumber))
         let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
         
         subviewArray[rowNumber].insert(temp, atIndex: subviewArray[rowNumber].count)
@@ -189,7 +189,7 @@ class CurveView: GroupView {
     
     func removeViewInt(rowNumber: Int)
     {
-        Swift.print("subtract" + String(rowNumber))
+        //Swift.print("subtract" + String(rowNumber))
         if(subviewArray[rowNumber].count > 0)
         {
             subviewArray[rowNumber][subviewArray[rowNumber].count - 1].removeFromSuperview()

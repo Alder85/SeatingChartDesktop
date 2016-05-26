@@ -54,7 +54,7 @@ class GroupView: NSView
 
     //>>>DRAGGABLE STUFF<<<\\
     override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
-        Swift.print("potatoe")
+        //Swift.print("potatoe")
         return true
     }
     
