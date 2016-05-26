@@ -18,7 +18,7 @@ class TestSquareController: NSViewController {
         //updateAllStudentViewsGroups()
     }
     @IBAction func addRightCurveView(sender: AnyObject) {
-        let tempRightCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
+        let tempRightCurveView = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
         self.view.addSubview(tempRightCurveView)
         //updateAllStudentViewsGroups()
     }
@@ -150,7 +150,14 @@ class TestSquareController: NSViewController {
     
     func loadCurveViews(filename: String)
     {
-        curveViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [CurveView])!
+        if NSKeyedUnarchiver.unarchiveObjectWithFile(filename) != nil
+        {
+            curveViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [CurveView])!
+        }
+        else
+        {
+            curveViewArray = []
+        }
         
         if curveViewArray.count > 0
         {
@@ -165,7 +172,14 @@ class TestSquareController: NSViewController {
     
     func loadRectangleViews(filename: String)
     {
-        rectangleViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [RectangleView])!
+        if NSKeyedUnarchiver.unarchiveObjectWithFile(filename) != nil
+        {
+            rectangleViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [RectangleView])!
+        }
+        else
+        {
+            rectangleViewArray = []
+        }
         
         if rectangleViewArray.count > 0
         {
@@ -180,7 +194,14 @@ class TestSquareController: NSViewController {
     
     func loadStudentsWithCSV(filename: String)
     {
-        studentViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [StudentView])!
+        if NSKeyedUnarchiver.unarchiveObjectWithFile(filename) != nil
+        {
+            studentViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [StudentView])!
+        }
+        else
+        {
+            studentViewArray = []
+        }
         
         let csv: CSwiftV
         var studentsAlreadyCreated: [Int] = []
