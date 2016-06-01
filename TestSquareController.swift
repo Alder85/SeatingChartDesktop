@@ -12,21 +12,23 @@ class TestSquareController: NSViewController {
     //potatoepotatoe
     //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
-    @IBAction func addLeftCurveView(sender: AnyObject) {
-        let tempLeftCurveView = CurveView(size: 500, isLeft: true, rows: 3, length: 70)
-        self.view.addSubview(tempLeftCurveView)
-        //updateAllStudentViewsGroups()
-    }
-    @IBAction func addRightCurveView(sender: AnyObject) {
-        let tempRightCurveView = CurveView(size: 500, isLeft: false, rows: 3, length: 70)
-        self.view.addSubview(tempRightCurveView)
-        //updateAllStudentViewsGroups()
-    }
     @IBAction func addRectangleView(sender: AnyObject) {
         let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
         self.view.addSubview(tempG)
-        //updateAllStudentViewsGroups()
     }
+
+    @IBAction func addRightCurveViews(sender: AnyObject) {
+        let button = sender as! NSMenuItem
+        let temp = CurveView(size: 500, isLeft: false, rows: CGFloat(button.tag), length: 70)
+        self.view.addSubview(temp)
+    }
+    
+    @IBAction func addLeftCurveViews(sender: AnyObject) {
+        let button = sender as! NSMenuItem
+        let temp = CurveView(size: 500, isLeft: true, rows: CGFloat(button.tag), length: 70)
+        self.view.addSubview(temp)
+    }
+    
     
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
@@ -46,8 +48,6 @@ class TestSquareController: NSViewController {
         loadCurveViews(CurveView.ArchiveURL.path!)
         
         loadStudentsWithCSV(StudentView.ArchiveURL.path!)
-        
-        snapAllStudentViews()
         
         _ = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
         
@@ -225,6 +225,8 @@ class TestSquareController: NSViewController {
                             {
                                 let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation()))
                                 self.view.addSubview(temp)
+                                temp.checkForGroupViews()
+                                temp.snap()
                                 isAdded = true
                                 studentsAlreadyCreated.append(x)
                                 break
@@ -242,18 +244,6 @@ class TestSquareController: NSViewController {
         catch
         {
             Swift.print("failed")
-        }
-    }
-    
-    func snapAllStudentViews()
-    {
-        for i in 0...Int(self.view.subviews.count) - 1
-        {
-            if self.view.subviews[i] is StudentView
-            {
-                (self.view.subviews[i] as! StudentView).checkForGroupViews()
-                (self.view.subviews[i] as! StudentView).snap()
-            }
         }
     }
     

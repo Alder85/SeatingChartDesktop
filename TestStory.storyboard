@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="TxT-vR-iwP">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1808" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="TxT-vR-iwP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
@@ -145,17 +145,86 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Add View" id="HZw-VC-YDo" userLabel="Add View">
                                 <items>
-                                    <menuItem title="Left Curve View" id="fS4-gi-SnB">
+                                    <menuItem title="CurveViews" id="5fH-MT-ayg">
                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="addLeftCurveView:" target="TxT-vR-iwP" id="neH-AV-cTr"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Right Curve View" id="Wce-08-Yw5">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="addRightCurveView:" target="TxT-vR-iwP" id="5zT-8z-VNn"/>
-                                        </connections>
+                                        <menu key="submenu" title="CurveViews" id="s6T-p8-5fV">
+                                            <items>
+                                                <menuItem title="Right" id="bZd-yZ-cAK">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Right" id="HnA-k7-xG7">
+                                                        <items>
+                                                            <menuItem title="2 Rows" tag="2" id="gFy-2G-tfj">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addRightCurveViews:" target="TxT-vR-iwP" id="TVn-mZ-MbZ"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="3 Rows" tag="3" id="Yrm-vm-ttA">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addRightCurveViews:" target="TxT-vR-iwP" id="3Bw-9y-sWI"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="4 Rows" tag="4" id="dSd-2p-1uO">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addRightCurveViews:" target="TxT-vR-iwP" id="rUk-yF-903"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="5 Rows" tag="5" id="Bh5-Vn-g8K">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addRightCurveViews:" target="TxT-vR-iwP" id="CtA-dQ-pVp"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="6 Rows" tag="6" id="DEv-hJ-URL">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addRightCurveViews:" target="TxT-vR-iwP" id="679-9H-ZrN"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="Left" id="RFc-y5-sbg">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Left" id="13F-tX-qvN">
+                                                        <items>
+                                                            <menuItem title="2 Rows" tag="2" id="izm-gp-814">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addLeftCurveViews:" target="TxT-vR-iwP" id="eUx-86-h3s"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="3 Rows" tag="3" id="ewv-PM-poU">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addLeftCurveViews:" target="TxT-vR-iwP" id="nI9-X4-zjg"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="4 Rows" tag="4" id="W0O-Zo-0jE">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addLeftCurveViews:" target="TxT-vR-iwP" id="mCT-o8-o3G"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="5 Rows" tag="5" id="gnf-g3-bKm">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addLeftCurveViews:" target="TxT-vR-iwP" id="IDV-BA-UVd"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="6 Rows" tag="6" id="OrJ-1t-cca">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="addLeftCurveViews:" target="TxT-vR-iwP" id="bCK-ZR-oUp"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
                                     </menuItem>
                                     <menuItem title="Rectangle View" id="xfK-0o-8t5" userLabel="Rectangle View">
                                         <modifierMask key="keyEquivalentModifierMask"/>

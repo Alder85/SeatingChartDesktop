@@ -59,7 +59,9 @@ class CurveView: GroupView {
         self.setNeedsDisplayInRect(self.frame) //makes context exist
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        
     }
+    
     
     convenience init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat, startX: CGFloat, startY: CGFloat, subArray: [[GroupSubview]])
     {
@@ -253,6 +255,7 @@ class CurveView: GroupView {
             buttonArray[i].hidden = true
         }
     }
+    
     func showButtons()
     {
         for i in 0...buttonArray.count - 1
