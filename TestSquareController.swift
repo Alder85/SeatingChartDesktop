@@ -29,7 +29,6 @@ class TestSquareController: NSViewController {
         self.view.addSubview(temp)
     }
     
-    
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
     var rectangleViewArray: [RectangleView] = []

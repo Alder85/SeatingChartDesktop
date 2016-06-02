@@ -124,6 +124,18 @@ class StudentView: NSView  {
         theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector("action1:"), keyEquivalent: "")
         theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
         theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
+        
+        if student.getInformation().count - 1 > 2
+        {
+            for x in 3...student.getInformation().count - 1
+            {
+                if student.getInformation()[x] != ""
+                {
+                    theMenu.addItemWithTitle(student.getInformation()[x], action: Selector("action2:"), keyEquivalent: "")
+                }
+            }
+        }
+        
         theMenu.addItemWithTitle("terminate", action: Selector("remove:"), keyEquivalent: "")
         
         for item: AnyObject in theMenu.itemArray {
