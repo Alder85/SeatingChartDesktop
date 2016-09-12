@@ -11,6 +11,7 @@ import Foundation
 class Student: NSObject, NSCoding
 {
     private var informationArray: [String] = []
+    public var namesOfInformationArray: [String] = []
     private var name: String        = "invalid name"
     private var instrument: String  = "invalid instrument"
     private var chair: Int          = -42
@@ -25,6 +26,12 @@ class Student: NSObject, NSCoding
     override init()
     {
         
+    }
+    
+    init(inArray: [String], otherArray: [String])
+    {
+        informationArray = inArray
+        namesOfInformationArray = otherArray
     }
     
     init(inArray: [String])

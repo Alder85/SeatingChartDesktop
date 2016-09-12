@@ -25,11 +25,7 @@
 		4F22A2151186315400FFBAB6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F22A2141186315400FFBAB6 /* WebKit.framework */; };
 		4F43229917726CFD002A5E2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F43229817726CFD002A5E2C /* Security.framework */; };
 		4F43229B17726D10002A5E2C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F43229A17726D10002A5E2C /* SystemConfiguration.framework */; };
-		4F4BC7181C24D326000C67AE /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4BC70C1C24D2D6000C67AE /* GTL.framework */; };
-		4F9B545B15816762005E917A /* DriveSampleAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B545815816762005E917A /* DriveSampleAppController.m */; };
-		4F9B545C15816762005E917A /* DriveSampleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B545A15816762005E917A /* DriveSampleWindowController.m */; };
 		4FA6F3D41034AEC400C5DFA5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA6F3D11034AEC400C5DFA5 /* MainMenu.xib */; };
-		4FF21BEB1626428F00805586 /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF21BEA1626428F00805586 /* GTLDrive_Sources.m */; };
 		5B4FCBE01C74D6D50032F4C8 /* TestSquareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4FCBDF1C74D6D50032F4C8 /* TestSquareController.swift */; };
 		5BF0F3951C4FF02200734DC4 /* TestStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BF0F3941C4FF02200734DC4 /* TestStory.storyboard */; };
 		5BF0F39D1C4FF27700734DC4 /* TestStoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0F39C1C4FF27700734DC4 /* TestStoryController.swift */; };
@@ -37,44 +33,6 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		33FA8F361C46B52000BE536E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F4469DB41C40229D00BCFAA1;
-			remoteInfo = GTLiOSCore;
-		};
-		4F4BC70B1C24D2D6000C67AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
-			remoteInfo = GTLOSXCore;
-		};
-		4F4BC70D1C24D2D6000C67AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F4368F721B8233BF00E17643;
-			remoteInfo = GTLiOSUnitTests;
-		};
-		4F4BC70F1C24D2D6000C67AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
-			remoteInfo = GTLOSXUnitTests;
-		};
-		4F4BC7111C24D2D6000C67AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
-			remoteInfo = OSXDevTool;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4F38F8970B66FAB700B24B81 /* Copy GTL Framework */ = {
@@ -113,14 +71,9 @@
 		4F22A2141186315400FFBAB6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		4F43229817726CFD002A5E2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		4F43229A17726D10002A5E2C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<group>"; };
-		4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = ../../Source/GTLCore.xcodeproj; sourceTree = "<group>"; };
 		4F9B545715816762005E917A /* DriveSampleAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DriveSampleAppController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4F9B545815816762005E917A /* DriveSampleAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DriveSampleAppController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4F9B545915816762005E917A /* DriveSampleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DriveSampleWindowController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4F9B545A15816762005E917A /* DriveSampleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriveSampleWindowController.m; sourceTree = "<group>"; };
 		4FA6F3D21034AEC400C5DFA5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4FD0F1DA0CBC68F300059DC1 /* buildStripHeaders */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = buildStripHeaders; sourceTree = "<group>"; };
-		4FF21BEA1626428F00805586 /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDrive_Sources.m; sourceTree = "<group>"; };
 		5B4FCBDF1C74D6D50032F4C8 /* TestSquareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSquareController.swift; sourceTree = "<group>"; };
 		5BF0F3941C4FF02200734DC4 /* TestStory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestStory.storyboard; sourceTree = "<group>"; };
 		5BF0F39B1C4FF27600734DC4 /* DriveSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DriveSample-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -134,7 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F4BC7181C24D326000C67AE /* GTL.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				4F22A2151186315400FFBAB6 /* WebKit.framework in Frameworks */,
 				4F43229917726CFD002A5E2C /* Security.framework in Frameworks */,
@@ -150,9 +102,6 @@
 			children = (
 				337AA23F1CD900E300AD0DF1 /* TestView.swift */,
 				4F9B545715816762005E917A /* DriveSampleAppController.h */,
-				4F9B545815816762005E917A /* DriveSampleAppController.m */,
-				4F9B545915816762005E917A /* DriveSampleWindowController.h */,
-				4F9B545A15816762005E917A /* DriveSampleWindowController.m */,
 				5BF0F39C1C4FF27700734DC4 /* TestStoryController.swift */,
 				5B4FCBDF1C74D6D50032F4C8 /* TestSquareController.swift */,
 				5BF0F39B1C4FF27600734DC4 /* DriveSample-Bridging-Header.h */,
@@ -203,9 +152,7 @@
 		29B97314FDCFA39411CA2CEA /* CalendarSample */ = {
 			isa = PBXGroup;
 			children = (
-				4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Sample App Classes */,
-				4FB25385138C3F9E00B5C1AE /* API Services */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -243,43 +190,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4F4BC7051C24D2D6000C67AE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4F4BC70C1C24D2D6000C67AE /* GTL.framework */,
-				33FA8F371C46B52000BE536E /* GTL.framework */,
-				4F4BC70E1C24D2D6000C67AE /* GTLiOSUnitTests.xctest */,
-				4F4BC7101C24D2D6000C67AE /* GTLUnitTests.xctest */,
-				4F4BC7121C24D2D6000C67AE /* OSXDevTool */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4F96C2221581680B00A0D1D2 /* Drive */ = {
-			isa = PBXGroup;
-			children = (
-				4FBBC4BC1593BF1300495B52 /* Generated */,
-			);
-			name = Drive;
-			path = ../../Source/Services/Drive;
-			sourceTree = "<group>";
-		};
-		4FB25385138C3F9E00B5C1AE /* API Services */ = {
-			isa = PBXGroup;
-			children = (
-				4F96C2221581680B00A0D1D2 /* Drive */,
-			);
-			name = "API Services";
-			sourceTree = "<group>";
-		};
-		4FBBC4BC1593BF1300495B52 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-				4FF21BEA1626428F00805586 /* GTLDrive_Sources.m */,
-			);
-			path = Generated;
 			sourceTree = "<group>";
 		};
 		4FD0F1D80CBC68E100059DC1 /* Build Scripts */ = {
@@ -333,56 +243,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CalendarSample */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 4F4BC7051C24D2D6000C67AE /* Products */;
-					ProjectRef = 4F4BC7041C24D2D6000C67AE /* GTLCore.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* DriveSample */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		33FA8F371C46B52000BE536E /* GTL.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GTL.framework;
-			remoteRef = 33FA8F361C46B52000BE536E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4F4BC70C1C24D2D6000C67AE /* GTL.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GTL.framework;
-			remoteRef = 4F4BC70B1C24D2D6000C67AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4F4BC70E1C24D2D6000C67AE /* GTLiOSUnitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GTLiOSUnitTests.xctest;
-			remoteRef = 4F4BC70D1C24D2D6000C67AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4F4BC7101C24D2D6000C67AE /* GTLUnitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GTLUnitTests.xctest;
-			remoteRef = 4F4BC70F1C24D2D6000C67AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4F4BC7121C24D2D6000C67AE /* OSXDevTool */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = OSXDevTool;
-			remoteRef = 4F4BC7111C24D2D6000C67AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -427,16 +293,13 @@
 				33DD0FA41C74D84300D66F44 /* GroupView.swift in Sources */,
 				33A0F3901C84AA4600122A15 /* CurveView.swift in Sources */,
 				335C28621CBEA00B0063B262 /* RectangleView.swift in Sources */,
-				4F9B545B15816762005E917A /* DriveSampleAppController.m in Sources */,
 				3351A9F11C592CC0004D9ED9 /* CSV.swift in Sources */,
 				5BF0F39D1C4FF27700734DC4 /* TestStoryController.swift in Sources */,
 				337AA2401CD900E300AD0DF1 /* TestView.swift in Sources */,
 				338164121C63B90400220957 /* DataProcessing.swift in Sources */,
-				4F9B545C15816762005E917A /* DriveSampleWindowController.m in Sources */,
 				339D38611C626172003F6393 /* Student.swift in Sources */,
 				339D38681C626434003F6393 /* UtilityFunctions.swift in Sources */,
 				33580C8A1C6503C800F74A93 /* Class.swift in Sources */,
-				4FF21BEB1626428F00805586 /* GTLDrive_Sources.m in Sources */,
 				5B4FCBE01C74D6D50032F4C8 /* TestSquareController.swift in Sources */,
 				336AE95D1CEB6EC30005899C /* CSwiftV.swift in Sources */,
 				335C28601CBE9FCE0063B262 /* GroupSubview.swift in Sources */,

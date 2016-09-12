@@ -208,7 +208,8 @@ class TestSquareController: NSViewController {
         do
         {
             try csv = CSwiftV(string: loadCSV())
-            let studentArray: [Student] = dataToStudentArray(csv.rows)
+            let studentArray: [Student] = dataToStudentArrayAndNameArray(csv.rows).studentArray
+            let nameArray: [String] = dataToStudentArrayAndNameArray(csv.rows).nameArray
             for b in 0...studentArray.count - 1
             {
                 var isAdded = false
@@ -222,7 +223,7 @@ class TestSquareController: NSViewController {
                             if  loadedStudent.getName() == studentArray[b].getName() &&
                                 loadedStudent.getInstrument() == studentArray[b].getInstrument()
                             {
-                                let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation()))
+                                let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation(), otherArray: nameArray))
                                 self.view.addSubview(temp)
                                 temp.checkForGroupViews()
                                 temp.snap()
@@ -235,7 +236,7 @@ class TestSquareController: NSViewController {
                 }
                 if !isAdded
                 {
-                    let temp = StudentView(inRect: CGRectMake(CGFloat(0), CGFloat(0), 50, 50), inStudent: Student(inArray: studentArray[b].getInformation()))
+                    let temp = StudentView(inRect: CGRectMake(CGFloat(0), CGFloat(0), 50, 50), inStudent: Student(inArray: studentArray[b].getInformation(), otherArray: nameArray))
                     self.view.addSubview(temp)
                 }
             }

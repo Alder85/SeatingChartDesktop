@@ -55,7 +55,19 @@ class StudentView: NSView  {
  
         let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
         
-        label.stringValue = student.getName()
+        if student.namesOfInformationArray.count > 0
+        {
+            for x in 0...student.namesOfInformationArray.count - 1
+            {
+                if student.namesOfInformationArray[x] == "Name"
+                {
+                    label.stringValue = student.getInformation()[x]
+                    break
+                }
+            }
+        }
+        
+        //label.stringValue = student.getInformation()[0]
         label.editable = false
         label.bezeled = false
         label.drawsBackground = false
@@ -121,17 +133,17 @@ class StudentView: NSView  {
     
     override func rightMouseDown(theEvent : NSEvent) {
         let theMenu = NSMenu(title: "Contextual menu")
-        theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector("action1:"), keyEquivalent: "")
-        theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
-        theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
+        //theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector(), keyEquivalent: "")
+        //theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
+        //theMenu.addItemWithTitle(String(student.getInstrument()), action: Selector("action2:"), keyEquivalent: "")
         
-        if student.getInformation().count - 1 > 2
+        if student.getInformation().count > 0
         {
-            for x in 3...student.getInformation().count - 1
+            for x in 0...student.getInformation().count - 1
             {
                 if student.getInformation()[x] != ""
                 {
-                    theMenu.addItemWithTitle(student.getInformation()[x], action: Selector("action2:"), keyEquivalent: "")
+                    theMenu.addItemWithTitle(student.namesOfInformationArray[x] + " - " + student.getInformation()[x], action: Selector("action2:"), keyEquivalent: "")
                 }
             }
         }

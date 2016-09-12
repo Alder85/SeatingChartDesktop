@@ -29,6 +29,27 @@ func dataToStudentArray(dataArray: [[String]]) -> [Student]
     return outArray
 }
 
+func dataToStudentArrayAndNameArray(dataArray: [[String]]) -> (studentArray: [Student], nameArray: [String])
+{
+    var outArray: [Student] = []
+    var otherArray: [String] = []
+    var gotnames = false
+    for x in 0...dataArray.count - 1
+    {
+        if(!gotnames && dataArray[x][0] == ("Name"))
+        {
+            otherArray = dataArray[x]
+            gotnames = true
+        }
+        else
+        {
+            let temp = Student(inArray: dataArray[x])
+            outArray.append(temp)
+        }
+    }
+    return (outArray, otherArray)
+}
+
 extension NSView {
     
     var backgroundColor: NSColor? {
