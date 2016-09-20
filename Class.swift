@@ -24,7 +24,7 @@ class Class
     {
         for x in 1...inputArray.count - 1
         {
-            let temp = Student(inArray: inputArray[x])
+            let temp = Student(inArray: inputArray[x], otherArray: [" "])
             studentList.append(temp)
         }
         className = name

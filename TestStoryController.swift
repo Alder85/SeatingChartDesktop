@@ -10,19 +10,37 @@
 import Cocoa
 import Darwin
 
+var currentfilestudentviewsname = ""
+var currentfilecurveviewsname = ""
+var currentfilerectangleviewsname = ""
+
 class TestStoryController: NSViewController {
     //potatoepotatoe
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
-    
+    @IBOutlet weak var potatoeFileSelector: NSPopUpButton!
 
-
+    func assignFiles(sender: NSMenuItem)
+    {
+        currentfilestudentviewsname = sender.title
+        currentfilecurveviewsname = sender.title
+        currentfilerectangleviewsname = sender.title
+        Swift.print(sender.title)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let potatoeFile = NSMenuItem(title:  "File 1", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
+        let potatoeFile2 = NSMenuItem(title:  "File 2", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
+        let potatoeFile3 = NSMenuItem(title:  "File 3", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
         
-        let potatoe = CurveView(size: 550, isLeft: true, rows: 4, length: 80)
-        self.view.addSubview(potatoe)
+        
+        potatoeFileSelector.menu?.addItem(potatoeFile)
+        potatoeFileSelector.menu?.addItem(potatoeFile2)
+        potatoeFileSelector.menu?.addItem(potatoeFile3)
+        
+        //let potatoe = CurveView(size: 550, isLeft: true, rows: 4, length: 80)
+        //self.view.addSubview(potatoe)
         /*
         let tempStudent1 = Student(inName: "Frederick", inChair: 12, inInstrument: "Trombone")
         let temp1 = StudentView(inRect: CGRectMake(0, 0, 50, 50), inStudent: tempStudent1)
@@ -45,7 +63,9 @@ class TestStoryController: NSViewController {
         
     }
     
-    
+    @IBAction func DaSegue(sender: AnyObject) {
+        
+    }
 
     
     override var representedObject: AnyObject? {

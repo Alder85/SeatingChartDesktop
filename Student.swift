@@ -21,6 +21,7 @@ class Student: NSObject, NSCoding
     
     struct PropertyKey {
         static let informationKey = "information"
+        static let namesKey = "names"
     }
     
     override init()
@@ -34,13 +35,13 @@ class Student: NSObject, NSCoding
         namesOfInformationArray = otherArray
     }
     
-    init(inArray: [String])
+    /*init(inArray: [String])
     {
         informationArray = inArray
         name = inArray[0]
         instrument = inArray[1]
         chair = Int(inArray[2])!
-    }
+    }*/
     
     init(inName: String, inChair: Int, inInstrument: String)
     {
@@ -51,13 +52,15 @@ class Student: NSObject, NSCoding
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(informationArray, forKey: PropertyKey.informationKey)
+        aCoder.encodeObject(namesOfInformationArray, forKey: PropertyKey.namesKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let informationArray = aDecoder.decodeObjectForKey(PropertyKey.informationKey) as! [String]
+        let namesOfinformationArray = aDecoder.decodeObjectForKey(PropertyKey.namesKey) as! [String]
         
         // Must call designated initializer.
-        self.init(inArray: informationArray)
+        self.init(inArray: informationArray, otherArray: namesOfinformationArray)
     }
     
     func getName() -> String

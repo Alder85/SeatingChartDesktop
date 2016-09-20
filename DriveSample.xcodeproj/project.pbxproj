@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		331AF8B11C69013A000A6F63 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331AF8B01C69013A000A6F63 /* StudentView.swift */; };
-		33253DA51CC7D7DB007DA6F3 /* MOCK_DATA.csv in Resources */ = {isa = PBXBuildFile; fileRef = 33253DA41CC7D7DB007DA6F3 /* MOCK_DATA.csv */; };
 		3351A9F11C592CC0004D9ED9 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3351A9F01C592CC0004D9ED9 /* CSV.swift */; };
 		33580C8A1C6503C800F74A93 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33580C891C6503C800F74A93 /* Class.swift */; };
 		335C28601CBE9FCE0063B262 /* GroupSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C285F1CBE9FCE0063B262 /* GroupSubview.swift */; };
@@ -54,7 +53,6 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		331AF8B01C69013A000A6F63 /* StudentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
-		33253DA41CC7D7DB007DA6F3 /* MOCK_DATA.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MOCK_DATA.csv; sourceTree = "<group>"; };
 		3351A9F01C592CC0004D9ED9 /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSV.swift; sourceTree = "<group>"; };
 		33580C891C6503C800F74A93 /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		335C285F1CBE9FCE0063B262 /* GroupSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupSubview.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				33A0F38F1C84AA4600122A15 /* CurveView.swift */,
 				335C285F1CBE9FCE0063B262 /* GroupSubview.swift */,
 				335C28611CBEA00B0063B262 /* RectangleView.swift */,
-				33253DA41CC7D7DB007DA6F3 /* MOCK_DATA.csv */,
 				336AE95C1CEB6EC30005899C /* CSwiftV.swift */,
 			);
 			name = "Sample App Classes";
@@ -257,7 +254,6 @@
 				5BF0F3951C4FF02200734DC4 /* TestStory.storyboard in Resources */,
 				4FA6F3D41034AEC400C5DFA5 /* MainMenu.xib in Resources */,
 				4F16F59513DF673000811114 /* DriveSampleWindow.xib in Resources */,
-				33253DA51CC7D7DB007DA6F3 /* MOCK_DATA.csv in Resources */,
 				33FA8F301C46B52000BE536E /* GTMOAuth2Window.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

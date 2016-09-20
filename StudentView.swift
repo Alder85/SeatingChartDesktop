@@ -67,13 +67,65 @@ class StudentView: NSView  {
             }
         }
         
+        //Swift.print(label.stringValue)
+        
+        var firstnamelength = 0
+        var lastnamelength = 0
+        
+        if(label.stringValue.characters.count > 0)
+        {
+            var firstname = ""
+            var lastname = ""
+            var afterfirst = false
+            for character in label.stringValue.characters
+            {
+                if afterfirst
+                {
+                    lastname += String(character)
+                }
+                else
+                {
+                    if character == " "
+                    {
+                        afterfirst = true
+                    }
+                    else
+                    {
+                        firstname += String(character)
+                    }
+                }
+            }
+            firstnamelength = firstname.characters.count
+            lastnamelength = lastname.characters.count
+            label.stringValue = firstname + "\n" + lastname
+        }
+        
+        
+        
         //label.stringValue = student.getInformation()[0]
         label.editable = false
         label.bezeled = false
         label.drawsBackground = false
         label.alignment = NSTextAlignment.Center
         
-        label.font = NSFont(descriptor: NSFontDescriptor(name: "Arial-BoldItalicMT", size: 10), size: 10)
+        var fontsize: CGFloat = 10
+        
+        if firstnamelength > 8 || lastnamelength > 8
+        {
+            if firstnamelength > 9 || lastnamelength > 9
+            {
+                fontsize -= 2
+            }
+            else
+            {
+                fontsize -= 1
+            }
+        }
+        
+        label.font = NSFont(descriptor: NSFontDescriptor(name: "Arial-BoldItalicMT", size: 10), size: fontsize)
+        
+        
+        //button.titleLabel?.adjustsFontSizeToFitWidth
         
         self.addSubview(label)
         self.frame = inRect

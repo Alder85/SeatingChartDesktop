@@ -21,9 +21,9 @@ import AppKit
 func dataToStudentArray(dataArray: [[String]]) -> [Student]
 {
     var outArray: [Student] = []
-    for x in 1...dataArray.count - 1
+    for x in 0...dataArray.count - 1
     {
-        let temp = Student(inArray: dataArray[x])
+        let temp = Student(inArray: dataArray[x], otherArray: [""])
         outArray.append(temp)
     }
     return outArray
@@ -43,7 +43,7 @@ func dataToStudentArrayAndNameArray(dataArray: [[String]]) -> (studentArray: [St
         }
         else
         {
-            let temp = Student(inArray: dataArray[x])
+            let temp = Student(inArray: dataArray[x], otherArray: otherArray)
             outArray.append(temp)
         }
     }
