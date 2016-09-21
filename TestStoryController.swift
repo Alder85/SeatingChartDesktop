@@ -18,6 +18,8 @@ class TestStoryController: NSViewController {
     //potatoepotatoe
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
+    var listOfHours = retrieveObjectArray("List of Hours")
+    
     @IBOutlet weak var potatoeFileSelector: NSPopUpButton!
 
     func assignFiles(sender: NSMenuItem)
@@ -28,16 +30,37 @@ class TestStoryController: NSViewController {
         Swift.print(sender.title)
     }
     
+    func addFile(sender: NSMenuItem)
+    {
+        currentfilestudentviewsname = sender.title
+        currentfilecurveviewsname = sender.title
+        currentfilerectangleviewsname = sender.title
+        Swift.print(sender.title)
+        listOfHours.append("File " + String(listOfHours.count + 1))
+        storeObjectArray("List of Hours", valArray: listOfHours)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let potatoeFile = NSMenuItem(title:  "File 1", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
+        if listOfHours.count == 0
+        {
+            listOfHours.append("File 1")
+        }
+        /*let potatoeFile = NSMenuItem(title:  "File 1", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
         let potatoeFile2 = NSMenuItem(title:  "File 2", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
-        let potatoeFile3 = NSMenuItem(title:  "File 3", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
+        let potatoeFile3 = NSMenuItem(title:  "File 3", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")*/
         
         
-        potatoeFileSelector.menu?.addItem(potatoeFile)
-        potatoeFileSelector.menu?.addItem(potatoeFile2)
-        potatoeFileSelector.menu?.addItem(potatoeFile3)
+        for x in 0...listOfHours.count
+        {
+            potatoeFileSelector.menu?.addItem( NSMenuItem(title:  "File " + String(x + 1), action: #selector(self.assignFiles(_:)), keyEquivalent: " data"))
+        }
+        
+        potatoeFileSelector.menu?.addItem( NSMenuItem(title:  "Add New File", action: #selector(self.addFile(_:)), keyEquivalent: " data"))
+        
+        //potatoeFileSelector.menu?.addItem(potatoeFile)
+        //potatoeFileSelector.menu?.addItem(potatoeFile2)
+        //potatoeFileSelector.menu?.addItem(potatoeFile3)
         
         //let potatoe = CurveView(size: 550, isLeft: true, rows: 4, length: 80)
         //self.view.addSubview(potatoe)

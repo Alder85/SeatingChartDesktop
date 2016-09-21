@@ -12,6 +12,7 @@ class TestSquareController: NSViewController {
     //potatoepotatoe
     //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
+    
     var studentviewfile = StudentView.ArchiveURL.path! + currentfilestudentviewsname
     var curveviewfile = CurveView.ArchiveURL.path! + currentfilecurveviewsname
     var rectangleviewfile = RectangleView.ArchiveURL.path! + currentfilerectangleviewsname
