@@ -13,24 +13,24 @@ class TestSquareController: NSViewController {
     //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     
-    var studentviewfile = StudentView.ArchiveURL.path! + currentfilestudentviewsname
-    var curveviewfile = CurveView.ArchiveURL.path! + currentfilecurveviewsname
-    var rectangleviewfile = RectangleView.ArchiveURL.path! + currentfilerectangleviewsname
+    var studentviewfile = StudentView.ArchiveURL.path + nameOfCurrentFile
+    var curveviewfile = CurveView.ArchiveURL.path + nameOfCurrentFile
+    var rectangleviewfile = RectangleView.ArchiveURL.path + nameOfCurrentFile
     
     
     
-    @IBAction func addRectangleView(sender: AnyObject) {
-        let tempG = RectangleView(inRect: CGRectMake(800, 500, 300, 100), subviews: 1)
+    @IBAction func addRectangleView(_ sender: AnyObject) {
+        let tempG = RectangleView(inRect: CGRect(x: 800, y: 500, width: 300, height: 100), subviews: 1)
         self.view.addSubview(tempG)
     }
 
-    @IBAction func addRightCurveViews(sender: AnyObject) {
+    @IBAction func addRightCurveViews(_ sender: AnyObject) {
         let button = sender as! NSMenuItem
         let temp = CurveView(size: 500, isLeft: false, rows: CGFloat(button.tag), length: 70)
         self.view.addSubview(temp)
     }
     
-    @IBAction func addLeftCurveViews(sender: AnyObject) {
+    @IBAction func addLeftCurveViews(_ sender: AnyObject) {
         let button = sender as! NSMenuItem
         let temp = CurveView(size: 500, isLeft: true, rows: CGFloat(button.tag), length: 70)
         self.view.addSubview(temp)
@@ -40,29 +40,41 @@ class TestSquareController: NSViewController {
     var curveViewArray: [CurveView] = []
     var rectangleViewArray: [RectangleView] = []
     var firstsnap = false
-    var studentViewFilename = StudentView.ArchiveURL.path!
-    var curveViewFilename = CurveView.ArchiveURL.path!
-    var rectangleViewFilename = RectangleView.ArchiveURL.path!
+    var studentViewFilename = StudentView.ArchiveURL.path
+    var curveViewFilename = CurveView.ArchiveURL.path
+    var rectangleViewFilename = RectangleView.ArchiveURL.path
     
     override func viewDidLoad()
     {
+        self.title = nameOfCurrentFile
         Swift.print(studentviewfile)
         openFile()
         let _: CSwiftV
         
-        loadRectangleViews(rectangleviewfile)
+        if nameOfFileChanged == ""
+        {
+            loadRectangleViews(rectangleviewfile)
         
-        loadCurveViews(curveviewfile)
+            loadCurveViews(curveviewfile)
         
-        loadStudentsWithCSV(studentviewfile)
+            loadStudentsWithCSV(studentviewfile)
+        }
+        else
+        {
+            loadRectangleViews(RectangleView.ArchiveURL.path + nameOfFileChanged)
+            
+            loadCurveViews(CurveView.ArchiveURL.path + nameOfFileChanged)
+            
+            loadStudentsWithCSV(StudentView.ArchiveURL.path + nameOfFileChanged)
+        }
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "saveViewsWithTimer", userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TestSquareController.saveViewsWithTimer), userInfo: nil, repeats: true)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateAllStudentViewsGroups", userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(TestSquareController.updateAllStudentViewsGroups), userInfo: nil, repeats: true)
 
     }
     
-    func setFileNames(str: String)
+    func setFileNames(_ str: String)
     {
         studentviewfile = str
         curveviewfile = str
@@ -76,13 +88,13 @@ class TestSquareController: NSViewController {
         myFileDialog.runModal()
         
         // Get the path to the file chosen in the NSOpenPanel
-        fileLocation = (myFileDialog.URL?.path)!
+        fileLocation = (myFileDialog.url?.path)!
         Swift.print(fileLocation)
     }
     
     func loadCSV() throws -> String
     {
-        let contents = try String(contentsOfFile: fileLocation, encoding: NSUTF8StringEncoding)
+        let contents = try String(contentsOfFile: fileLocation, encoding: String.Encoding.utf8)
         //Swift.print(contents)
         return contents
     }
@@ -92,7 +104,7 @@ class TestSquareController: NSViewController {
         saveViews(studentviewfile, curvefilename: curveviewfile, rectanglefilename: rectangleviewfile)
     }
     
-    func saveViews(studentfilename: String, curvefilename: String, rectanglefilename: String)
+    func saveViews(_ studentfilename: String, curvefilename: String, rectanglefilename: String)
     {
         studentViewArray = []
         curveViewArray = []
@@ -161,18 +173,19 @@ class TestSquareController: NSViewController {
             }
         }
     }
-    
-    override var representedObject: AnyObject? {
+    /*
+    override var representedObject: AnyObject {
         didSet {
             // Update the view, if already loaded.
         }
     }
+ */
     
-    func loadCurveViews(filename: String)
+    func loadCurveViews(_ filename: String)
     {
-        if NSKeyedUnarchiver.unarchiveObjectWithFile(filename) != nil
+        if NSKeyedUnarchiver.unarchiveObject(withFile: filename) != nil
         {
-            curveViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [CurveView])!
+            curveViewArray = (NSKeyedUnarchiver.unarchiveObject(withFile: filename) as? [CurveView])!
         }
         else
         {
@@ -190,11 +203,11 @@ class TestSquareController: NSViewController {
         }
     }
     
-    func loadRectangleViews(filename: String)
+    func loadRectangleViews(_ filename: String)
     {
-        if NSKeyedUnarchiver.unarchiveObjectWithFile(filename) != nil
+        if NSKeyedUnarchiver.unarchiveObject(withFile: filename) != nil
         {
-            rectangleViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [RectangleView])!
+            rectangleViewArray = (NSKeyedUnarchiver.unarchiveObject(withFile: filename) as? [RectangleView])!
         }
         else
         {
@@ -205,18 +218,18 @@ class TestSquareController: NSViewController {
         {
             for x in 0...rectangleViewArray.count - 1
             {
-                let tempRect = CGRectMake(rectangleViewArray[x].frameArray[0], rectangleViewArray[x].frameArray[1], rectangleViewArray[x].frameArray[2], rectangleViewArray[x].frameArray[3])
+                let tempRect = CGRect(x: rectangleViewArray[x].frameArray[0], y: rectangleViewArray[x].frameArray[1], width: rectangleViewArray[x].frameArray[2], height: rectangleViewArray[x].frameArray[3])
                 let temp = RectangleView(inRect: tempRect, subviews: rectangleViewArray[x].numberOfSubviews)
                 self.view.addSubview(temp)
             }
         }
     }
     
-    func loadStudentsWithCSV(filename: String)
+    func loadStudentsWithCSV(_ filename: String)
     {
-        if NSKeyedUnarchiver.unarchiveObjectWithFile(filename) != nil
+        if NSKeyedUnarchiver.unarchiveObject(withFile: filename) != nil
         {
-            studentViewArray = (NSKeyedUnarchiver.unarchiveObjectWithFile(filename) as? [StudentView])!
+            studentViewArray = (NSKeyedUnarchiver.unarchiveObject(withFile: filename) as? [StudentView])!
         }
         else
         {
@@ -243,7 +256,7 @@ class TestSquareController: NSViewController {
                             let loadedStudent = studentViewArray[x].student as Student
                             if  loadedStudent.getName() == studentArray[b].getName()
                             {
-                                let temp = StudentView(inRect: CGRectMake(studentViewArray[x].frameArray[0], studentViewArray[x].frameArray[1], studentViewArray[x].viewHeight, studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation(), otherArray: nameArray))
+                                let temp = StudentView(inRect: CGRect(x: studentViewArray[x].frameArray[0], y: studentViewArray[x].frameArray[1], width: studentViewArray[x].viewHeight, height: studentViewArray[x].viewLength), inStudent: Student(inArray: studentArray[b].getInformation(), otherArray: nameArray))
                                 self.view.addSubview(temp)
                                 temp.checkForGroupViews()
                                 temp.snap()
@@ -256,7 +269,7 @@ class TestSquareController: NSViewController {
                 }
                 if !isAdded
                 {
-                    let temp = StudentView(inRect: CGRectMake(CGFloat(0), CGFloat(0), 50, 50), inStudent: Student(inArray: studentArray[b].getInformation(), otherArray: nameArray))
+                    let temp = StudentView(inRect: CGRect(x: CGFloat(0), y: CGFloat(0), width: 50, height: 50), inStudent: Student(inArray: studentArray[b].getInformation(), otherArray: nameArray))
                     self.view.addSubview(temp)
                 }
             }
@@ -267,7 +280,7 @@ class TestSquareController: NSViewController {
         }
     }
     
-    func isNumberInArrayInt(num: Int, numArray: [Int]) -> Bool
+    func isNumberInArrayInt(_ num: Int, numArray: [Int]) -> Bool
     {
         if numArray.count > 0
         {

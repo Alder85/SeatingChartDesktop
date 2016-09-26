@@ -43,7 +43,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "347"
             endingLineNumber = "347"
-            landmarkName = "edgeCheck(checkFrame:)"
+            landmarkName = "edgeCheck(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -101,7 +101,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "169"
             endingLineNumber = "169"
-            landmarkName = "acceptsFirstMouse(theEvent:)"
+            landmarkName = "acceptsFirstMouse(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -193,8 +193,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "acceptsFirstMouse(_:)"
-            landmarkType = "5">
+            landmarkName = "acceptsFirstMouse(for:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -225,7 +225,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "143"
             endingLineNumber = "143"
-            landmarkName = "encodeWithCoder(aCoder:)"
+            landmarkName = "encode(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -268,11 +268,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestSquareController.swift"
-            timestampString = "496080046.307984"
+            timestampString = "496338181.739022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -284,11 +284,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestSquareController.swift"
-            timestampString = "496080046.307984"
+            timestampString = "496338181.739022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -305,7 +305,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
             endingLineNumber = "29"
-            landmarkName = "addRightCurveViews(sender:)"
+            landmarkName = "addRightCurveViews(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -321,7 +321,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "194"
             endingLineNumber = "194"
-            landmarkName = "rightMouseDown(theEvent:)"
+            landmarkName = "rightMouseDown(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -332,12 +332,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestSquareController.swift"
-            timestampString = "496080046.307984"
+            timestampString = "496338181.739022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "loadStudentsWithCSV(filename:)"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "loadStudentsWithCSV(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -362,12 +362,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestSquareController.swift"
-            timestampString = "496080046.307984"
+            timestampString = "496338181.739022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "loadStudentsWithCSV(filename:)"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "loadStudentsWithCSV(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,12 +378,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestSquareController.swift"
-            timestampString = "496080046.307984"
+            timestampString = "496338181.739022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "loadStudentsWithCSV(filename:)"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "loadStudentsWithCSV(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
             endingLineNumber = "40"
-            landmarkName = "dataToStudentArrayAndNameArray(dataArray:)"
+            landmarkName = "dataToStudentArrayAndNameArray(_:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -415,7 +415,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
             endingLineNumber = "37"
-            landmarkName = "dataToStudentArrayAndNameArray(dataArray:)"
+            landmarkName = "dataToStudentArrayAndNameArray(_:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -431,7 +431,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
             endingLineNumber = "34"
-            landmarkName = "dataToStudentArrayAndNameArray(dataArray:)"
+            landmarkName = "dataToStudentArrayAndNameArray(_:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -464,6 +464,86 @@
             startingLineNumber = "77"
             endingLineNumber = "77"
             landmarkName = "init(inRect:inStudent:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestSquareController.swift"
+            timestampString = "496251189.018412"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "TestSquareController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestSquareController.swift"
+            timestampString = "496251189.018412"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "TestSquareController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurveView.swift"
+            timestampString = "496166311.558681"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "draw(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestStoryController.swift"
+            timestampString = "496598134.89703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestStoryController.swift"
+            timestampString = "496598134.89703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "ChangeName(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

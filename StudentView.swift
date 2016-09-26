@@ -8,7 +8,7 @@ import AppKit
 
 
 class StudentView: NSView  {
-    var lastLocation:CGPoint = CGPointMake(0, 0)
+    var lastLocation:CGPoint = CGPoint(x: 0, y: 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
     let viewLength: CGFloat = 50
@@ -19,14 +19,14 @@ class StudentView: NSView  {
     var clickY: CGFloat = 0
     var offsetX: CGFloat = 0
     var offsetY: CGFloat = 0
-    var updateTimer = NSTimer()
+    var updateTimer = Timer()
     var student = Student()
     var studentLocations: [String] = retrieveStringArray("StudentLoc")
     var arrayIndexes: [Int] = []
     var frameArray: [CGFloat] = [0.0, 0.0, 0.0, 0.0]
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("StudentViews")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("StudentViews")
     
     struct PropertyKey {
         static let frameKey = "frame"
@@ -53,7 +53,7 @@ class StudentView: NSView  {
         
         student = inStudent
  
-        let label = NSTextField(frame: CGRectMake(0, 0, viewLength, viewHeight))
+        let label = NSTextField(frame: CGRect(x: 0, y: 0, width: viewLength, height: viewHeight))
         
         if student.namesOfInformationArray.count > 0
         {
@@ -103,10 +103,10 @@ class StudentView: NSView  {
         
         
         //label.stringValue = student.getInformation()[0]
-        label.editable = false
-        label.bezeled = false
+        label.isEditable = false
+        label.isBezeled = false
         label.drawsBackground = false
-        label.alignment = NSTextAlignment.Center
+        label.alignment = NSTextAlignment.center
         
         var fontsize: CGFloat = 10
         
@@ -129,29 +129,29 @@ class StudentView: NSView  {
         
         self.addSubview(label)
         self.frame = inRect
-        self.setNeedsDisplayInRect(self.frame) //makes context exist
-        self.backgroundColor = NSColor.cyanColor()
+        self.setNeedsDisplay(self.frame) //makes context exist
+        self.backgroundColor = NSColor.cyan
         updateFrameArray()
         //label.backgroundColor = NSColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48() * 2), alpha: 1.0)//NSColor.purpleColor()
         //self.backgroundColor = NSColor.redColor()
         //updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "updateLocation:", userInfo: nil, repeats: true)
     }
     
-    override func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
-        aCoder.encodeObject(self.student, forKey: PropertyKey.studentKey)
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.frameArray, forKey: PropertyKey.frameKey)
+        aCoder.encode(self.student, forKey: PropertyKey.studentKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let frameArray = aDecoder.decodeObjectForKey(PropertyKey.frameKey) as! [CGFloat]
+        let frameArray = aDecoder.decodeObject(forKey: PropertyKey.frameKey) as! [CGFloat]
         
-        let student = aDecoder.decodeObjectForKey(PropertyKey.studentKey) as! Student
+        let student = aDecoder.decodeObject(forKey: PropertyKey.studentKey) as! Student
         
         // Must call designated initializer.
-        self.init(inRect: CGRectMake(frameArray[0], frameArray[1], frameArray[2], frameArray[3]), inStudent: student)
+        self.init(inRect: CGRect(x: frameArray[0], y: frameArray[1], width: frameArray[2], height: frameArray[3]), inStudent: student)
     }
     
-    override func drawRect(dirtyRect: NSRect)
+    override func draw(_ dirtyRect: NSRect)
     {
         
         //NSColor.purpleColor().setFill()
@@ -159,17 +159,17 @@ class StudentView: NSView  {
         //super.drawRect(dirtyRect)
     }
     
-    override func mouseEntered(theEvent: NSEvent) {
-        super.mouseEntered(theEvent)
+    override func mouseEntered(with theEvent: NSEvent) {
+        super.mouseEntered(with: theEvent)
         //Swift.print("potatoe")
-        rightMouseDown(theEvent)
+        rightMouseDown(with: theEvent)
     }
     
-    override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
+    override func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
     }
     
-    override func mouseDown(theEvent: NSEvent)
+    override func mouseDown(with theEvent: NSEvent)
     {
         //Swift.print(self.superview!.subviews)
         //Swift.print("Mouse Down S")
@@ -183,7 +183,7 @@ class StudentView: NSView  {
         checkForRemovingStudentFromSeat()
     }
     
-    override func rightMouseDown(theEvent : NSEvent) {
+    override func rightMouseDown(with theEvent : NSEvent) {
         let theMenu = NSMenu(title: "Contextual menu")
         //theMenu.addItemWithTitle("Name: " + student.getName(), action: Selector(), keyEquivalent: "")
         //theMenu.addItemWithTitle("Chair #" + String(student.getChair()), action: Selector("action2:"), keyEquivalent: "")
@@ -195,32 +195,32 @@ class StudentView: NSView  {
             {
                 if student.getInformation()[x] != ""
                 {
-                    theMenu.addItemWithTitle(student.namesOfInformationArray[x] + " - " + student.getInformation()[x], action: Selector("action2:"), keyEquivalent: "")
+                    theMenu.addItem(withTitle: student.namesOfInformationArray[x] + " - " + student.getInformation()[x], action: Selector("action2:"), keyEquivalent: "")
                 }
             }
         }
         
-        theMenu.addItemWithTitle("terminate", action: Selector("remove:"), keyEquivalent: "")
+        theMenu.addItem(withTitle: "terminate", action: #selector(StudentView.remove(_:)), keyEquivalent: "")
         
-        for item: AnyObject in theMenu.itemArray {
+        for item: AnyObject in theMenu.items {
             if let menuItem = item as? NSMenuItem {
                 menuItem.target = self
             }
         }
         
-        NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+        NSMenu.popUpContextMenu(theMenu, with: theEvent, for: self)
     }
-    func remove(sender: AnyObject?)
+    func remove(_ sender: AnyObject?)
     {
         self.removeFromSuperview()
     }
     
-    func setLocation(xpoint: CGFloat, ypoint: CGFloat)
+    func setLocation(_ xpoint: CGFloat, ypoint: CGFloat)
     {
-        self.frame = CGRectMake(xpoint, ypoint, viewLength, viewHeight)
+        self.frame = CGRect(x: xpoint, y: ypoint, width: viewLength, height: viewHeight)
     }
     
-    override func mouseDragged(theEvent: NSEvent)
+    override func mouseDragged(with theEvent: NSEvent)
     {
         //Swift.print("Mouse Drag S")
         //groups = GroupView(inView: self.superview!.subviews[0])
@@ -235,10 +235,10 @@ class StudentView: NSView  {
         offsetX = clickX - firstClick.x
         offsetY = clickY - firstClick.y
         
-        self.frame = edgeCheck(CGRectMake(offsetX + firstFrame.x, offsetY + firstFrame.y, viewLength, viewHeight))
+        self.frame = edgeCheck(CGRect(x: offsetX + firstFrame.x, y: offsetY + firstFrame.y, width: viewLength, height: viewHeight))
         updateFrameArray()
     }
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         snap()
     }
     
@@ -253,9 +253,9 @@ class StudentView: NSView  {
                 {
                     for y in 0...currentSubview.subviewArray[x].count - 1
                     {
-                        if currentSubview.subviewArray[x][y].isInside(CGPointMake(clickX, clickY))
+                        if currentSubview.subviewArray[x][y].isInside(CGPoint(x: clickX, y: clickY))
                         {
-                            currentSubview.subviewArray[x][y].setStudentView(StudentView(inRect: CGRectMake(0, 0, 0, 0), inStudent: Student(inName: "", inChair: 12, inInstrument: "")))
+                            currentSubview.subviewArray[x][y].setStudentView(StudentView(inRect: CGRect(x: 0, y: 0, width: 0, height: 0), inStudent: Student(inName: "", inChair: 12, inInstrument: "")))
                             break
                         }
                     }
@@ -290,7 +290,7 @@ class StudentView: NSView  {
                 {
                     for y in 0...currentSubview.subviewArray[x].count - 1
                     {
-                        if currentSubview.subviewArray[x][y].isInside(CGPointMake(self.frame.midX, self.frame.midY))
+                        if currentSubview.subviewArray[x][y].isInside(CGPoint(x: self.frame.midX, y: self.frame.midY))
                         {
                             if let _ = currentSubview.subviewArray[x][y].studentview
                             {
@@ -299,7 +299,7 @@ class StudentView: NSView  {
                                     let i = currentSubview.subviewArray[x][y].frame.minX + currentSubview.frame.minX
                                     let h = currentSubview.subviewArray[x][y].frame.minY + currentSubview.frame.minY
                                     currentSubview.subviewArray[x][y].setStudentView(self)
-                                    self.frame = CGRectMake(i, h, viewLength, viewHeight)
+                                    self.frame = CGRect(x: i, y: h, width: viewLength, height: viewHeight)
                                     break
                                 }
                             }
@@ -308,7 +308,7 @@ class StudentView: NSView  {
                                 let i = currentSubview.subviewArray[x][y].frame.minX + currentSubview.frame.minX
                                 let h = currentSubview.subviewArray[x][y].frame.minY + currentSubview.frame.minY
                                 currentSubview.subviewArray[x][y].setStudentView(self)
-                                self.frame = CGRectMake(i, h, viewLength, viewHeight)
+                                self.frame = CGRect(x: i, y: h, width: viewLength, height: viewHeight)
                                 break
                             }
                         }
@@ -319,7 +319,7 @@ class StudentView: NSView  {
         updateFrameArray()
     }
     
-    func edgeCheck(checkFrame: CGRect) -> CGRect
+    func edgeCheck(_ checkFrame: CGRect) -> CGRect
     {
         var x = checkFrame.minX
         var y = checkFrame.minY
@@ -344,7 +344,7 @@ class StudentView: NSView  {
         {
             y = bigFrame.maxY - height
         }
-        return CGRectMake(x, y, width, height)
+        return CGRect(x: x, y: y, width: width, height: height)
     }
     
     func updateFrameArray()

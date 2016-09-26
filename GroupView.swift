@@ -12,13 +12,13 @@ import AppKit
 
 class GroupView: NSView
 {
-    var lastLocation: CGPoint = CGPointMake(0, 0)
+    var lastLocation: CGPoint = CGPoint(x: 0, y: 0)
     var acceptsFirstResponer = true
     var acceptsFirstMouse = true
     var firstClick = CGPoint()
     var firstFrame = CGPoint()
     var editable = false
-    var updateTimer = NSTimer()
+    var updateTimer = Timer()
     var subviewArray: [[GroupSubview]] = [] //row, subview
     
     var frameRect: CGRect
@@ -28,9 +28,9 @@ class GroupView: NSView
         frameRect = inFrame
         super.init(frame: inFrame);
         updateFrameArray()
-        let panRecognizer = NSPanGestureRecognizer(target:self, action:"detectPan:")
+        let panRecognizer = NSPanGestureRecognizer(target:self, action:#selector(GroupView.detectPan(_:)))
         self.gestureRecognizers = [panRecognizer]
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
 
     }
 
@@ -38,36 +38,36 @@ class GroupView: NSView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getCoordsOfSubview(x: Int, y: Int) -> CGPoint
+    func getCoordsOfSubview(_ x: Int, y: Int) -> CGPoint
     {
         return CGPoint(x: (subviewArray[x][y].frame.minX + CGFloat(self.frame.minX)), y: (subviewArray[x][y].frame.minY + CGFloat(self.frame.minY)))
     }
     
-    func isInRange(testVal: CGFloat, val1: Double, val2: Double) -> Bool
+    func isInRange(_ testVal: CGFloat, val1: Double, val2: Double) -> Bool
     {
         return Double(testVal) > val1 && Double(testVal) < val2
     }
 
-    func toggleEditable(obj:AnyObject?) {
+    func toggleEditable(_ obj:AnyObject?) {
         editable = !editable
     }
 
     //>>>DRAGGABLE STUFF<<<\\
-    override func acceptsFirstMouse(theEvent: NSEvent?) -> Bool {
+    override func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         //Swift.print("potatoe")
         return true
     }
     
-    override var opaque: Bool{
+    override var isOpaque: Bool{
         return false
     }
     
-    func detectPan(recognizer:NSPanGestureRecognizer) {
-        let location = recognizer.locationInView(self.superview!)
-        let translation = recognizer.translationInView(self)
+    func detectPan(_ recognizer:NSPanGestureRecognizer) {
+        let location = recognizer.location(in: self.superview!)
+        let translation = recognizer.translation(in: self)
         
         //Swift.print(location, "    ", centerInFrame)
-        self.frame = edgeCheck(CGRectMake(location.x - centerInFrame.x, location.y - centerInFrame.y, self.frame.width, self.frame.height))
+        self.frame = edgeCheck(CGRect(x: location.x - centerInFrame.x, y: location.y - centerInFrame.y, width: self.frame.width, height: self.frame.height))
         moveAllViewsWithGroup()
         updateFrameArray()
     }
@@ -86,7 +86,7 @@ class GroupView: NSView
                     {
                         let i = getCoordsOfSubview(x, y: y).x
                         let h = getCoordsOfSubview(x, y: y).y
-                        subviewArray[x][y].studentview!.frame = CGRectMake(i, h, subviewArray[x][y].studentview!.frame.width, subviewArray[x][y].studentview!.frame.height)
+                        subviewArray[x][y].studentview!.frame = CGRect(x: i, y: h, width: subviewArray[x][y].studentview!.frame.width, height: subviewArray[x][y].studentview!.frame.height)
                         subviewArray[x][y].studentview!.updateFrameArray()
                     }
                 }
@@ -94,7 +94,7 @@ class GroupView: NSView
         }
     }
     
-    func edgeCheck(checkFrame: CGRect) -> CGRect
+    func edgeCheck(_ checkFrame: CGRect) -> CGRect
     {
         var x = checkFrame.minX
         var y = checkFrame.minY
@@ -119,7 +119,7 @@ class GroupView: NSView
         {
             y = bigFrame.maxY - height
         }
-        return CGRectMake(x, y, width, height)
+        return CGRect(x: x, y: y, width: width, height: height)
     }
 
     func updateFrameArray()

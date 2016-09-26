@@ -17,12 +17,12 @@ class RectangleView: GroupView
     //let viewHeight: CGFloat  = 100
     var numberOfSubviews: Int = 0
     var position: CGFloat = 0
-    let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
+    let moveButton = NSButton(frame: CGRect(x: 2,y: 2,width: 10,height: 10))
     var locX = 50.0
     var locY = 100.0
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("RectangleViews")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).last!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("RectangleViews")
     
     struct PropertyKey {
         static let frameKey = "frame"
@@ -42,67 +42,67 @@ class RectangleView: GroupView
         for _ in 0...numberOfSubviews - 1
         {
             
-            let temp = GroupSubview(inRect: CGRectMake(position, (frameRect.height / 2) - 25, 50, 50))
+            let temp = GroupSubview(inRect: CGRect(x: position, y: (frameRect.height / 2) - 25, width: 50, height: 50))
             //temp.startUp(position, y: (viewHeight / 2) - 25)
             subviewArray[0].append(temp)
             self.addSubview(subviewArray[0][subviewArray[0].count - 1])
             position = position + 60
             
         }
-        self.setNeedsDisplayInRect(self.frame) //makes context exist
+        self.setNeedsDisplay(self.frame) //makes context exist
         self.frame = inRect
         //self.frame = CGRectMake(50, 100, viewLength, viewHeight)
         
         
-        let label = NSTextField(frame: CGRectMake(0, 0, frameRect.width, 17)) //moveable label
+        let label = NSTextField(frame: CGRect(x: 0, y: 0, width: frameRect.width, height: 17)) //moveable label
         label.stringValue = "   Moveable"
-        label.editable = false
-        label.bezeled  = false
+        label.isEditable = false
+        label.isBezeled  = false
         label.drawsBackground = false
-        label.selectable = false
+        label.isSelectable = false
         self.addSubview(label)
         
-        let moveButton = NSButton(frame: CGRectMake(2,2,10,10))
-        moveButton.setButtonType(NSButtonType.SwitchButton) //moveable checkbox
+        let moveButton = NSButton(frame: CGRect(x: 2,y: 2,width: 10,height: 10))
+        moveButton.setButtonType(NSButtonType.switch) //moveable checkbox
         moveButton.action = "toggleEditable:"
         moveButton.target = self
         self.addSubview(moveButton)
         
-        let removeViewButton = NSButton(frame: CGRectMake(163,2,15,15)) //remove views
+        let removeViewButton = NSButton(frame: CGRect(x: 163,y: 2,width: 15,height: 15)) //remove views
         removeViewButton.title = "-"
-        removeViewButton.action = "removeView:"
+        removeViewButton.action = #selector(RectangleView.removeView(_:))
         removeViewButton.target = self
         self.addSubview(removeViewButton)
         
-        let addViewButton = NSButton(frame: CGRectMake(180,2,15,15)) //add views
+        let addViewButton = NSButton(frame: CGRect(x: 180,y: 2,width: 15,height: 15)) //add views
         addViewButton.title = "+"
-        addViewButton.action = "addView:"
+        addViewButton.action = #selector(RectangleView.addView(_:))
         addViewButton.target = self
         self.addSubview(addViewButton)
         
         //change the time value if this gets laggy
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
     }
     
     
-    override func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
-        aCoder.encodeObject(self.numberOfSubviews, forKey: PropertyKey.numberOfSubviewsKey)
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.frameArray, forKey: PropertyKey.frameKey)
+        aCoder.encode(self.numberOfSubviews, forKey: PropertyKey.numberOfSubviewsKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let frameArray = aDecoder.decodeObjectForKey(PropertyKey.frameKey) as! [CGFloat]
+        let frameArray = aDecoder.decodeObject(forKey: PropertyKey.frameKey) as! [CGFloat]
         
-        let numberOfSubviews = aDecoder.decodeObjectForKey(PropertyKey.numberOfSubviewsKey) as! Int
+        let numberOfSubviews = aDecoder.decodeObject(forKey: PropertyKey.numberOfSubviewsKey) as! Int
         
         // Must call designated initializer.
-        self.init(inRect: CGRectMake(frameArray[0], frameArray[1], frameArray[2], frameArray[3]), subviews: numberOfSubviews)
+        self.init(inRect: CGRect(x: frameArray[0], y: frameArray[1], width: frameArray[2], height: frameArray[3]), subviews: numberOfSubviews)
     }
 
     
-    override func drawRect(dirtyRect: NSRect)
+    override func draw(_ dirtyRect: NSRect)
     {
-        super.drawRect(dirtyRect)
+        super.draw(dirtyRect)
         
         let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
         
@@ -112,37 +112,37 @@ class RectangleView: GroupView
         
     }
     
-    func addView(obj:AnyObject?) {
-        let temp = GroupSubview(inRect: CGRectMake(position, (frameRect.height / 2) - 25, 50, 50))
+    func addView(_ obj:AnyObject?) {
+        let temp = GroupSubview(inRect: CGRect(x: position, y: (frameRect.height / 2) - 25, width: 50, height: 50))
         subviewArray[0].append(temp)
         self.addSubview(temp)
         position = position + 60
-        numberOfSubviews++
+        numberOfSubviews += 1
     }
     
-    func removeView(obj:AnyObject?) {
+    func removeView(_ obj:AnyObject?) {
         if subviewArray[0].count > 1
         {
             subviewArray[0][subviewArray[0].count - 1].removeFromSuperview()
-            subviewArray[0].removeAtIndex(subviewArray[0].count - 1)
+            subviewArray[0].remove(at: subviewArray[0].count - 1)
             position = position - 60
-            numberOfSubviews--
+            numberOfSubviews -= 1
         }
     }
     
-    override func rightMouseDown(theEvent : NSEvent) {
+    override func rightMouseDown(with theEvent : NSEvent) {
         let theMenu = NSMenu(title: "Contextual menu")
-        theMenu.addItemWithTitle("Remove View", action: Selector("remove:"), keyEquivalent: "")
+        theMenu.addItem(withTitle: "Remove View", action: #selector(RectangleView.remove(_:)), keyEquivalent: "")
         
-        for item: AnyObject in theMenu.itemArray {
+        for item: AnyObject in theMenu.items {
             if let menuItem = item as? NSMenuItem {
                 menuItem.target = self
             }
         }
         
-        NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+        NSMenu.popUpContextMenu(theMenu, with: theEvent, for: self)
     }
-    func remove(sender: AnyObject?)
+    func remove(_ sender: AnyObject?)
     {
         self.removeFromSuperview()
     }

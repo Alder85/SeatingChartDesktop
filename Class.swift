@@ -10,9 +10,9 @@ import Foundation
 
 class Class
 {
-    private var studentList: [Student] = []
-    private var groups: [[Student]] = []
-    private var className: String = ""
+    fileprivate var studentList: [Student] = []
+    fileprivate var groups: [[Student]] = []
+    fileprivate var className: String = ""
     
     init(inArray: [Student], name: String)
     {
@@ -35,12 +35,12 @@ class Class
         return className
     }
     
-    func setName(name: String)
+    func setName(_ name: String)
     {
         className = name
     }
     
-    func getStudent(name: String) -> Student
+    func getStudent(_ name: String) -> Student
     {
         for x in 0...studentList.count - 1
         {
@@ -52,44 +52,44 @@ class Class
         return Student.init()
     }
     
-    func addStudent(student: Student)
+    func addStudent(_ student: Student)
     {
         studentList.append(student)
     }
     
-    func removeStudent(student: Student)
+    func removeStudent(_ student: Student)
     {
         for x in 0...studentList.count - 1
         {
             if studentList[x] === student
             {
-                studentList.removeAtIndex(x)
+                studentList.remove(at: x)
             }
         }
     }
     
-    func getGroup(count: Int) -> [Student]
+    func getGroup(_ count: Int) -> [Student]
     {
         return groups[count]
     }
     
-    func createGroup(groupNumber: Int, students: [Student])
+    func createGroup(_ groupNumber: Int, students: [Student])
     {
         groups.append(students)
     }
     
-    func addStudentToGroup(groupNumber: Int, student: Student)
+    func addStudentToGroup(_ groupNumber: Int, student: Student)
     {
         groups[groupNumber].append(student)
     }
     
-    func removeStudentFromGroup(groupNumber: Int, student: Student)
+    func removeStudentFromGroup(_ groupNumber: Int, student: Student)
     {
         for x in 0...groups[groupNumber].count - 1
         {
             if groups[groupNumber][x] === student
             {
-                groups[groupNumber].removeAtIndex(x)
+                groups[groupNumber].remove(at: x)
             }
         }
     }

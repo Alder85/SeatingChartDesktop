@@ -29,7 +29,6 @@ import AppKit
 let invDouble = -42.0
 let invString = ""
 let invBool   = false
-let invArray  = []
 let invObject = 0
 
 /*
@@ -49,118 +48,118 @@ func retrieveCGPointArray(name: String) -> [CGPoint]
 }
 */
 
-func storeObject(name: String, value: AnyObject)
+func storeObject(_ name: String, value: AnyObject)
 {
     defaults.setValue(value, forKey: name)
     defaults.synchronize()
 }
 
-func retrieveObject(name: String) -> AnyObject
+func retrieveObject(_ name: String) -> AnyObject
 {
-    if let temp = defaults.valueForKey(name)
+    if let temp = defaults.value(forKey: name)
     {
-        return temp
+        return temp as AnyObject
     }
-    return invObject
+    return invObject as AnyObject
 }
 
 
-func storeDouble(name: String, value: Double)
+func storeDouble(_ name: String, value: Double)
 {
     defaults.setValue(String(value), forKey: name);
     defaults.synchronize()
 }
 
-func retrieveDouble(name: String) -> Double?
+func retrieveDouble(_ name: String) -> Double?
 {
-    if let temp = defaults.valueForKey(name)
+    if let temp = defaults.value(forKey: name)
     {
-        return temp.doubleValue
+        return (temp as AnyObject).doubleValue
     }
     return invDouble //returned if you try to retrieve a value that doesn't exist
 }
 
 
-func storeBool(name: String, value: Bool)
+func storeBool(_ name: String, value: Bool)
 {
     defaults.setValue(String(value), forKey: name)
     defaults.synchronize()
 }
 
-func retrieveBool(name: String) -> Bool?
+func retrieveBool(_ name: String) -> Bool?
 {
-    if let tempBool = defaults.valueForKey(name)
+    if let tempBool = defaults.value(forKey: name)
     {
-        return tempBool.boolValue
+        return (tempBool as AnyObject).boolValue
     }
     return invBool //returned if you try to retrieve a value that doesn't exist
 }
 
 
-func storeString(name: String, value: String)
+func storeString(_ name: String, value: String)
 {
     defaults.setValue(value, forKey: name)
     defaults.synchronize()
 }
 
-func retrieveString(name: String) -> String?
+func retrieveString(_ name: String) -> String?
 {
-    if let tempString = defaults.valueForKey(name)
+    if let tempString = defaults.value(forKey: name)
     {
-        return tempString.string
+        return (tempString as AnyObject).string
     }
     return invString //returned if you try to retrieve a value that doesn't exist
 }
 
-func storeBoolArray(name: String, valArray: [Bool])
+func storeBoolArray(_ name: String, valArray: [Bool])
 {
-    storeObjectArray(name, valArray: valArray)
+    storeObjectArray(name, valArray: valArray as [AnyObject])
     //defaults.setValue(valArray, forKey: name)
     //defaults.synchronize()
 }
-func retrieveBoolArray(name: String) -> [Bool]
+func retrieveBoolArray(_ name: String) -> [Bool]
 {
-    if let temp = defaults.valueForKey(name) as? [Bool]
+    if let temp = defaults.value(forKey: name) as? [Bool]
     {return temp}
-    return invArray as! [Bool] //blank array returned if not valid
+    return [] //blank array returned if not valid
 }
 
-func storeStringArray(name: String, valArray: [String])
+func storeStringArray(_ name: String, valArray: [String])
 {
-    storeObjectArray(name, valArray: valArray)
+    storeObjectArray(name, valArray: valArray as [AnyObject])
     //defaults.setValue(valArray, forKey: name)
     //defaults.synchronize()
 }
-func retrieveStringArray(name: String) -> [String]
+func retrieveStringArray(_ name: String) -> [String]
 {
-    if let temp = defaults.valueForKey(name) as? [String]
+    if let temp = defaults.value(forKey: name) as? [String]
     {return temp}
-    return invArray as! [String] //blank array returned if not valid
+    return [] //blank array returned if not valid
 }
 
-func storeDoubleArray(name: String, valArray: [Double])
+func storeDoubleArray(_ name: String, valArray: [Double])
 {
-    storeObjectArray(name, valArray: valArray)
+    storeObjectArray(name, valArray: valArray as [AnyObject])
     //defaults.setValue(valArray, forKey: name)
     //defaults.synchronize()
 }
-func retrieveDoubleArray(name: String) -> [Double]
+func retrieveDoubleArray(_ name: String) -> [Double]
 {
-    if let temp = defaults.valueForKey(name) as? [Double]
+    if let temp = defaults.value(forKey: name) as? [Double]
     {return temp}
-    return invArray as! [Double] //blank array returned if not valid
+    return [] //blank array returned if not valid
 }
 
-func storeObjectArray(name: String, valArray: [AnyObject])
+func storeObjectArray(_ name: String, valArray: [AnyObject])
 {
     defaults.setValue(valArray, forKey: name)
     defaults.synchronize()
 }
 
-func retrieveObjectArray(name: String) -> [AnyObject] //must force unwrap when retrieving
+func retrieveObjectArray(_ name: String) -> [AnyObject] //must force unwrap when retrieving
 {
-    if let temp = defaults.valueForKey(name) as? [AnyObject]
+    if let temp = defaults.value(forKey: name) as? [AnyObject]
     {return temp}
-    return invArray as [AnyObject]
+    return []
 }
 

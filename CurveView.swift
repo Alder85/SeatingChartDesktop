@@ -24,8 +24,8 @@ class CurveView: GroupView {
     var leftRect = false
     
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("CurveViews")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("CurveViews")
     
     struct PropertyKey {
         static let frameKey = "frame"
@@ -39,26 +39,26 @@ class CurveView: GroupView {
         leftRect = isLeft
         numRows = rows
         rowLength = length
-        super.init(inFrame: CGRect(origin: CGPointMake(startX, startY), size: CGSize(width: size, height: size)))
+        super.init(inFrame: CGRect(origin: CGPoint(x: startX, y: startY), size: CGSize(width: size, height: size)))
         makeButtons()
         addEditToggle()
         hideButtons()
         for i in 0...(Int(rows - 1))
         {
-            subviewArray.insert([], atIndex: i)
+            subviewArray.insert([], at: i)
             for q in 0...4
             {
-                let temp = GroupSubview(inRect: CGRectMake(CGFloat(arc4random_uniform(UInt32(self.frame.height))), CGFloat(arc4random_uniform(UInt32(self.frame.height))), 50, 50))
-                subviewArray[i].insert(temp, atIndex: q)
+                let temp = GroupSubview(inRect: CGRect(x: CGFloat(arc4random_uniform(UInt32(self.frame.height))), y: CGFloat(arc4random_uniform(UInt32(self.frame.height))), width: 50, height: 50))
+                subviewArray[i].insert(temp, at: q)
                 //self.addSubview(subviewArray[i][q])
             }
         }
-        self.backgroundColor = NSColor.whiteColor()
+        self.backgroundColor = NSColor.white
         
         updateSubviewCurves()
-        self.setNeedsDisplayInRect(self.frame) //makes context exist
+        self.setNeedsDisplay(self.frame) //makes context exist
         
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
         
     }
     
@@ -95,21 +95,21 @@ class CurveView: GroupView {
     
     
     
-    override func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.frameArray, forKey: PropertyKey.frameKey)
-        aCoder.encodeObject(self.leftRect, forKey: PropertyKey.isLeftKey)
-        aCoder.encodeObject(self.subviewArray, forKey: PropertyKey.subviewArrayKey)
-        aCoder.encodeObject(self.rowLength, forKey: PropertyKey.rowLengthKey)
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.frameArray, forKey: PropertyKey.frameKey)
+        aCoder.encode(self.leftRect, forKey: PropertyKey.isLeftKey)
+        aCoder.encode(self.subviewArray, forKey: PropertyKey.subviewArrayKey)
+        aCoder.encode(self.rowLength, forKey: PropertyKey.rowLengthKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let frameArray = aDecoder.decodeObjectForKey(PropertyKey.frameKey) as! [CGFloat]
+        let frameArray = aDecoder.decodeObject(forKey: PropertyKey.frameKey) as! [CGFloat]
         
-        let leftRect = aDecoder.decodeObjectForKey(PropertyKey.isLeftKey) as! Bool
+        let leftRect = aDecoder.decodeObject(forKey: PropertyKey.isLeftKey) as! Bool
         
-        let subviewArray = aDecoder.decodeObjectForKey(PropertyKey.subviewArrayKey) as! [[GroupSubview]]
+        let subviewArray = aDecoder.decodeObject(forKey: PropertyKey.subviewArrayKey) as! [[GroupSubview]]
         
-        let rowLength = aDecoder.decodeObjectForKey(PropertyKey.rowLengthKey) as! CGFloat
+        let rowLength = aDecoder.decodeObject(forKey: PropertyKey.rowLengthKey) as! CGFloat
         
         // Must call designated initializer.
         self.init(size: Int(frameArray[2]), isLeft: leftRect, rows: CGFloat(subviewArray.count), length: rowLength, startX: frameArray[0], startY: frameArray[1], subArray: subviewArray)
@@ -122,8 +122,8 @@ class CurveView: GroupView {
             for i in 1...Int(numRows)
             {
                 let y = ((self.frame.size.width - rowLength) / numRows) * CGFloat(i)
-                makeAddButton(CGPointMake(y - 47, 2), row: i)
-                makeSubtractButton(CGPointMake(y - 25, 2), row: i)
+                makeAddButton(CGPoint(x: y - 47, y: 2), row: i)
+                makeSubtractButton(CGPoint(x: y - 25, y: 2), row: i)
             }
         }
         else
@@ -131,71 +131,71 @@ class CurveView: GroupView {
             for i in 1...Int(numRows)
             {
                 let y = ((self.frame.size.width - rowLength) / numRows) * (numRows - CGFloat(i))
-                makeAddButton(CGPointMake(y + 69, 2), row: i)
-                makeSubtractButton(CGPointMake(y + 91, 2), row: i)
+                makeAddButton(CGPoint(x: y + 69, y: 2), row: i)
+                makeSubtractButton(CGPoint(x: y + 91, y: 2), row: i)
             }
         }
     }
     
-    func makeAddButton(point: CGPoint, row: Int)
+    func makeAddButton(_ point: CGPoint, row: Int)
     {
         let buttonSize = 20
         let button = NSButton(frame: CGRect(origin: point, size: CGSize(width: buttonSize, height: buttonSize))) //add views
-        button.setButtonType(NSButtonType.MomentaryLightButton)
-        button.bezelStyle = NSBezelStyle.SmallSquareBezelStyle
+        button.setButtonType(NSButtonType.momentaryLight)
+        button.bezelStyle = NSBezelStyle.smallSquare
         button.title = "+"
         //button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
-        button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
-        button.action = "addView:"
+        button.sendAction(on: NSEventMask(rawValue: UInt64(Int(NSEventMask.leftMouseDown.rawValue))))
+        button.action = #selector(CurveView.addView(_:))
         button.target = self
         button.identifier = String(row - 1)
         self.addSubview(button)
         buttonArray.append(button)
     }
     
-    func makeSubtractButton(point: CGPoint, row: Int)
+    func makeSubtractButton(_ point: CGPoint, row: Int)
     {
         let buttonSize = 20
         let button = NSButton(frame: CGRect(origin: point, size: CGSize(width: buttonSize, height: buttonSize))) //add views
-        button.setButtonType(NSButtonType.MomentaryLightButton)
-        button.bezelStyle = NSBezelStyle.SmallSquareBezelStyle
+        button.setButtonType(NSButtonType.momentaryLight)
+        button.bezelStyle = NSBezelStyle.smallSquare
         button.title = "-"
-        button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
+        button.sendAction(on: NSEventMask(rawValue: UInt64(Int(NSEventMask.leftMouseDown.rawValue))))
         
-        button.action = "removeView:"
+        button.action = #selector(CurveView.removeView(_:))
         button.target = self
         button.identifier = String(row - 1)
         self.addSubview(button)
         buttonArray.append(button)
     }
     
-    func addView(obj: NSButton)
+    func addView(_ obj: NSButton)
     {
         addViewInt(Int(obj.identifier!)!)
     }
     
-    func addViewInt(rowNumber: Int)
+    func addViewInt(_ rowNumber: Int)
     {
         //Swift.print("add" + String(rowNumber))
-        let temp = GroupSubview(inRect: CGRectMake(100, 100, 50, 50))
+        let temp = GroupSubview(inRect: CGRect(x: 100, y: 100, width: 50, height: 50))
         
-        subviewArray[rowNumber].insert(temp, atIndex: subviewArray[rowNumber].count)
+        subviewArray[rowNumber].insert(temp, at: subviewArray[rowNumber].count)
         updateSubviewCurves()
         moveAllViewsWithGroup()
     }
     
-    func removeView(obj: NSButton)
+    func removeView(_ obj: NSButton)
     {
         removeViewInt(Int(obj.identifier!)!)
     }
     
-    func removeViewInt(rowNumber: Int)
+    func removeViewInt(_ rowNumber: Int)
     {
         //Swift.print("subtract" + String(rowNumber))
         if(subviewArray[rowNumber].count > 0)
         {
             subviewArray[rowNumber][subviewArray[rowNumber].count - 1].removeFromSuperview()
-            subviewArray[rowNumber].removeAtIndex(subviewArray[rowNumber].count - 1)
+            subviewArray[rowNumber].remove(at: subviewArray[rowNumber].count - 1)
         }
         updateSubviewCurves()
         moveAllViewsWithGroup()
@@ -204,13 +204,13 @@ class CurveView: GroupView {
     func addEditToggle()
     {
         let toggleSize: CGFloat = 20
-        let button = NSButton(frame: CGRectMake(self.frame.height - toggleSize, self.frame.height - toggleSize, toggleSize, toggleSize))
+        let button = NSButton(frame: CGRect(x: self.frame.height - toggleSize, y: self.frame.height - toggleSize, width: toggleSize, height: toggleSize))
         if leftRect
         {
-            button.frame = CGRectMake(0, self.frame.height - toggleSize, toggleSize, toggleSize)
+            button.frame = CGRect(x: 0, y: self.frame.height - toggleSize, width: toggleSize, height: toggleSize)
         }
-        button.setButtonType(NSButtonType.SwitchButton) //moveable checkbox
-        button.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
+        button.setButtonType(NSButtonType.switch) //moveable checkbox
+        button.sendAction(on: NSEventMask(rawValue: UInt64(Int(NSEventMask.leftMouseDown.rawValue))))
         button.action = "toggleEditable:"
         button.target = self
         self.addSubview(button)
@@ -233,7 +233,7 @@ class CurveView: GroupView {
 
     }
     
-    override func toggleEditable(obj: AnyObject?)
+    override func toggleEditable(_ obj: AnyObject?)
     {
         
         if editable
@@ -252,7 +252,7 @@ class CurveView: GroupView {
     {
         for i in 0...buttonArray.count - 1
         {
-            buttonArray[i].hidden = true
+            buttonArray[i].isHidden = true
         }
     }
     
@@ -260,21 +260,21 @@ class CurveView: GroupView {
     {
         for i in 0...buttonArray.count - 1
         {
-            buttonArray[i].hidden = false
+            buttonArray[i].isHidden = false
             self.addSubview(buttonArray[i])
         }
     }
     
     
     
-    override func drawRect(dirtyRect: NSRect)
+    override func draw(_ dirtyRect: NSRect)
     {
 
         //super.drawRect(dirtyRect)
         let lineWidth: CGFloat = 5
-        let context = NSGraphicsContext.currentContext()?.CGContext
-        CGContextSetStrokeColorWithColor(context, NSColor(red: 255.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0).CGColor)
-        CGContextSetLineWidth(context, lineWidth)
+        let context = NSGraphicsContext.current()?.cgContext
+        context?.setStrokeColor(NSColor(red: 255.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0).cgColor)
+        context?.setLineWidth(lineWidth)
         if !leftRect
         {
             for i in 1...Int(numRows)
@@ -292,13 +292,13 @@ class CurveView: GroupView {
                 makeLeftCurve(context, startSpot: y, length: rowLength, rect: dirtyRect)
             }
         }
-        CGContextSetStrokeColorWithColor(context, NSColor.greenColor().CGColor)
-        CGContextSetLineWidth(context, lineWidth)
+        context?.setStrokeColor(NSColor.green.cgColor)
+        context?.setLineWidth(lineWidth)
         
         showButtons()
     }
     
-    func makeRightSubviewCurve(startSpot: CGFloat, length: CGFloat, curveNumber: Int)
+    func makeRightSubviewCurve(_ startSpot: CGFloat, length: CGFloat, curveNumber: Int)
     {
         let numSubviews = subviewArray[curveNumber].count
         if numSubviews <= 0
@@ -312,19 +312,19 @@ class CurveView: GroupView {
             let tempX = round( CGFloat(Double(startSpot) * cos(t)) )
             let tempY = round( CGFloat(Double(startSpot) * sin(t)) )
         
-            subviewArray[curveNumber][i].frame = CGRectMake(tempX, tempY, 50, 50)
+            subviewArray[curveNumber][i].frame = CGRect(x: tempX, y: tempY, width: 50, height: 50)
             
             self.addSubview(subviewArray[curveNumber][i])
         }
         if numSubviews == 1
         {
             let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
-            subviewArray[curveNumber][0].frame = CGRectMake(tempDegree, tempDegree, 50, 50)
+            subviewArray[curveNumber][0].frame = CGRect(x: tempDegree, y: tempDegree, width: 50, height: 50)
             self.addSubview(subviewArray[curveNumber][0])
         }
     }
     
-    func makeLeftSubviewCurve(startSpot: CGFloat, length: CGFloat, curveNumber: Int)
+    func makeLeftSubviewCurve(_ startSpot: CGFloat, length: CGFloat, curveNumber: Int)
     {
         let numSubviews = subviewArray[curveNumber].count
         if numSubviews <= 0
@@ -338,65 +338,67 @@ class CurveView: GroupView {
             let tempX = frameRect.maxX - (round( CGFloat(Double(startSpot) * cos(t)) ) + 50)
             let tempY = round( CGFloat(Double(startSpot) * sin(t)) )
             
-            subviewArray[curveNumber][i].frame = CGRectMake(tempX, tempY, 50, 50)
+            subviewArray[curveNumber][i].frame = CGRect(x: tempX, y: tempY, width: 50, height: 50)
             
             self.addSubview(subviewArray[curveNumber][i])
         }
         if numSubviews == 1
         {
             let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
-            subviewArray[curveNumber][0].frame = CGRectMake(tempDegree, tempDegree, 50, 50)
+            subviewArray[curveNumber][0].frame = CGRect(x: tempDegree, y: tempDegree, width: 50, height: 50)
             self.addSubview(subviewArray[curveNumber][0])
         }
     }
     
     
-    func makeRightCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
+    func makeRightCurve(_ context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
     {
-        CGContextAddArc(context, 0, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 0) //big curve
+        //CGContext.addArc(context, 0, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 0) //big curve
+        //CGContextAddArc(context, firstPoint(x,y), radius, startAngle, endAngle, int clockwise);
+        //func addArc(x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat, radius: CGFloat)
+        context?.addArc(center: CGPoint(x: 0, y: 0), radius: startSpot + length, startAngle: 0, endAngle: CGFloat(M_PI) / 2, clockwise: false)
+        context?.move(to: CGPoint(x: startSpot + length, y: 0))                        //bottom line
+        context?.addLine(to: CGPoint(x: startSpot, y: 0))
         
-        CGContextMoveToPoint(context, startSpot + length, 0)                        //bottom line
-        CGContextAddLineToPoint(context, startSpot, 0)
         
-        
-        CGContextAddArc(context, 0, 0, startSpot, 0, CGFloat(M_PI) / 2, 0)          //little curve
-        
-        CGContextMoveToPoint(context, 0, startSpot)                                 //left line
-        CGContextAddLineToPoint(context, 0, startSpot + length)
-        CGContextStrokePath(context)
+        //CGContextAddArc(context, 0, 0, startSpot, 0, CGFloat(M_PI) / 2, 0)          //little curve
+        context?.addArc(center: CGPoint(x: 0, y: 0), radius: startSpot, startAngle: 0, endAngle: CGFloat(M_PI) / 2, clockwise: false)
+        context?.move(to: CGPoint(x: 0, y: startSpot))                                 //left line
+        context?.addLine(to: CGPoint(x: 0, y: startSpot + length))
+        context?.strokePath()
         
     }
     
-    func makeLeftCurve(context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
+    func makeLeftCurve(_ context: CGContext?, startSpot: CGFloat, length: CGFloat, rect: NSRect)
     {
-        CGContextAddArc(context, rect.width, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
+        //CGContextAddArc(context, rect.width, 0, startSpot + length, 0, CGFloat(M_PI) / 2, 1) //big curve
+        context?.addArc(center: CGPoint(x: rect.width, y: 0), radius: startSpot + length, startAngle: 0, endAngle: CGFloat(M_PI) / 2, clockwise: true)
+        context?.move(to: CGPoint(x: rect.width - (startSpot + length), y: 0))                  //bottom line
+        context?.addLine(to: CGPoint(x: rect.width - startSpot, y: 0))
+        context?.strokePath()
         
-        CGContextMoveToPoint(context, rect.width - (startSpot + length), 0)                  //bottom line
-        CGContextAddLineToPoint(context, rect.width - startSpot, 0)
-        CGContextStrokePath(context)
-        
-        CGContextAddArc(context, rect.width, 0, startSpot, 0, CGFloat(M_PI) / 2, 1)          //little curve
-        
-        CGContextMoveToPoint(context, rect.width, startSpot)
-        CGContextAddLineToPoint(context, rect.width, startSpot + length)                     //left line
-        CGContextStrokePath(context)
+        //CGContextAddArc(context, rect.width, 0, startSpot, 0, CGFloat(M_PI) / 2, 1)          //little curve
+        context?.addArc(center: CGPoint(x: rect.width, y: 0), radius: startSpot, startAngle: 0, endAngle: CGFloat(M_PI) / 2, clockwise: true)
+        context?.move(to: CGPoint(x: rect.width, y: startSpot))
+        context?.addLine(to: CGPoint(x: rect.width, y: startSpot + length))                     //left line
+        context?.strokePath()
     }
     
     
-    override func rightMouseDown(theEvent : NSEvent) {
+    override func rightMouseDown(with theEvent : NSEvent) {
         let theMenu = NSMenu(title: "Contextual menu")
-        theMenu.addItemWithTitle("Remove View", action: Selector("remove:"), keyEquivalent: "")
+        theMenu.addItem(withTitle: "Remove View", action: #selector(CurveView.remove(_:)), keyEquivalent: "")
         
-        for item: AnyObject in theMenu.itemArray {
+        for item: AnyObject in theMenu.items {
             if let menuItem = item as? NSMenuItem {
                 menuItem.target = self
             }
         }
         
-        NSMenu.popUpContextMenu(theMenu, withEvent: theEvent, forView: self)
+        NSMenu.popUpContextMenu(theMenu, with: theEvent, for: self)
     }
     
-    func remove(sender: AnyObject?)
+    func remove(_ sender: AnyObject?)
     {
         self.removeFromSuperview()
     }

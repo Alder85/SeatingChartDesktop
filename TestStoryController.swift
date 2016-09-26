@@ -14,47 +14,58 @@ var currentfilestudentviewsname = ""
 var currentfilecurveviewsname = ""
 var currentfilerectangleviewsname = ""
 
+var nameOfCurrentFile = ""
+var nameOfFileChanged = ""
+
 class TestStoryController: NSViewController {
     //potatoepotatoe
     var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
-    var listOfHours = retrieveObjectArray("List of Hours")
+    var listOfHours = retrieveObjectArray("List of Hours") as! [String]
     
     @IBOutlet weak var potatoeFileSelector: NSPopUpButton!
 
-    func assignFiles(sender: NSMenuItem)
+    func assignFiles(_ sender: NSMenuItem)
     {
         currentfilestudentviewsname = sender.title
         currentfilecurveviewsname = sender.title
         currentfilerectangleviewsname = sender.title
+        nameOfCurrentFile = sender.title
+        nameOfFileChanged = ""
         Swift.print(sender.title)
     }
     
-    func addFile(sender: NSMenuItem)
+    func addFile(_ sender: NSMenuItem)
     {
-        currentfilestudentviewsname = sender.title
-        currentfilecurveviewsname = sender.title
-        currentfilerectangleviewsname = sender.title
+        currentfilestudentviewsname = "File " + String(listOfHours.count + 1)
+        currentfilecurveviewsname = "File " + String(listOfHours.count + 1)
+        currentfilerectangleviewsname = "File " + String(listOfHours.count + 1)
+        nameOfCurrentFile = "File " + String(listOfHours.count + 1)
         Swift.print(sender.title)
         listOfHours.append("File " + String(listOfHours.count + 1))
-        storeObjectArray("List of Hours", valArray: listOfHours)
+        storeObjectArray("List of Hours", valArray: listOfHours as [AnyObject])
+        potatoeFileSelector.menu?.removeItem(at: listOfHours.count)
+        potatoeFileSelector.menu?.addItem(NSMenuItem(title:  ("File " + String(listOfHours.count)), action: #selector(self.assignFiles(_:)), keyEquivalent: " data"))
+        potatoeFileSelector.menu?.addItem( NSMenuItem(title:  "Add New File", action: #selector(self.addFile(_:)), keyEquivalent: " data"))
+        self.performSegue(withIdentifier: "DaSegue", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if listOfHours.count == 0
         {
-            listOfHours.append("File 1")
+            listOfHours.append(("File 1" as AnyObject) as! String)
         }
         /*let potatoeFile = NSMenuItem(title:  "File 1", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
         let potatoeFile2 = NSMenuItem(title:  "File 2", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")
         let potatoeFile3 = NSMenuItem(title:  "File 3", action: #selector(self.assignFiles(_:)), keyEquivalent: " data")*/
         
         
-        for x in 0...listOfHours.count
+        for x in 0...listOfHours.count - 1
         {
-            potatoeFileSelector.menu?.addItem( NSMenuItem(title:  "File " + String(x + 1), action: #selector(self.assignFiles(_:)), keyEquivalent: " data"))
+            potatoeFileSelector.menu?.addItem( NSMenuItem(title:  listOfHours[x], action: #selector(self.assignFiles(_:)), keyEquivalent: " data"))
         }
+        
         
         potatoeFileSelector.menu?.addItem( NSMenuItem(title:  "Add New File", action: #selector(self.addFile(_:)), keyEquivalent: " data"))
         
@@ -86,17 +97,33 @@ class TestStoryController: NSViewController {
         
     }
     
-    @IBAction func DaSegue(sender: AnyObject) {
+    @IBAction func DaSegue(_ sender: AnyObject) {
         
     }
 
+    @IBOutlet weak var ChangeNameOut: NSTextField!
     
+    @IBAction func ChangeName(_ sender: AnyObject) {
+        for x in 0...listOfHours.count - 1
+        {
+            if listOfHours[x] == nameOfCurrentFile
+            {
+                nameOfFileChanged = listOfHours[x]
+                listOfHours[x] = ChangeNameOut.stringValue
+            }
+        }
+        nameOfCurrentFile = ChangeNameOut.stringValue
+        potatoeFileSelector.menu?.item(withTitle: nameOfFileChanged)?.title = ChangeNameOut.stringValue
+        storeObjectArray("List of Hours", valArray: listOfHours as [AnyObject])
+        self.performSegue(withIdentifier: "DaSegue", sender: self)
+    }
+    /*
     override var representedObject: AnyObject? {
         didSet {
             // Update the view, if already loaded.
         }
     }
-    
+    */
     
 
     
