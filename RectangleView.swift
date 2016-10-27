@@ -21,12 +21,17 @@ class RectangleView: GroupView
     var locX = 50.0
     var locY = 100.0
     
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).last!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("RectangleViews")
+    /*static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).last!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("RectangleViews")*/
+    
+    static let CoreDirectory = FileManager().urls(for: .desktopDirectory, in: .userDomainMask).first!
+    
+    static let ArchiveTwo = CoreDirectory.appendingPathComponent("/SeatingChartInfo/RectangleViews")
     
     struct PropertyKey {
         static let frameKey = "frame"
         static let numberOfSubviewsKey = "numberOfSubviews"
+        static let allArrayKey = "allArray"
     }
     
     convenience init(inView: NSView)
@@ -86,19 +91,24 @@ class RectangleView: GroupView
     
     
     override func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.frameArray, forKey: PropertyKey.frameKey)
-        aCoder.encode(self.numberOfSubviews, forKey: PropertyKey.numberOfSubviewsKey)
+        //aCoder.encode(self.frameArray, forKey: PropertyKey.frameKey)
+        //aCoder.encode(self.numberOfSubviews, forKey: PropertyKey.numberOfSubviewsKey)
+        
+        let allArray: Any? = [frameArray, numberOfSubviews]
+        aCoder.encode(allArray, forKey: PropertyKey.allArrayKey)
+        
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let frameArray = aDecoder.decodeObject(forKey: PropertyKey.frameKey) as! [CGFloat]
+        let allArray = aDecoder.decodeObject(forKey: PropertyKey.allArrayKey)
+        let potatoe = allArray as! NSArray
         
-        let numberOfSubviews = aDecoder.decodeObject(forKey: PropertyKey.numberOfSubviewsKey) as! Int
+        let frameArray = potatoe[0] as! [CGFloat]
+        let numberOfSubviews = potatoe[1] as! Int
         
         // Must call designated initializer.
         self.init(inRect: CGRect(x: frameArray[0], y: frameArray[1], width: frameArray[2], height: frameArray[3]), subviews: numberOfSubviews)
     }
-
     
     override func draw(_ dirtyRect: NSRect)
     {

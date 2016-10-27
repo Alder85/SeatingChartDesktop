@@ -13,9 +13,9 @@ class TestSquareController: NSViewController {
     //var classList: [Class] = [Class.init(inArray: [Student.init()], name: "potatoes"), Class.init(inArray: [Student.init()], name: "potatoes2")]
     
     
-    var studentviewfile = StudentView.ArchiveURL.path + nameOfCurrentFile
-    var curveviewfile = CurveView.ArchiveURL.path + nameOfCurrentFile
-    var rectangleviewfile = RectangleView.ArchiveURL.path + nameOfCurrentFile
+    var studentviewfile = StudentView.ArchiveTwo.path + nameOfCurrentFile
+    var curveviewfile = CurveView.ArchiveTwo.path + nameOfCurrentFile
+    var rectangleviewfile = RectangleView.ArchiveTwo.path + nameOfCurrentFile
     
     
     
@@ -36,20 +36,29 @@ class TestSquareController: NSViewController {
         self.view.addSubview(temp)
     }
     
+    
+    @IBAction func SaveViews(_ sender: AnyObject) {
+        saveViewsWithTimer()
+    }
+    
+    
     var studentViewArray: [StudentView] = []
     var curveViewArray: [CurveView] = []
     var rectangleViewArray: [RectangleView] = []
     var firstsnap = false
-    var studentViewFilename = StudentView.ArchiveURL.path
-    var curveViewFilename = CurveView.ArchiveURL.path
-    var rectangleViewFilename = RectangleView.ArchiveURL.path
+    var studentViewFilename = StudentView.ArchiveTwo.path
+    var curveViewFilename = CurveView.ArchiveTwo.path
+    var rectangleViewFilename = RectangleView.ArchiveTwo.path
     
     override func viewDidLoad()
     {
         self.title = nameOfCurrentFile
         Swift.print(studentviewfile)
-        openFile()
-        let _: CSwiftV
+        if needToChangeCSV
+        {
+            openFile()
+            let _: CSwiftV
+        }
         
         if nameOfFileChanged == ""
         {
@@ -57,18 +66,48 @@ class TestSquareController: NSViewController {
         
             loadCurveViews(curveviewfile)
         
-            loadStudentsWithCSV(studentviewfile)
+            if needToChangeCSV
+            {
+                loadStudentsWithCSV(studentviewfile)
+            }
+            else
+            {
+                loadStudentViews(studentviewfile)
+            }
         }
         else
         {
-            loadRectangleViews(RectangleView.ArchiveURL.path + nameOfFileChanged)
+            loadRectangleViews(RectangleView.ArchiveTwo.path + nameOfFileChanged)
             
-            loadCurveViews(CurveView.ArchiveURL.path + nameOfFileChanged)
+            loadCurveViews(CurveView.ArchiveTwo.path + nameOfFileChanged)
             
-            loadStudentsWithCSV(StudentView.ArchiveURL.path + nameOfFileChanged)
+            loadStudentViews(StudentView.ArchiveTwo.path + nameOfFileChanged)
+            
+            do
+            {
+                try FileManager().removeItem(atPath: CurveView.ArchiveTwo.path + nameOfFileChanged)
+            } catch let error as NSError {
+                Swift.print("Can't Delete \(error)")
+            }
+            do
+            {
+                try FileManager().removeItem(atPath: RectangleView.ArchiveTwo.path + nameOfFileChanged)
+            } catch let error as NSError {
+                Swift.print("Can't Delete \(error)")
+            }
+            do
+            {
+                try FileManager().removeItem(atPath: StudentView.ArchiveTwo.path + nameOfFileChanged)
+            } catch let error as NSError {
+                Swift.print("Can't Delete \(error)")
+            }
+            saveViews(studentviewfile, curvefilename: curveviewfile, rectanglefilename: rectangleviewfile)
         }
         
-        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TestSquareController.saveViewsWithTimer), userInfo: nil, repeats: true)
+        nameOfFileChanged = ""
+        needToChangeCSV = false
+        
+        //_ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TestSquareController.saveViewsWithTimer), userInfo: nil, repeats: true)
         
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(TestSquareController.updateAllStudentViewsGroups), userInfo: nil, repeats: true)
 
@@ -135,6 +174,13 @@ class TestSquareController: NSViewController {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(studentViewArray, toFile: studentfilename)
         if !isSuccessfulSave {
             Swift.print("Failed to save student views...")
+            if FileManager.SearchPathDirectory.desktopDirectory.createSubFolder(named: "SeatingChartInfo") {
+                print("folder successfully created")
+            }
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(studentViewArray, toFile: studentfilename)
+            if !isSuccessfulSave {
+                Swift.print("Something screwed up...")
+            }
         }
         else
         {
@@ -143,20 +189,34 @@ class TestSquareController: NSViewController {
         
         let isSuccessfulSave2 = NSKeyedArchiver.archiveRootObject(curveViewArray, toFile: curvefilename)
         if !isSuccessfulSave2 {
-            Swift.print("Failed to save student views...")
+            Swift.print("Failed to save curve views...")
+            if FileManager.SearchPathDirectory.desktopDirectory.createSubFolder(named: "SeatingChartInfo") {
+                print("folder successfully created")
+            }
+            let isSuccessfulSave2 = NSKeyedArchiver.archiveRootObject(curveViewArray, toFile: curvefilename)
+            if !isSuccessfulSave2 {
+                Swift.print("Something screwed up...")
+            }
         }
         else
         {
-            ///Swift.print("Succeded to save curve views")
+            
         }
         
         let isSuccessfulSave3 = NSKeyedArchiver.archiveRootObject(rectangleViewArray, toFile: rectanglefilename)
         if !isSuccessfulSave3 {
-            Swift.print("Failed to save student views...")
+            Swift.print("Failed to save rectangle views...")
+            if FileManager.SearchPathDirectory.desktopDirectory.createSubFolder(named: "SeatingChartInfo") {
+                print("folder successfully created")
+            }
+            let isSuccessfulSave3 = NSKeyedArchiver.archiveRootObject(rectangleViewArray, toFile: rectanglefilename)
+            if !isSuccessfulSave3 {
+                Swift.print("Something screwed up...")
+            }
         }
         else
         {
-            //Swift.print("Succeded to save rectangle views")
+            
         }
     }
     
@@ -196,9 +256,10 @@ class TestSquareController: NSViewController {
         {
             for x in 0...curveViewArray.count - 1
             {
-                let temp1 = curveViewArray[x]
-                let temp = CurveView(size: Int(temp1.frameArray[2]), isLeft: temp1.leftRect, rows: CGFloat(temp1.subviewArray.count), length: temp1.rowLength, startX: temp1.frameArray[0], startY: temp1.frameArray[1], subArray: temp1.subviewArray)
-                self.view.addSubview(temp)
+                //print(curveViewArray[x].leftRect)
+                let temp1 = curveViewArray[x] as CurveView
+                //let temp = CurveView(size: Int(temp1.frameArray[2]), isLeft: temp1.leftRect, rows: CGFloat(temp1.subviewArray.count), length: temp1.rowLength, startX: temp1.frameArray[0], startY: temp1.frameArray[1], subArray: temp1.subviewArray)
+                self.view.addSubview(temp1)
             }
         }
     }
@@ -218,10 +279,41 @@ class TestSquareController: NSViewController {
         {
             for x in 0...rectangleViewArray.count - 1
             {
-                let tempRect = CGRect(x: rectangleViewArray[x].frameArray[0], y: rectangleViewArray[x].frameArray[1], width: rectangleViewArray[x].frameArray[2], height: rectangleViewArray[x].frameArray[3])
-                let temp = RectangleView(inRect: tempRect, subviews: rectangleViewArray[x].numberOfSubviews)
+                //let tempRect = CGRect(x: rectangleViewArray[x].frameArray[0], y: rectangleViewArray[x].frameArray[1], width: rectangleViewArray[x].frameArray[2], height: rectangleViewArray[x].frameArray[3])
+                //let temp = RectangleView(inRect: tempRect, subviews: rectangleViewArray[x].numberOfSubviews)
+                let temp = rectangleViewArray[x] as RectangleView
                 self.view.addSubview(temp)
             }
+        }
+    }
+    
+    func loadStudentViews(_ filename: String)
+    {
+        if NSKeyedUnarchiver.unarchiveObject(withFile: filename) != nil
+        {
+            studentViewArray = (NSKeyedUnarchiver.unarchiveObject(withFile: filename) as? [StudentView])!
+        }
+        else
+        {
+            studentViewArray = []
+        }
+        
+        do
+        {
+            if studentViewArray.count > 0
+            {
+                for x in 0...studentViewArray.count - 1
+                {
+                    let temp = studentViewArray[x] as StudentView
+                    self.view.addSubview(temp)
+                    temp.checkForGroupViews()
+                    temp.snap()
+                }
+            }
+        }
+        catch
+        {
+            Swift.print("failed")
         }
     }
     

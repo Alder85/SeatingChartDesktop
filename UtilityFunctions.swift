@@ -188,3 +188,24 @@ func flipBoolean(_ bool: Bool) -> Bool
 }
 
 
+extension CGRect
+{
+    init(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat)
+    {
+        self.init(x: x, y: y, width: width, height: height)
+    }
+}
+
+extension FileManager.SearchPathDirectory {
+    func createSubFolder(named: String, withIntermediateDirectories: Bool = false) -> Bool {
+        guard let url = FileManager.default.urls(for: self, in: .userDomainMask).first else { return false }
+        do {
+            try FileManager.default.createDirectory(at: url.appendingPathComponent(named), withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
+            return true
+        } catch let error as NSError {
+            print(error.description)
+            return false
+        }
+    }
+}
+

@@ -25,8 +25,12 @@ class StudentView: NSView  {
     var arrayIndexes: [Int] = []
     var frameArray: [CGFloat] = [0.0, 0.0, 0.0, 0.0]
     
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("StudentViews")
+    /*static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("StudentViews")*/
+    
+    static let CoreDirectory = FileManager().urls(for: .desktopDirectory, in: .userDomainMask).first!
+    
+    static let ArchiveTwo = CoreDirectory.appendingPathComponent("/SeatingChartInfo/StudentViews")
     
     struct PropertyKey {
         static let frameKey = "frame"

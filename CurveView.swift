@@ -19,30 +19,36 @@ class CurveView: GroupView {
     var rowLength: CGFloat
     var buttonArray: [NSButton] = []
     
+    var leftRect: Bool
+    var nv: Bool
     
+    //static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let CoreDirectory = FileManager().urls(for: .desktopDirectory, in: .userDomainMask).first!
     
-    var leftRect = false
-    
-    
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("CurveViews")
+    static let ArchiveTwo = CoreDirectory.appendingPathComponent("/SeatingChartInfo/CurveViews")
+    //static let ArchiveURL = DocumentsDirectory.appendingPathComponent("CurveViews")
     
     struct PropertyKey {
         static let frameKey = "frame"
-        static let isLeftKey = "isLeft"
+        static let isLeftKey = "leftRect"
         static let subviewArrayKey = "subviewArray"
         static let rowLengthKey = "rowLength"
+        static let nvKey = "NVK"
+        static let allKey = "all"
     }
     
     init(size: Int, isLeft: Bool, rows: CGFloat, length: CGFloat, startX: CGFloat, startY: CGFloat)
     {
+        
         leftRect = isLeft
         numRows = rows
         rowLength = length
+        nv = leftRect
         super.init(inFrame: CGRect(origin: CGPoint(x: startX, y: startY), size: CGSize(width: size, height: size)))
         makeButtons()
         addEditToggle()
         hideButtons()
+        Swift.print(FileManager().urls(for: .applicationSupportDirectory, in: .userDomainMask).first!)
         for i in 0...(Int(rows - 1))
         {
             subviewArray.insert([], at: i)
@@ -58,7 +64,7 @@ class CurveView: GroupView {
         updateSubviewCurves()
         self.setNeedsDisplay(self.frame) //makes context exist
         
-        updateTimer = Timer.scheduledTimer(timeInterval: 0.033, target: self, selector: "redraw:", userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 0.033, target: self, selector: Selector("redraw:"), userInfo: nil, repeats: true)
         
     }
     
@@ -96,23 +102,31 @@ class CurveView: GroupView {
     
     
     override func encode(with aCoder: NSCoder) {
+        let allArray: Any? = [frameArray, leftRect, subviewArray, rowLength]
+        Swift.print(allArray)
+        aCoder.encode(allArray, forKey: PropertyKey.allKey)
+        /*
         aCoder.encode(self.frameArray, forKey: PropertyKey.frameKey)
         aCoder.encode(self.leftRect, forKey: PropertyKey.isLeftKey)
+        //Swift.print(self.leftRect)
+        aCoder.encode(self.nv, forKey: "NVK")
+        //Swift.print(aCoder.decodeObject(forKey: PropertyKey.isLeftKey))
         aCoder.encode(self.subviewArray, forKey: PropertyKey.subviewArrayKey)
         aCoder.encode(self.rowLength, forKey: PropertyKey.rowLengthKey)
+         */
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let frameArray = aDecoder.decodeObject(forKey: PropertyKey.frameKey) as! [CGFloat]
+        let allArray = aDecoder.decodeObject(forKey: PropertyKey.allKey)
+        let potatoe = allArray as! NSArray
         
-        let leftRect = aDecoder.decodeObject(forKey: PropertyKey.isLeftKey) as! Bool
-        
-        let subviewArray = aDecoder.decodeObject(forKey: PropertyKey.subviewArrayKey) as! [[GroupSubview]]
-        
-        let rowLength = aDecoder.decodeObject(forKey: PropertyKey.rowLengthKey) as! CGFloat
+        let frameArray = potatoe[0] as! [CGFloat]
+        let leftRect = potatoe[1] as! Bool
+        let subviewArray = potatoe[2] as! [[GroupSubview]]
+        let rowLength = potatoe[3] as! CGFloat
         
         // Must call designated initializer.
-        self.init(size: Int(frameArray[2]), isLeft: leftRect, rows: CGFloat(subviewArray.count), length: rowLength, startX: frameArray[0], startY: frameArray[1], subArray: subviewArray)
+        self.init(size: Int(frameArray[2]), isLeft: leftRect, rows: CGFloat(subviewArray.count), length: rowLength, startX: frameArray[0], startY: frameArray[1] , subArray: subviewArray)
     }
     
     func makeButtons()
@@ -192,13 +206,14 @@ class CurveView: GroupView {
     func removeViewInt(_ rowNumber: Int)
     {
         //Swift.print("subtract" + String(rowNumber))
-        if(subviewArray[rowNumber].count > 0)
+        if(subviewArray[rowNumber].count > 1)
         {
             subviewArray[rowNumber][subviewArray[rowNumber].count - 1].removeFromSuperview()
             subviewArray[rowNumber].remove(at: subviewArray[rowNumber].count - 1)
+            updateSubviewCurves()
+            moveAllViewsWithGroup()
         }
-        updateSubviewCurves()
-        moveAllViewsWithGroup()
+        
     }
     
     func addEditToggle()
@@ -305,6 +320,13 @@ class CurveView: GroupView {
         {
             return
         }
+        if numSubviews == 1
+        {
+            let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
+            subviewArray[curveNumber][0].frame = CGRect(x: tempDegree, y: tempDegree, width: 50, height: 50)
+            self.addSubview(subviewArray[curveNumber][0])
+            return
+        }
         for i in 0...numSubviews - 1
         {
             let t = ((M_PI / 2) / Double(numSubviews - 1)) * Double(i)
@@ -316,12 +338,7 @@ class CurveView: GroupView {
             
             self.addSubview(subviewArray[curveNumber][i])
         }
-        if numSubviews == 1
-        {
-            let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
-            subviewArray[curveNumber][0].frame = CGRect(x: tempDegree, y: tempDegree, width: 50, height: 50)
-            self.addSubview(subviewArray[curveNumber][0])
-        }
+        
     }
     
     func makeLeftSubviewCurve(_ startSpot: CGFloat, length: CGFloat, curveNumber: Int)
@@ -329,6 +346,13 @@ class CurveView: GroupView {
         let numSubviews = subviewArray[curveNumber].count
         if numSubviews <= 0
         {
+            return
+        }
+        if numSubviews == 1
+        {
+            let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
+            subviewArray[curveNumber][0].frame = CGRect(x: tempDegree, y: tempDegree, width: 50, height: 50)
+            self.addSubview(subviewArray[curveNumber][0])
             return
         }
         for i in 0...numSubviews - 1
@@ -342,12 +366,7 @@ class CurveView: GroupView {
             
             self.addSubview(subviewArray[curveNumber][i])
         }
-        if numSubviews == 1
-        {
-            let tempDegree = round( CGFloat(Double(startSpot) * sin(M_PI / 4)) )
-            subviewArray[curveNumber][0].frame = CGRect(x: tempDegree, y: tempDegree, width: 50, height: 50)
-            self.addSubview(subviewArray[curveNumber][0])
-        }
+        
     }
     
     

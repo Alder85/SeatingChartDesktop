@@ -30,18 +30,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button identifier="DaSegue" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0jZ-e7-ERQ">
-                                <rect key="frame" x="199" y="248" width="112" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Open File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Qa-63-16d">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="DaSegue:" target="qKR-5S-gHR" id="NeF-Gs-aKA"/>
-                                    <segue destination="TxT-vR-iwP" kind="show" identifier="DaSegue" id="z6k-DR-dzO"/>
-                                </connections>
-                            </button>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O7B-Pn-IRG">
                                 <rect key="frame" x="482" y="467" width="154" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -67,6 +55,40 @@
                                     <action selector="ChangeName:" target="qKR-5S-gHR" id="T0G-Qs-oV1"/>
                                 </connections>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzX-B4-Ioc">
+                                <rect key="frame" x="199" y="143" width="108" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Delete File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dF6-mS-gPd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="deleteFile:" target="qKR-5S-gHR" id="O9K-rI-fH0"/>
+                                </connections>
+                            </button>
+                            <button identifier="DaSegue" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0jZ-e7-ERQ">
+                                <rect key="frame" x="199" y="247" width="108" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Open File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Qa-63-16d">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="DaSegue:" target="qKR-5S-gHR" id="NeF-Gs-aKA"/>
+                                    <segue destination="TxT-vR-iwP" kind="show" identifier="DaSegue" id="z6k-DR-dzO"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sd1-iq-WEn">
+                                <rect key="frame" x="199" y="176" width="108" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Change CSV" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8sW-oc-4VB">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="ChangeCSV:" target="qKR-5S-gHR" id="oI4-YQ-HKg"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -107,7 +129,11 @@
                                         <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                     </menuItem>
                                     <menuItem title="Close" keyEquivalent="w" id="PVJ-ev-o7f"/>
-                                    <menuItem title="Save" keyEquivalent="s" id="uUG-xS-LZ6"/>
+                                    <menuItem title="Save" keyEquivalent="s" id="uUG-xS-LZ6">
+                                        <connections>
+                                            <action selector="SaveViews:" target="TxT-vR-iwP" id="fZH-5z-Wuz"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Save As…" keyEquivalent="S" id="BVO-D0-WB0"/>
                                     <menuItem title="Revert" id="jqW-Hy-u88">
                                         <modifierMask key="keyEquivalentModifierMask"/>

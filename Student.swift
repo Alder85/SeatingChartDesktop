@@ -16,8 +16,12 @@ class Student: NSObject, NSCoding
     fileprivate var instrument: String  = "invalid instrument"
     fileprivate var chair: Int          = -42
     
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("Students")
+    /*static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("Students")*/
+    
+    static let CoreDirectory = FileManager().urls(for: .desktopDirectory, in: .userDomainMask).first!
+    
+    static let ArchiveTwo = CoreDirectory.appendingPathComponent("/SeatingChartInfo/Students")
     
     struct PropertyKey {
         static let informationKey = "information"
