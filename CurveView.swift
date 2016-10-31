@@ -59,7 +59,7 @@ class CurveView: GroupView {
                 //self.addSubview(subviewArray[i][q])
             }
         }
-        self.backgroundColor = NSColor.white
+       // self.backgroundColor = NSColor.white
         
         updateSubviewCurves()
         self.setNeedsDisplay(self.frame) //makes context exist
@@ -286,6 +286,7 @@ class CurveView: GroupView {
     {
 
         //super.drawRect(dirtyRect)
+        /*
         let lineWidth: CGFloat = 5
         let context = NSGraphicsContext.current()?.cgContext
         context?.setStrokeColor(NSColor(red: 255.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0).cgColor)
@@ -309,7 +310,7 @@ class CurveView: GroupView {
         }
         context?.setStrokeColor(NSColor.green.cgColor)
         context?.setLineWidth(lineWidth)
-        
+        */
         showButtons()
     }
     

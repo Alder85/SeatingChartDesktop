@@ -33,7 +33,7 @@ class GroupSubview: NSView
         self.frame = inRect
         self.setNeedsDisplay(self.frame) //makes context exist
         self.studentview = studentv
-        
+        self.backgroundColor = randomBrightNSColor()
         /*
         self.wantsLayer = true
         self.layer!.borderWidth = 2
@@ -61,17 +61,16 @@ class GroupSubview: NSView
     }
 
     
-    override func draw(_ dirtyRect: NSRect)
+    override func draw(_ rect: NSRect)
     {
-        super.draw(dirtyRect)
+        super.draw(rect)
        
        // let bPath:NSBezierPath = NSBezierPath(roundedRect: dirtyRect, xRadius: 15, yRadius: 15)
         //let borderColor = NSColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
        // borderColor.set()
        // bPath.stroke()
-        NSColor.blue.setFill()
-        NSRectFill(dirtyRect);
-            
+       // randomBrightNSColor().setFill()
+        //NSRectFill(rect)
     }
 
     

@@ -113,12 +113,13 @@ class RectangleView: GroupView
     override func draw(_ dirtyRect: NSRect)
     {
         super.draw(dirtyRect)
-        
+        /*
         let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
         
         let borderColor = NSColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         borderColor.set()
         bPath.stroke()
+         */
         
     }
     
