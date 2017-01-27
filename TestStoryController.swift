@@ -229,6 +229,9 @@ class TestStoryController: NSViewController {
         self.performSegue(withIdentifier: "DaSegue", sender: self)
     }
     
+    @IBAction func openDrive(_ sender: Any) {
+        self.performSegue(withIdentifier: "DSW", sender: self)
+    }
     
     
 

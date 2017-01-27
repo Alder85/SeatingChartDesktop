@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="DriveSampleWindowController">
@@ -37,7 +38,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="SampleApp" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window" customClass="DRiveSampleWindowController">
+        <window identifier="DSW" title="SampleApp" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window" customClass="DRiveSampleWindowController">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="890" y="299" width="565" height="564"/>
@@ -55,7 +56,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="29">
-                                    <rect key="frame" x="0.0" y="0.0" width="508" height="19"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="508" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -81,7 +82,6 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="198">
                             <rect key="frame" x="-100" y="-100" width="448" height="15"/>
@@ -112,7 +112,7 @@
                             <rect key="frame" x="1" y="1" width="523" height="77"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="83">
+                                <textView editable="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="83">
                                     <rect key="frame" x="0.0" y="0.0" width="426" height="77"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" red="0.96862744999999995" green="0.23529412" blue="0.18823529999999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -128,8 +128,6 @@
                                         </fragment>
                                     </attributedString>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="426" height="77"/>
-                                    <size key="maxSize" width="525" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" red="0.96739131" green="0.96739131" blue="0.96739131" alpha="1" colorSpace="calibratedRGB"/>
@@ -360,7 +358,6 @@ Gw
                                                     </connections>
                                                 </tableView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="196">
                                             <rect key="frame" x="-100" y="-100" width="448" height="15"/>
@@ -389,7 +386,7 @@ Gw
                                     <rect key="frame" x="1" y="1" width="523" height="56"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="81">
+                                        <textView editable="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="81">
                                             <rect key="frame" x="0.0" y="0.0" width="523" height="56"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" red="0.45108693999999999" green="0.10414511999999999" blue="0.082860216" alpha="1" colorSpace="calibratedRGB"/>
@@ -405,8 +402,6 @@ Gw
                                                 </fragment>
                                             </attributedString>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="523" height="56"/>
-                                            <size key="maxSize" width="525" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.96739131" green="0.96739131" blue="0.96739131" alpha="1" colorSpace="calibratedRGB"/>
@@ -485,7 +480,7 @@ DQ
             <connections>
                 <outlet property="delegate" destination="-2" id="15"/>
             </connections>
-            <point key="canvasLocation" x="318.5" y="833"/>
+            <point key="canvasLocation" x="170" y="683"/>
         </window>
         <window title="Client ID Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="208">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
